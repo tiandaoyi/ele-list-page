@@ -2,12 +2,13 @@
   <el-table
     v-loading="listLoading"
     :cell-style="{'text-align':'center','padding': '6px 0'}"
-    :header-cell-style="{background:'#F5F7FA','text-align':'center','font-size':'12px'}"
+    :header-cell-style="{background:'#EEEFF3','text-align':'center','font-size':'12px', color: '#505050', 'font-size': '14px'}"
     border
     :data="tableList"
     style="width: 100%"
     :empty-text="'暂无数据'"
     :max-height="height"
+    :height="height"
     @selection-change="handleSelectionChange"
   >
     <!-- 多选 -->
@@ -15,6 +16,7 @@
       type="selection"
       width="55"
       v-if="!tableOptions.isHiddenCheckBox"
+      fixed="left"
       >
     </el-table-column>
 
@@ -22,7 +24,9 @@
     <el-table-column
       type="index"
       label="序号"
+      width="70"
       :index="getIndex"
+      fixed="left"
       >
     </el-table-column>
     <!-- 操作列 -->
@@ -30,7 +34,8 @@
       v-if="headerHandleOperation"
       :prop="headerHandleOperation.prop"
       :label="headerHandleOperation.label"
-      :width="headerHandleOperation.width"
+      :width="headerHandleOperation.width || 120"
+      fixed="left"
     > 
       <template slot-scope="scope">
         <span
@@ -53,7 +58,7 @@
         v-if="item.prop !== 'operation'"
         :prop="item[prop]"
         :label="item[label]"
-        :width="item.width"
+        :width="item.width  ? item.width : (item[label].length >= 5) ? item[label].length * 22.5 : null"
         :show-overflow-tooltip="true"
       >
         <template slot-scope="scope">
@@ -161,7 +166,7 @@
 </script>
 <style lang="scss" scoped>
   .underline {
-    color: #409EFF;
+    color: #367EF5;
     // text-decoration: underline;
     cursor: pointer;
   }
@@ -169,5 +174,13 @@
     cursor: no-drop;
     color: #c8c9cc;
   }
-
+</style>
+<style lang="scss">
+  .el-table th > .cell {
+    white-space: pre;
+    line-height: 20px;
+  }
+  .el-table td, .el-table th {
+    padding: 11px 0;
+  }
 </style>

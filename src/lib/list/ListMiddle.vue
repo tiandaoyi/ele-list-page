@@ -3,11 +3,7 @@
     <!--自定义列-->
     <el-row style="margin: 12px 0;">
       <div style="float:left">
-        <el-button 
-          v-for="(item, index) of buttonList.leftBtn" 
-          :key='index' 
-          @click="item.fn(multipleSelection)" 
-          :name='item.name'
+        <el-button v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
           size="small"
           v-show="!item.isHidden"
           :type="item.type" :disabled='item.disabled'>
@@ -15,15 +11,9 @@
         </el-button>
       </div>
       <div style="float:right">
-        <el-button 
-          v-for="(item, index) of buttonList.rightBtn"
-          :key='index'
-          @click="item.fn"
-          :name='item.name'
-          size="small"
-          v-show="!item.isHidden"
-          :type="item.type" :disabled='item.disabled'
-        >
+        <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
+        v-show="!item.isHidden"
+        :type="item.type" :disabled='item.disabled'>
           {{item.name}}  
         </el-button>
       </div>

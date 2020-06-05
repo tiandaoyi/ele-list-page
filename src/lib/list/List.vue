@@ -122,11 +122,12 @@ export default {
     },
     setTableHeight() {
       const pageHeight = 
-        document.getElementById("app").clientHeight - 
+        // document.getElementById("app").clientHeight - 
+        this.getHeight('list-wrapper') - 
         this.getHeight('list-top') -
         this.getHeight('list-middle') -
-        this.getHeight('list-pagination') - 64;
-      this.pageHeight = pageHeight;
+        this.getHeight('list-pagination') - 36
+        this.pageHeight = pageHeight;
     },
     
     onToggleSearchListClick() {
@@ -162,6 +163,8 @@ export default {
     &-wrapper {
       height: 100%;
       position: relative;
+      // 外部无固定高度就需要内部撑开分页所需的高度
+      padding-bottom: 47px;
     }
 
     &-pagination {

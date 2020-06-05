@@ -4,26 +4,27 @@
       <div class="top-form-left__item" v-for="(parentItem, index) in searchList" :key="index">
         <template v-for="item in parentItem">
           <!--input输入框-->
-          <el-form-item v-if="item.searchType === 'input'" :label="item.name" :prop="item.searchField" :key="item.index">
+          <el-form-item v-if="item.searchType === 'input'" :label="item.name" :prop="item.searchField" :key="item.index" :style="{width: item.width}">
             <el-input
               v-model.trim="searchForm[item.searchField]"
               :type="item.searchType"
               :placeholder="item.placeholder"
               size="small"
               @focus="item.callFunction && item.callFunction()"
+              
             >
             </el-input>
           </el-form-item>
 
           <!--select下拉框-->
-          <el-form-item v-if="item.searchType === 'select'" :label="item.name" :key="item.index">
+          <el-form-item :style="{width: item.width}" v-if="item.searchType === 'select'" :label="item.name" :key="item.index">
             <el-select v-model="searchForm[item.searchField]" :placeholder="item.placeholder" clearable size="small" :filterable="item.isFilterable">
               <el-option v-for="(selectOption,index) of item.selectList" :key="index" :label="selectOption.text" :value="selectOption.value"></el-option>
             </el-select>
           </el-form-item>
 
           <!--time时间选择器 @TODO-->
-          <el-form-item v-if="item.searchType === 'time'" :label="item.name" :key="item.index">
+          <el-form-item :style="{width: item.width}" v-if="item.searchType === 'time'" :label="item.name" :key="item.index">
             <div class="block">
               <el-date-picker
                 v-model="searchForm[item.searchField]"
@@ -86,7 +87,8 @@
                   value: item.value || item.value === 0 ? item.value : null,
                   isFilterable: item.isFilterable || false, // 是否可搜索
                   callFunction: item.callFunction,
-                  placeholder: item.placeholder || item.name
+                  placeholder: item.placeholder || item.name,
+                  width: item.width || '25%'
                 })
                 // 数组切成每四个分隔(提供给前端样式显示)
                 if (index % 4 === 3) {
@@ -112,14 +114,18 @@
   .el-form-item >>> .el-form-item__label {
     float: none;
     display: inline-block;
-    width: 110px;
+    width: 90px;
     text-align: right;
+    padding-right: 6px;
+    font-size: 12px;
+    font-weight: normal;
   }
 
   /**input包裹器 */
   .el-form-item >>> .el-form-item__content {
-    width: calc(100% - 110px);
+    width: calc(100% - 90px);
   }
+
 </style>
 
 <style lang="scss" scoped>
@@ -148,11 +154,11 @@
       width: calc(100% - 70px);
 
       &__item {
-        display: flex;
+        // display: flex;
 
         & > .el-form-item {
-          flex: 1
-          // width: 25%;
+          // flex: 1
+          width: 25%;
         }
       }
 
@@ -170,7 +176,7 @@
 
       text-align: center;
       cursor: pointer;
-      color: #409eff;
+      color: #367EF5;
       font-size: 14px;
     }
   }
