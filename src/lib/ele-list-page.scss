@@ -1,0 +1,247 @@
+$paginationHeight: 47px;
+
+.ele-list {
+  &-wrapper {
+    height: 100%;
+    position: relative;
+    // 外部无固定高度就需要内部撑开分页所需的高度
+    padding-bottom: $paginationHeight;
+  }
+
+  &-pagination {
+    position: absolute;
+    bottom: 0;
+  }
+
+  &-middle {
+    margin: 12px 0;
+
+    .right-btn {
+      text-align: right;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #E8E8E8;
+      padding-bottom: 16px;
+    }
+
+    .move-top {
+      position: absolute;
+      top: -$paginationHeight;
+      right: 0;
+    }
+  }
+
+  &-table {
+    .required-icon {
+      position: absolute;
+      left: 3px;
+      top: 15px;
+      color: red;
+    }
+
+    .underline {
+      color: #367EF5;
+      // text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .el-table .span-disabled-color {
+      cursor: no-drop;
+      color: #c8c9cc;
+    }
+
+
+    // el-table 相关，全局修改(也可以单独处理)
+    .el-table th > .cell {
+      white-space: pre;
+      line-height: 20px;
+    }
+
+    .el-table td, .el-table th {
+      padding: 11px 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+  }
+
+  &-top {
+    position: relative;
+    /**需要穿透的 */
+    /**文字label */
+    .el-form-item .el-form-item__label {
+      float: none;
+      display: inline-block;
+      width: 105px;
+      text-align: right;
+      padding-right: 6px;
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    /**input包裹器 */
+    .el-form-item  .el-form-item__content {
+      width: calc(100% - 105px);
+    }
+
+    .el-form-item .el-input__inner {
+      padding: 0 6px;
+
+      font-size: 12px;
+    }
+
+    .el-form-item  .el-range-editor--small .el-range-separator {
+      line-height: 32px;
+    }
+
+    .el-form-item  .date {
+      display: none;
+    }
+
+    .el-form-item  .el-range-editor--small .el-range__close-icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+
+    .el-form-item .el-range-editor--small > .el-icon-circle-close {
+      background: #ffffff;
+      z-index: 1;
+    }
+    
+    .el-form-item .el-date-editor .el-range-input {
+      width: 45%;
+    }
+
+
+    /**隐藏与显示搜索框 */
+    .show-all-search > .ele-list-top-left__item {
+      display: flex;
+    }
+
+    &-left {
+      display: inline-block;
+
+      width: calc(100% - 70px);
+
+      &__item {
+        // display: flex;
+
+        & > .el-form-item {
+          // flex: 1
+          width: 25%;
+        }
+      }
+
+      &__item:nth-of-type(n+3) {
+        display: none;
+      }
+    }
+
+    &-right {
+      display: inline-block;
+      position: absolute;
+      bottom: 14px;
+      right: 0;
+      width: 70px;
+
+      text-align: center;
+      cursor: pointer;
+      color: #367EF5;
+      font-size: 14px;
+    }
+
+    /**item */
+    .el-form-item {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 0;
+      margin-bottom: 6px;
+    }
+
+    /**select包裹器 */
+    .el-select {
+      width: 100%;
+    }
+
+    /**时间选择器的宽 */
+    .el-range-editor.el-input__inner, .el-date-editor.el-input {
+      width: 100%;
+      position: relative;
+    }
+  }
+
+  &-dialog {
+    .el-dialog__body {
+      display: flex;
+    }
+
+    .el-transfer {
+      margin: 0 auto;
+    }
+
+    .dragger > div {
+      margin: 0 auto;
+      width: 30%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .el-checkbox.is-bordered {
+        margin-left: 10px;
+        width: 200px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+
+      .index {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        margin-right: 5px;
+        background: #c0c4cc;
+        border-radius: 50%;
+        text-align: center;
+      }
+    }
+
+    .move-index {
+      position: absolute;
+      top: calc(50% + 40px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .el-button {
+        width: 73px;
+      }
+    }
+
+
+    .el-transfer__button i, .el-transfer__button span {
+      font-size: 12px;
+    }
+
+    .el-transfer__buttons {
+      padding: 10px;
+    }
+
+    .el-transfer__buttons .el-transfer__button {
+      width: 73px;
+      height: 29px;
+      padding: 0;
+    }
+
+
+  }
+}

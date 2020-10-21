@@ -1,6 +1,6 @@
 <template>
   <el-dialog :close-on-click-modal='false' title="自定义列设置" :visible.sync="visible" :width="width" :center="true"
-    :show-close='true' class="dialog" :before-close="() => isVisible(false)">
+    :show-close='true' custom-class="ele-list-dialog" :before-close="() => isVisible(false)">
     <el-transfer
       filterable
       filter-placeholder="字段筛选"
@@ -140,73 +140,9 @@
     },
     watch: {
       columnsData() {
-        this.tempSelectedNumber = this.tableOptions.columnsData.showColumns.map((item) => item[this.tableOptions.customColumnsMatchParams.key]);
+        this.tempSelectedNumber = this.tableOptions.columnsData.showColumns.map((item) => item[this.tableOptions?.customColumnsMatchParams?.key]);
       }
     }
   }
 
 </script>
-<style lang="scss" scoped>
-
-  .el-dialog__body {
-    display: flex;
-  }
-
-  .el-transfer {
-    margin: 0 auto;
-  }
-
-  .dragger>div {
-    margin: 0 auto;
-    width: 30%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .el-checkbox.is-bordered {
-      margin-left: 10px;
-      width: 200px;
-      text-align: left;
-      margin-bottom: 5px;
-    }
-
-    .index {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      margin-right: 5px;
-      background: #c0c4cc;
-      border-radius: 50%;
-      text-align: center;
-    }
-  }
-
-</style>
-<style scoped>
-  .move-index {
-    position: absolute;
-    top: calc(50% + 40px);
-    left: calc(50% - 12px);
-    transform: translate(-50%, -50%);
-  }
-
-</style>
-<style lang="scss">
-
-  .dialog .el-transfer__button i, .el-transfer__button span {
-    font-size: 12px;
-  }
-
-  .dialog .el-transfer__buttons {
-    padding: 10px;
-  }
-
-  .dialog .el-transfer__buttons .el-transfer__button {
-    width: 73px;
-    height: 29px;
-    padding: 0;
-  }
-
-</style>

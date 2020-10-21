@@ -1,45 +1,61 @@
 <template>
-  <div id="list-wrapper" class="list-wrapper">
+  <div
+    id="list-wrapper"
+    class="ele-list-wrapper"
+    :style="{paddingBottom: isLazyLoadStyle}"  
+  >
     <!-- 搜索项 -->
     <ListTop 
+      v-if="!tableCommonOptions.searchOptions.isAllHidden"
       id="list-top" 
-      :searchForm="searchForm"
+      :searchForm.sync="searchForm"
       :searchOptions="tableCommonOptions.searchOptions"
       :onToggleSearchListClick="onToggleSearchListClick"
       :isShowAllSearch="isShowAllSearch"
     ></ListTop>
 
+    <slot></slot>
+
     <!-- 快捷操作 -->
-    <ListMiddle 
+    <ListMiddle
+      v-if="!tableCommonOptions.filterOptions.isAllHidden"
       id="list-middle"
       :filterOptions="tableCommonOptions.filterOptions"
       :tableOptions="tableCommonOptions.tableOptions"
       :onSaveCustom="onSaveCustom"
       :isVisible="isVisible"
       :multipleSelection="multipleSelection"
+      :isMoveTop="isMoveTop"
     />
     
     <!-- 表格 -->
     <ListTable 
+      v-if="tableCommonOptions.tableOptions"
       id="list-table"
+      ref="list-table"
       :tableList="tableList" 
       :tableOptions="tableCommonOptions.tableOptions"
       :headerDragend="headerDragend"
       :listLoading="listLoading"
       :height="height || pageHeight"
       :handleSelectionChange="handleSelectionChange"
+      :isKeepSelect="isKeepSelect"
+      :keepSelectKey="keepSelectKey"
+      :isLazyLoad="isLazyLoad"
     ></ListTable>
 
     <!-- 分页 -->
-    <Pagination 
+    <Pagination
+      v-if="tableCommonOptions.pagination && !tableCommonOptions.pagination.isAllHidden"
       id="list-pagination"
-      class="list-pagination"
+      class="ele-list-pagination"
       :pagination.sync="tableCommonOptions.pagination"
       :loadTableData="loadTableData"
     ></Pagination>
     
     <!--穿梭框自定义列-->
     <TransferDialog
+      v-if="tableCommonOptions.tableOptions"
       id="list-transferDialog"
       :onSaveCustom="onSaveCustom"
       :visible='visible'
@@ -55,7 +71,7 @@ import ListTable from './ListTable';
 import Pagination from './Pagination';
 import TransferDialog from './TransferDialog'
 export default {
-  name: 'EleListPage',
+name: 'EleListPage',
   props: {
     tableCommonOptions: {
       type: Object,
@@ -84,6 +100,34 @@ export default {
     height: {
       type: Number,
       default: null
+    },
+    isSimpleCutHeight: {
+      type: Boolean,
+      default: false
+    },
+    isKeepSelect: {
+      type: Boolean,
+      default: false 
+    },
+    keepSelectKey: {
+      type: String,
+      default: null
+    },
+    defaultSelect: {
+      type: [String, Array],
+    },
+    cutHeight: {
+      type: Number,
+      default: 180
+    },
+    isMoveTop: {
+      type: Boolean,
+      default: false
+    },
+    // 是否懒加载
+    isLazyLoad: {
+      type:  Boolean,
+      default: false
     }
   },
   components: {
@@ -103,8 +147,12 @@ export default {
   },
   methods: {
     handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
+      if (this.isKeepSelect) {
+        this.multipleSelection = _.uniqWith(val, _.isEqual);
+      } else {
+        this.multipleSelection = val
+      }
+   },
     //表格列宽修改事件 
     headerDragend(newWidth, oldWidth, column) {
       if (column.label !== '序号') {
@@ -114,7 +162,7 @@ export default {
       }
     },
     getHeight(id) {
-      return document.getElementById(id).offsetHeight;
+      return document?.getElementById(id)?.offsetHeight;
     },
     // 改变弹框状态
     isVisible(isShow) {
@@ -122,12 +170,12 @@ export default {
     },
     setTableHeight() {
       const pageHeight = 
-        // document.getElementById("app").clientHeight - 
-        this.getHeight('list-wrapper') - 
+        this.isSimpleCutHeight ? (document.body.clientHeight - this.cutHeight) : 
+        (this.getHeight('list-wrapper') - 
         this.getHeight('list-top') -
         this.getHeight('list-middle') -
-        this.getHeight('list-pagination') - 36
-        this.pageHeight = pageHeight;
+        this.getHeight('list-pagination') - 36)
+      this.pageHeight = pageHeight;
     },
     
     onToggleSearchListClick() {
@@ -150,27 +198,74 @@ export default {
     }
   },
   watch: {
+    tableList: {
+      handler() {
+        if (this.isKeepSelect) {
+          const key = this.keepSelectKey || ''
+          const simpleArray = []
+          this.multipleSelection.forEach(item => {
+            if (item[key]) {
+              simpleArray.push(item[key])
+            }
+          })
+          const tableRows = []
+          this.tableList.forEach((item, index) => {
+            if (simpleArray.includes(item[key])) {
+              tableRows.push(index)
+            }
+          })
+          this.multipleSelection.forEach((row, index) => {
+            if (this.tableList[tableRows[index]]) {
+
+              this.$refs['list-table']?.$refs['el-table']?.toggleRowSelection(this.tableList[tableRows[index]], true)
+            }
+          });
+
+
+        }
+      },
+      immediate: true 
+    },
     multipleSelection() {
       this.$emit('selectionChange', this.multipleSelection);
+    },
+    defaultSelect: {
+      handler(val) {
+        if (val) {
+          const key = this.keepSelectKey
+          setTimeout(() => {
+            this.multipleSelection = val.split(',').map(item => {
+              return {
+                [key]: item
+              }
+            })
+            const tableRows = []
+            this.tableList.forEach((item, index) => {
+              if (val.split(',').includes(item[key])) {
+                tableRows.push(index)
+              }
+            })
+            this.multipleSelection.forEach((row, index) => {
+              if (this.tableList[tableRows[index]]) {
+
+                this.$refs['list-table']?.$refs['el-table']?.toggleRowSelection(this.tableList[tableRows[index]], true)
+              }
+            });
+
+          })
+        } else if (val === '') {
+          this.$refs['list-table']?.$refs['el-table']?.clearSelection()
+        }
+      },
+      immediate: true
+    }
+  },
+  computed: {
+    isLazyLoadStyle() {
+      return this.isLazyLoad ? '0': ''
     }
   }
 
 }
 
 </script>
-<style lang="scss" scoped>
-  .list {
-    &-wrapper {
-      height: 100%;
-      position: relative;
-      // 外部无固定高度就需要内部撑开分页所需的高度
-      padding-bottom: 47px;
-    }
-
-    &-pagination {
-      position: absolute;
-      bottom: 0;
-    }
-  }
-
-</style>

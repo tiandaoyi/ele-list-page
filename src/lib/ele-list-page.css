@@ -1,0 +1,185 @@
+@charset "UTF-8";
+.ele-list-wrapper {
+  height: 100%;
+  position: relative;
+  padding-bottom: 47px;
+}
+.ele-list-pagination {
+  position: absolute;
+  bottom: 0;
+}
+.ele-list-middle {
+  margin: 12px 0;
+}
+.ele-list-middle .right-btn {
+  text-align: right;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #E8E8E8;
+  padding-bottom: 16px;
+}
+.ele-list-middle .move-top {
+  position: absolute;
+  top: -47px;
+  right: 0;
+}
+.ele-list-table .required-icon {
+  position: absolute;
+  left: 3px;
+  top: 15px;
+  color: red;
+}
+.ele-list-table .underline {
+  color: #367EF5;
+  cursor: pointer;
+}
+.ele-list-table .el-table .span-disabled-color {
+  cursor: no-drop;
+  color: #c8c9cc;
+}
+.ele-list-table .el-table th > .cell {
+  white-space: pre;
+  line-height: 20px;
+}
+.ele-list-table .el-table td, .ele-list-table .el-table th {
+  padding: 11px 0;
+}
+.ele-list-table input[type=number] {
+  -moz-appearance: textfield;
+}
+.ele-list-table input[type=number]::-webkit-inner-spin-button,
+.ele-list-table input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ele-list-top {
+  position: relative;
+  /**需要穿透的 */
+  /**文字label */
+  /**input包裹器 */
+  /**隐藏与显示搜索框 */
+  /**item */
+  /**select包裹器 */
+  /**时间选择器的宽 */
+}
+.ele-list-top .el-form-item .el-form-item__label {
+  float: none;
+  display: inline-block;
+  width: 105px;
+  text-align: right;
+  padding-right: 6px;
+  font-size: 12px;
+  font-weight: normal;
+}
+.ele-list-top .el-form-item .el-form-item__content {
+  width: calc(100% - 105px);
+}
+.ele-list-top .el-form-item .el-input__inner {
+  padding: 0 6px;
+  font-size: 12px;
+}
+.ele-list-top .el-form-item .el-range-editor--small .el-range-separator {
+  line-height: 32px;
+}
+.ele-list-top .el-form-item .date {
+  display: none;
+}
+.ele-list-top .el-form-item .el-range-editor--small .el-range__close-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.ele-list-top .el-form-item .el-range-editor--small > .el-icon-circle-close {
+  background: #ffffff;
+  z-index: 1;
+}
+.ele-list-top .el-form-item .el-date-editor .el-range-input {
+  width: 45%;
+}
+.ele-list-top .show-all-search > .ele-list-top-left__item {
+  display: flex;
+}
+.ele-list-top-left {
+  display: inline-block;
+  width: calc(100% - 70px);
+}
+.ele-list-top-left__item > .el-form-item {
+  width: 25%;
+}
+.ele-list-top-left__item:nth-of-type(n+3) {
+  display: none;
+}
+.ele-list-top-right {
+  display: inline-block;
+  position: absolute;
+  bottom: 14px;
+  right: 0;
+  width: 70px;
+  text-align: center;
+  cursor: pointer;
+  color: #367EF5;
+  font-size: 14px;
+}
+.ele-list-top .el-form-item {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0;
+  margin-bottom: 6px;
+}
+.ele-list-top .el-select {
+  width: 100%;
+}
+.ele-list-top .el-range-editor.el-input__inner, .ele-list-top .el-date-editor.el-input {
+  width: 100%;
+  position: relative;
+}
+.ele-list-dialog .el-dialog__body {
+  display: flex;
+}
+.ele-list-dialog .el-transfer {
+  margin: 0 auto;
+}
+.ele-list-dialog .dragger > div {
+  margin: 0 auto;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ele-list-dialog .dragger > div .el-checkbox.is-bordered {
+  margin-left: 10px;
+  width: 200px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.ele-list-dialog .dragger > div .index {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin-right: 5px;
+  background: #c0c4cc;
+  border-radius: 50%;
+  text-align: center;
+}
+.ele-list-dialog .move-index {
+  position: absolute;
+  top: calc(50% + 40px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ele-list-dialog .move-index .el-button {
+  width: 73px;
+}
+.ele-list-dialog .el-transfer__button i, .ele-list-dialog .el-transfer__button span {
+  font-size: 12px;
+}
+.ele-list-dialog .el-transfer__buttons {
+  padding: 10px;
+}
+.ele-list-dialog .el-transfer__buttons .el-transfer__button {
+  width: 73px;
+  height: 29px;
+  padding: 0;
+}

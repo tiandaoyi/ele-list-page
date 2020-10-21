@@ -1,22 +1,43 @@
 <template>
   <div>
     <!--自定义列-->
-    <el-row style="margin: 12px 0;">
-      <div style="float:left">
-        <el-button v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
-          size="small"
+    <el-row class="ele-list-middle">
+      <template v-if="filterOptions.direction === 'col' || filterOptions.direction === undefined">
+        <div style="float:left">
+          <el-button v-preventReClick v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
+            size="small"
+            v-show="!item.isHidden"
+            :type="item.type" :disabled='item.disabled'>
+            {{item.name}}
+          </el-button>
+        </div>
+        <div style="float:right" :class="isMoveTop ? 'move-top': ''">
+          <el-button v-preventReClick v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
           v-show="!item.isHidden"
           :type="item.type" :disabled='item.disabled'>
-          {{item.name}}
-        </el-button>
-      </div>
-      <div style="float:right">
-        <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
-        v-show="!item.isHidden"
-        :type="item.type" :disabled='item.disabled'>
-          {{item.name}}  
-        </el-button>
-      </div>
+            {{item.name}}  
+          </el-button>
+        </div>
+      </template>
+      <template v-if="filterOptions.direction === 'row'">
+        <div  :class="isMoveTop ? 'right-btn move-top': 'right-btn'">
+          <el-button v-preventReClick v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
+          v-show="!item.isHidden"
+          :type="item.type" :disabled='item.disabled'>
+            {{item.name}}  
+          </el-button>
+        </div>
+        <div style="float:right;">
+          <el-button v-preventReClick v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
+            size="small"
+            v-show="!item.isHidden"
+            :type="item.type" :disabled='item.disabled'>
+            {{item.name}}
+          </el-button>
+        </div>
+        
+      </template>
+           
     </el-row>
   </div>
 </template>
@@ -32,6 +53,10 @@ export default {
     },
     multipleSelection: {
       type: Array
+    },
+    isMoveTop: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -99,6 +124,14 @@ export default {
                 setButtonOptions[item.filterType] && setButtonOptions[item.filterType].fn && setButtonOptions[item.filterType].fn()
               },
               disabled
+            });
+          } else {
+            newObjectList.push({
+              name: item.name,
+              type: item.type,
+              isHidden: item.isHidden || false,
+              fn: item.fn,
+              disabled: item.disabled
             });
           }
         });

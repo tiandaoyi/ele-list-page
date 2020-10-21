@@ -5,7 +5,7 @@
       @current-change="handleCurrentChange"
       :current-page="pagination.pageNo"
       :page-sizes="pageSizes"
-      v-bind:page-size.sync="pagination.size || 20"
+      v-bind:page-size.sync="pagination.size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pagination.total"
       >
@@ -55,7 +55,7 @@
     data() {
       return {
         // 可扩展
-        pageSizes: [10, 15, 20, 50, 100]
+        pageSizes: [20, 50, 100]
       };
     },
   }
