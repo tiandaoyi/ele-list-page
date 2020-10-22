@@ -2,15 +2,20 @@ $paginationHeight: 47px;
 
 .ele-list {
   &-wrapper {
+    // padding: 12px;
     height: 100%;
     position: relative;
     // 外部无固定高度就需要内部撑开分页所需的高度
-    padding-bottom: $paginationHeight;
+    // padding-bottom: $paginationHeight;
+    padding: 12px 12px 47px 12px;
   }
 
   &-pagination {
     position: absolute;
+    height: $paginationHeight;
     bottom: 0;
+    display: flex;
+    align-items: center;
   }
 
   &-middle {
@@ -74,6 +79,7 @@ $paginationHeight: 47px;
 
   &-top {
     position: relative;
+    font-size: 0;
     /**需要穿透的 */
     /**文字label */
     .el-form-item .el-form-item__label {

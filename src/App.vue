@@ -246,6 +246,7 @@ export default {
     },
   },
   mounted() {
+    console.log('mounted')
     // // 初始化搜索项
     this.loadSearchList();
     // // 加载自定义列数据
@@ -266,8 +267,4 @@ export default {
     margin: 0;
   }
 
-  #app {
-    padding: 12px;
-    box-sizing: border-box;
-  }
 </style>

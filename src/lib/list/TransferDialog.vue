@@ -29,120 +29,120 @@
 </template>
 
 <script>
-  export default {
-    value: "TransferDialog",
-    props: {
-      width: {
-        type: String,
-        default: '650px'
-      },
-      //显示隐藏
-      visible: {
-        type: Boolean,
-        default: false
-      },
-      //切换弹框状态
-      isVisible: {
-        type: Function,
-        default: function () {}
-      },
-      //保存
-      submitDefined: {
-        type: Function,
-        default: function () {}
-      },
-      tableOptions: {
-        type: Object
-      },
-      onSaveCustom: {
-        type: Function
-      }
+export default {
+  value: "TransferDialog",
+  props: {
+    width: {
+      type: String,
+      default: '650px'
     },
-    data() {
-      return {
-        // 上排序按钮是否禁用
-        moveTopDisabled: true,
-        // 下排序按钮是否禁用
-        moveBottomDisabled: true,
-        // 右侧选中数组（临时变量）
-        rightCheckedArray: [],
-        // 实际显示选中变量
-        // selectedNumber: []
-        tempSelectedNumber: []
-      }
+    //显示隐藏
+    visible: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      onRightChange(tempSelectedNumber) {
-        this.updateSelectedNumber(tempSelectedNumber);
-        
-        if (tempSelectedNumber.indexOf(this.rightCheckedArray[0]) === -1) {
-          this.rightCheckedArray = [];
-        }
-        this.updateOrderButtonStatus();
-      },
-      onRightCheckedChange(rightCheckedArray) {
-        this.rightCheckedArray = rightCheckedArray;
-        this.updateOrderButtonStatus();
-      },
-      updateOrderButtonStatus(rightCheckedArray = this.rightCheckedArray, tempSelectedNumber = this.tempSelectedNumber) {
-        // 右侧必须是单选 且 右侧长度大于1 否则返回
-        if (rightCheckedArray.length === 0 || rightCheckedArray.length > 1 || tempSelectedNumber.length < 2) {
-          this.moveTopDisabled = true;
-          this.moveBottomDisabled = true;
-          return;
-        }
+    //切换弹框状态
+    isVisible: {
+      type: Function,
+      default: function () {}
+    },
+    //保存
+    submitDefined: {
+      type: Function,
+      default: function () {}
+    },
+    tableOptions: {
+      type: Object
+    },
+    onSaveCustom: {
+      type: Function
+    }
+  },
+  data() {
+    return {
+      // 上排序按钮是否禁用
+      moveTopDisabled: true,
+      // 下排序按钮是否禁用
+      moveBottomDisabled: true,
+      // 右侧选中数组（临时变量）
+      rightCheckedArray: [],
+      // 实际显示选中变量
+      // selectedNumber: []
+      tempSelectedNumber: []
+    }
+  },
+  methods: {
+    onRightChange(tempSelectedNumber) {
+      this.updateSelectedNumber(tempSelectedNumber);
+      
+      if (tempSelectedNumber.indexOf(this.rightCheckedArray[0]) === -1) {
+        this.rightCheckedArray = [];
+      }
+      this.updateOrderButtonStatus();
+    },
+    onRightCheckedChange(rightCheckedArray) {
+      this.rightCheckedArray = rightCheckedArray;
+      this.updateOrderButtonStatus();
+    },
+    updateOrderButtonStatus(rightCheckedArray = this.rightCheckedArray, tempSelectedNumber = this.tempSelectedNumber) {
+      // 右侧必须是单选 且 右侧长度大于1 否则返回
+      if (rightCheckedArray.length === 0 || rightCheckedArray.length > 1 || tempSelectedNumber.length < 2) {
+        this.moveTopDisabled = true;
+        this.moveBottomDisabled = true;
+        return;
+      }
 
-        if (rightCheckedArray && rightCheckedArray.length === 1) {
-          this.moveTopDisabled = false;
-          this.moveBottomDisabled = false;
-          if (rightCheckedArray[0] === tempSelectedNumber[0]) { // 如果是第一个不可向上
-            this.moveTopDisabled = true;
-          }
-          if (rightCheckedArray[0] === this.tempSelectedNumber[tempSelectedNumber.length - 1]) { // 如果是最后一个不可向下
-            this.moveBottomDisabled = true;
-          }
+      if (rightCheckedArray && rightCheckedArray.length === 1) {
+        this.moveTopDisabled = false;
+        this.moveBottomDisabled = false;
+        if (rightCheckedArray[0] === tempSelectedNumber[0]) { // 如果是第一个不可向上
+          this.moveTopDisabled = true;
         }
-      },
-      // 单击排序
-      onMoveIndexClick(flag) {
-        const tempSelectedNumber = [...this.tempSelectedNumber];
-        const checkedNum = this.rightCheckedArray[0];
-        const index = tempSelectedNumber.indexOf(checkedNum)
-        if (flag === 'TOP') {
-          tempSelectedNumber.splice(index - 1, 0, checkedNum);
-          tempSelectedNumber.splice(index + 1, 1);
-        } else {
-          tempSelectedNumber.splice(index + 2, 0, tempSelectedNumber[index]);
-          tempSelectedNumber.splice(index, 1);
-        }
-        // 更新选择的顺序
-        this.updateSelectedNumber(tempSelectedNumber);
-        // 更新按钮状态
-        this.updateOrderButtonStatus();
-      },
-      updateSelectedNumber(tempSelectedNumber = this.tempSelectedNumber) {
-        this.tempSelectedNumber = [...tempSelectedNumber];
-      }
-    },
-    computed: {
-      columnsData() {
-        const allColumns = this.tableOptions.columnsData.showColumns.concat(this.tableOptions.columnsData.hiddenColumns);
-        return allColumns;
-      },
-      transferProps() {
-        const tableOptions = this.tableOptions;
-        return {
-          key: tableOptions && tableOptions.customColumnsMatchParams ? tableOptions.customColumnsMatchParams.key : 'key',
-          label: tableOptions && tableOptions.customColumnsMatchParams ? tableOptions.customColumnsMatchParams.label : 'label',
-          disabled: false
+        if (rightCheckedArray[0] === this.tempSelectedNumber[tempSelectedNumber.length - 1]) { // 如果是最后一个不可向下
+          this.moveBottomDisabled = true;
         }
       }
     },
-    watch: {
-      columnsData() {
-        this.tempSelectedNumber = this.tableOptions.columnsData.showColumns.map((item) => item[this.tableOptions?.customColumnsMatchParams?.key]);
+    // 单击排序
+    onMoveIndexClick(flag) {
+      const tempSelectedNumber = [...this.tempSelectedNumber];
+      const checkedNum = this.rightCheckedArray[0];
+      const index = tempSelectedNumber.indexOf(checkedNum)
+      if (flag === 'TOP') {
+        tempSelectedNumber.splice(index - 1, 0, checkedNum);
+        tempSelectedNumber.splice(index + 1, 1);
+      } else {
+        tempSelectedNumber.splice(index + 2, 0, tempSelectedNumber[index]);
+        tempSelectedNumber.splice(index, 1);
+      }
+      // 更新选择的顺序
+      this.updateSelectedNumber(tempSelectedNumber);
+      // 更新按钮状态
+      this.updateOrderButtonStatus();
+    },
+    updateSelectedNumber(tempSelectedNumber = this.tempSelectedNumber) {
+      this.tempSelectedNumber = [...tempSelectedNumber];
+    }
+  },
+  computed: {
+    columnsData() {
+      const allColumns = this.tableOptions.columnsData.showColumns.concat(this.tableOptions.columnsData.hiddenColumns);
+      return allColumns;
+    },
+    transferProps() {
+      const tableOptions = this.tableOptions;
+      return {
+        key: tableOptions && tableOptions.customColumnsMatchParams ? tableOptions.customColumnsMatchParams.key : 'key',
+        label: tableOptions && tableOptions.customColumnsMatchParams ? tableOptions.customColumnsMatchParams.label : 'label',
+        disabled: false
       }
     }
+  },
+  watch: {
+    columnsData() {
+      this.tempSelectedNumber = this.tableOptions.columnsData.showColumns.map((item) => item[this.tableOptions?.customColumnsMatchParams?.key]);
+    }
   }
+}
 
 </script>

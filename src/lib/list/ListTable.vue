@@ -161,144 +161,144 @@
   </el-table>
 </template>
 <script>
-  export default {
-    name: 'ListTable',
-    props: {
-      //表格数据
-      tableList: {
-        type: Array,
-      },
-      //是否有多选框
-      hasSelection: {
-        type: Boolean,
-        default: false
-      },
-      //表头宽度拖动
-      headerDragend: {
-        type: Function,
-        default: function () {}
-      },
-      //操作列按钮尺寸 以及表格展示尺寸
-      size: {
-        type: String,
-        default: 'small'
-      },
-      //表格固定高度
-      height: {
-        type: Number,
-      },
-      tableOptions: {
-        type: Object,
-        required: true
-      },
-      listLoading: {
-        type: Boolean
-      },
-      handleSelectionChange: {
-        type: Function
-      },
-      isKeepSelect: {
-        type: Boolean
-      },
-      keepSelectKey: {
-        type: String
-      },
-      // 是否懒加载
-      isLazyLoad: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  name: 'ListTable',
+  props: {
+    //表格数据
+    tableList: {
+      type: Array,
     },
-    data() {
+    //是否有多选框
+    hasSelection: {
+      type: Boolean,
+      default: false
+    },
+    //表头宽度拖动
+    headerDragend: {
+      type: Function,
+      default: function () {}
+    },
+    //操作列按钮尺寸 以及表格展示尺寸
+    size: {
+      type: String,
+      default: 'small'
+    },
+    //表格固定高度
+    height: {
+      type: Number,
+    },
+    tableOptions: {
+      type: Object,
+      required: true
+    },
+    listLoading: {
+      type: Boolean
+    },
+    handleSelectionChange: {
+      type: Function
+    },
+    isKeepSelect: {
+      type: Boolean
+    },
+    keepSelectKey: {
+      type: String
+    },
+    // 是否懒加载
+    isLazyLoad: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      reflashCol: true,
+      screenHeight: 0,
+      screenWidth: 0
+    }
+  },
+  methods: {
+    headerStyle({rowIndex,columnIndex,row,column}) {
       return {
-        reflashCol: true,
-        screenHeight: 0,
-        screenWidth: 0
+        background:'#EEEFF3',
+        'text-align':'center',
+        'font-size':'12px',
+        color: '#505050',
+        'font-size': '14px',       
       }
     },
-    methods: {
-      headerStyle({rowIndex,columnIndex,row,column}) {
-        return {
-          background:'#EEEFF3',
-          'text-align':'center',
-          'font-size':'12px',
-          color: '#505050',
-          'font-size': '14px',       
-        }
-      },
-      getIndex(val) {
-        return val + 1;
-      },
-      find(options, value) {
-        if (!options || options.length === 0) {
-          return value
-        } else {
-          return (options || []).find(item => item.value === value)?.text ||value
-        }
-      }
+    getIndex(val) {
+      return val + 1;
     },
-    computed: {
-      // 操作列
-      headerHandleOperation() {
-        return this.tableOptions.headerHandleOperation;
-      },
-      prop() {
-        // 接口返回的列的数据结构转表格所需的数据结构
-        const tableOptions = this.tableOptions;
-        const prop = tableOptions && tableOptions.columnsMatchParams ? tableOptions.columnsMatchParams.prop : 'prop';
-        return prop;
-      },
-      label() {
-        // 接口返回的列的数据结构转表格所需的数据结构
-        const tableOptions = this.tableOptions;
-        const label = tableOptions && tableOptions.columnsMatchParams ? tableOptions.columnsMatchParams.label : 'label';
-        return label;
-      },
-      // 扩展列（暂时用不到）
-      // extendColumns() {
-      //   return [...this.$store.state.table.tableOptions.extendColumns || []];
-      // }
-    },
-    mounted() {
-      window.onresize = () => {
-        return (() => {
-          window.screenHeight = window.innerHeight
-          this.screenHeight = window.screenHeight || 0;
-
-          window.screenWidth = window.innerWidth
-          this.screenWidth = window.screenWidth || 0;
-        })()
-      }
-    },
-    destroyed() {
-      window.onresize = null
-    },
-    watch: {
-      tableOptions: {
-        handler(val) {
-          this.$nextTick(() => {
-            this.$refs['el-table']?.doLayout()
-          })
-        },
-        immediate: true
-      },
-      screenHeight: {
-        handler(val) {
-          if (this.$parent && !this.$parent.height) {
-            this.$parent?.setTableHeight()
-          }
-        },
-        immediate: true
-      },
-      screenWidth: {
-        handler(val) {
-          this.$nextTick(() => {
-            this.$refs['el-table']?.doLayout()
-          })
-        },
-        immediate: true
+    find(options, value) {
+      if (!options || options.length === 0) {
+        return value
+      } else {
+        return (options || []).find(item => item.value === value)?.text ||value
       }
     }
+  },
+  computed: {
+    // 操作列
+    headerHandleOperation() {
+      return this.tableOptions.headerHandleOperation;
+    },
+    prop() {
+      // 接口返回的列的数据结构转表格所需的数据结构
+      const tableOptions = this.tableOptions;
+      const prop = tableOptions && tableOptions.columnsMatchParams ? tableOptions.columnsMatchParams.prop : 'prop';
+      return prop;
+    },
+    label() {
+      // 接口返回的列的数据结构转表格所需的数据结构
+      const tableOptions = this.tableOptions;
+      const label = tableOptions && tableOptions.columnsMatchParams ? tableOptions.columnsMatchParams.label : 'label';
+      return label;
+    },
+    // 扩展列（暂时用不到）
+    // extendColumns() {
+    //   return [...this.$store.state.table.tableOptions.extendColumns || []];
+    // }
+  },
+  mounted() {
+    window.onresize = () => {
+      return (() => {
+        window.screenHeight = window.innerHeight
+        this.screenHeight = window.screenHeight || 0;
+
+        window.screenWidth = window.innerWidth
+        this.screenWidth = window.screenWidth || 0;
+      })()
+    }
+  },
+  destroyed() {
+    window.onresize = null
+  },
+  watch: {
+    tableOptions: {
+      handler(val) {
+        this.$nextTick(() => {
+          this.$refs['el-table']?.doLayout()
+        })
+      },
+      immediate: true
+    },
+    screenHeight: {
+      handler(val) {
+        if (this.$parent && !this.$parent.height) {
+          this.$parent?.setTableHeight()
+        }
+      },
+      immediate: true
+    },
+    screenWidth: {
+      handler(val) {
+        this.$nextTick(() => {
+          this.$refs['el-table']?.doLayout()
+        })
+      },
+      immediate: true
+    }
+  }
 }    
 
 </script>

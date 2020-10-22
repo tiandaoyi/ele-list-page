@@ -4,8 +4,7 @@ import EleListPage from './lib/index.js'
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 Vue.use(EleListPage);
-
-// Vue.prototype.Mock = require('mockjs')
+import './styles/index.scss'
 
 new Vue({
   el: '#app',

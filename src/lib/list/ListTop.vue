@@ -2,9 +2,8 @@
   <el-form :inline="true" :model="currentSearchForm" ref="searchForm" class="ele-list-top">
     <div class="ele-list-top-left" v-if="searchList && searchList.length" :class="{'show-all-search': isShowAllSearch}">
       <template v-for="(item, index) of searchList">
-        <span :key="index" v-if="index < 8 || (index > 7 && isShowAllSearch)">
         <!--input输入框-->
-        <el-form-item v-if="item.searchType === 'input' || item.searchType === 'number'" :label="item.name" :prop="item.searchField" :key="item.index" :style="{width: item.width}">
+        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-input
             v-model="currentSearchForm[item.searchField]"
             :type="item.searchType"
@@ -16,9 +15,8 @@
           >
           </el-input>
         </el-form-item>
-
         <!--select下拉框-->
-        <el-form-item :style="{width: item.width}" v-if="item.searchType === 'select'" :label="item.name" :key="item.index">
+        <el-form-item :style="{width: item.width}" v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index">
           <el-select
             :collapse-tags="item.isMultiple"
             :multiple="item.isMultiple"
@@ -39,9 +37,8 @@
             ></el-option>
           </el-select>
         </el-form-item>
-
         <!--time时间选择器-->
-        <el-form-item :style="{width: item.width}" v-if="item.searchType === 'time'" :label="item.name" :key="item.index">
+        <el-form-item :style="{width: item.width}" v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'time'" :label="item.name" :key="index">
           <el-date-picker
             size="small"
             v-model="currentSearchForm[item.searchField]"
@@ -61,16 +58,13 @@
             >
           </el-date-picker>
         </el-form-item>
-        
         <!--input复选框-->
-        <el-form-item v-if="item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="item.index" :style="{width: item.width}">
+        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-switch
             v-model="currentSearchForm[item.searchField]"
             >
           </el-switch>
         </el-form-item>
-
-        </span>
       </template>
     </div>
     <div class="ele-list-top-right" @click="onToggleSearchListClick()" v-if="searchList && searchList.length > 8">
@@ -80,142 +74,141 @@
 </template>
 
 <script>
-import moment from 'moment'
-  export default {
-    props: {
-      searchOptions: {
-        type: Object
-      },
-      searchForm: {
-        type: Object
-      },
-      onToggleSearchListClick: {
-        type: Function
-      },
-      isShowAllSearch: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  props: {
+    searchOptions: {
+      type: Object
     },
-    data() {
-      return {
-        // currentSearchForm: this.searchForm,
-        hackReset: true,
-        rules: {},
-        searchList: null,
-        simplePickerOptions: {},
-        pickerOptions: {
-          onPick: ({minDate, maxDate}) => {
-            if (minDate && maxDate) {
-              this.hackReset = false
-              this.$nextTick(() => {
-                this.hackReset = true
-              })
-            }
-            
-          },
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-      }
+    searchForm: {
+      type: Object
     },
-    methods: {
-      onChangeDate(e) {
-        this.hackReset = false
-        this.$nextTick(() => {
-          this.hackReset = true
-        })
-      }
+    onToggleSearchListClick: {
+      type: Function
     },
-    watch: {
-      searchOptions: {
-        handler(val) {
-          const searchList = [];
-          let searchWrapperIndex = 0;
-          const SEARCH_TYPE_ENUM = {
-            input: 'input',
-            select: 'select',
-            time: 'time',
-            default: 'input',
-            number: 'number',
-            switch: 'switch'
+    isShowAllSearch: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      // currentSearchForm: this.searchForm,
+      hackReset: true,
+      rules: {},
+      searchList: null,
+      simplePickerOptions: {},
+      pickerOptions: {
+        onPick: ({minDate, maxDate}) => {
+          if (minDate && maxDate) {
+            this.hackReset = false
+            this.$nextTick(() => {
+              this.hackReset = true
+            })
           }
-          const PLACEHOLDER_TYPE_ENUM = {
-            input: '请输入',
-            number: '请输入',
-            select: '请选择',
-            undefined: '请输入'
-          }
-          const searchOptions = this.searchOptions;
-          if (searchOptions && searchOptions.searchData && searchOptions.searchData.length) {
-            searchOptions.searchData.forEach((item, index) => {
-              if (item.name) {
-                searchList.push({
-                  name: item.name || '',
-                  searchField: item.searchField || '',
-                  selectList: item.selectList || [], // selectList格式 [{text: '11',value: 11 } ]
-                  searchType: SEARCH_TYPE_ENUM[item.searchType] || SEARCH_TYPE_ENUM['default'], // input select time 输入框 选择框 时间
-                  // valueType: item.valueType || 'string', // number boolean string
-                  value: item.value || item.value === 0 ? item.value : null,
-                  isFilterable: item.isFilterable || false, // 是否可搜索
-                  isNoClearable: item.isNoClearable || false,
-                  callFunction: item.callFunction,
-                  placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
-                  width: item.width || '25%',
-                  isMultiple: item.isMultiple || false,
-                  disabled: item.disabled || false,
-                  timeType: item.searchType === 'time' ? item.timeType || 'daterange' : null,
-                  pickerOptions: item.searchType === 'time' ? item.timeType === 'datetime' ? this.simplePickerOptions : this.pickerOptions : null,
-                  timeValueFormat: item.searchType === 'time' ? item.timeValueFormat || 'yyyy-MM-dd' : null,
-                  defaultTime: item.searchType === 'time' ? item.defaultTime : null,
-                  selectFetch: item.selectFetch || null
-                })
-                // 数组切成每四个分隔(提供给前端样式显示)
-                if (index % 4 === 3) {
-                  searchWrapperIndex++;
-                }
-              }
-            });
-          }
-          this.searchList = searchList;
+          
         },
-        immediate: true,
-        deep: true
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
       },
-    },
-    computed: {
-      currentSearchForm: {
-        get() {
-          return this.searchForm
-        },
-        set(val) {
-          this.$emit('update:searchForm', val)
+    }
+  },
+  methods: {
+    onChangeDate(e) {
+      this.hackReset = false
+      this.$nextTick(() => {
+        this.hackReset = true
+      })
+    }
+  },
+  watch: {
+    searchOptions: {
+      handler(val) {
+        const searchList = [];
+        let searchWrapperIndex = 0;
+        const SEARCH_TYPE_ENUM = {
+          input: 'input',
+          select: 'select',
+          time: 'time',
+          default: 'input',
+          number: 'number',
+          switch: 'switch'
         }
+        const PLACEHOLDER_TYPE_ENUM = {
+          input: '请输入',
+          number: '请输入',
+          select: '请选择',
+          undefined: '请输入'
+        }
+        const searchOptions = this.searchOptions;
+        if (searchOptions && searchOptions.searchData && searchOptions.searchData.length) {
+          searchOptions.searchData.forEach((item, index) => {
+            if (item.name) {
+              searchList.push({
+                name: item.name || '',
+                searchField: item.searchField || '',
+                selectList: item.selectList || [], // selectList格式 [{text: '11',value: 11 } ]
+                searchType: SEARCH_TYPE_ENUM[item.searchType] || SEARCH_TYPE_ENUM['default'], // input select time 输入框 选择框 时间
+                // valueType: item.valueType || 'string', // number boolean string
+                value: item.value || item.value === 0 ? item.value : null,
+                isFilterable: item.isFilterable || false, // 是否可搜索
+                isNoClearable: item.isNoClearable || false,
+                callFunction: item.callFunction,
+                placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
+                width: item.width || '25%',
+                isMultiple: item.isMultiple || false,
+                disabled: item.disabled || false,
+                timeType: item.searchType === 'time' ? item.timeType || 'daterange' : null,
+                pickerOptions: item.searchType === 'time' ? item.timeType === 'datetime' ? this.simplePickerOptions : this.pickerOptions : null,
+                timeValueFormat: item.searchType === 'time' ? item.timeValueFormat || 'yyyy-MM-dd' : null,
+                defaultTime: item.searchType === 'time' ? item.defaultTime : null,
+                selectFetch: item.selectFetch || null
+              })
+              // 数组切成每四个分隔(提供给前端样式显示)
+              if (index % 4 === 3) {
+                searchWrapperIndex++;
+              }
+            }
+          });
+        }
+        this.searchList = searchList;
+      },
+      immediate: true,
+      deep: true
+    },
+  },
+  computed: {
+    currentSearchForm: {
+      get() {
+        return this.searchForm
+      },
+      set(val) {
+        this.$emit('update:searchForm', val)
       }
     }
   }
+}
 
 </script>
