@@ -2,8 +2,8 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  // entry: './src/lib/index.js',
-  entry: './src/main.js',
+  entry: './src/lib/index.js',
+  // entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -44,6 +44,19 @@ module.exports = {
           }
         ]
       },
+      // {
+      //   test: /\.scss$/,
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       name(file) {
+      //         // folder 仅支持直接的文件，不支持多层
+      //         return '../src/lib/index.css';
+      //         // return 'css/[folder]/[name].[hash].css';
+      //       },
+      //     }
+      //   }, 'sass-loader']
+      // },
       {
         test: /\.js$/,
         loader: 'babel-loader',
