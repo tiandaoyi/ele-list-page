@@ -6,7 +6,7 @@
 
 > 输入框
 
-[![演示图片](http://qam0b3d9s.bkt.clouddn.com/ele-list-page.gif "演示图片")](https://github.com/tiandaoyi/ele-list-page "演示图片")
+[![演示图片](./demo.png "演示图片")](https://github.com/tiandaoyi/ele-list-page "演示图片")
 
 ## 重要功能
 
