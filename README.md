@@ -2,9 +2,7 @@
 
 超级列表页 --- 一个基于element-ui的vue插件
 
-## 演示
-
-> 输入框
+## 样式
 
 [![演示图片](./demo.png "演示图片")](https://github.com/tiandaoyi/ele-list-page "演示图片")
 
@@ -26,9 +24,17 @@
 // 安装
 npm i ele-list-page
 
-// main.js 引入
+// main.js
+// 组件引入
 import EleListPage from 'ele-list-page'
-Vue.use('EleListPage')
+Vue.use(EleListPage)
+
+// 组件样式引入
+import 'ele-list-page/src/lib/index.css'
+
+// 组件是基于element-ui的，所以也需要引入element-ui
+import ElementUI from 'element-ui';
+Vue.use(ElementUI)
 
 // list.vue template部分
 <EleListPage
@@ -201,25 +207,6 @@ methods: {
     const searchData = this.tableCommonOptions.searchOptions.searchData;
     const newSearchData = [...searchData];
     // 搜索项下拉框列表填充
-    getSelectList().then(({data: result}) => {
-      if (result) {
-        for (let key in result) {
-          searchData.forEach((item, index) => {
-            if (key === item.searchField) {
-              const selectList = [];
-              result[key].forEach(resultChild => {
-                selectList.push({
-                  text: resultChild.description,
-                  value: resultChild.code
-                });
-              });
-              newSearchData[index].selectList = selectList;
-            }
-          });
-        }
-        this.tableCommonOptions.searchOptions.searchData = newSearchData;
-      }
-    })
   },
   loadTableData() {
     const searchForm = this.searchForm;
@@ -231,40 +218,39 @@ methods: {
       pageSize: this.tableCommonOptions.pagination.pageSize
     }
 
-    getTableList(request).then(({data: {data: tableList, total}}) => {
-
-      // 表格数据更新
-      this.tableList = tableList || [],
-      this.tableCommonOptions.pagination = {
-        ...this.tableCommonOptions.pagination,
-        total
-      }
-    });
+    //getTableList(request).then(({data: {data: tableList, total}}) => {
+    // 表格数据更新
+    //  this.tableList = tableList || [],
+    //  this.tableCommonOptions.pagination = {
+    //    ...this.tableCommonOptions.pagination,
+    //    total
+    //  }
+    //});
 
   },
   loadCustomColumnsList() {
     // 获取自定义列列表
-    getCustomizedColumnsList().then(({data}) => {
-      // 接口的数据结构showColumns = [{showName, showField, id, refField}]
-      // table表头所需
-      const columnsMatchParams = {
-        prop: 'showField',
-        label: 'showName'
-      };
-      // 自定义列所需
-      const customColumnsMatchParams = {
-        key: 'id',
-        label: 'showName'
-      }
-      const tableCommonOptions = this.tableCommonOptions;
+    //getCustomizedColumnsList().then(({data}) => {
+    //  // 接口的数据结构showColumns = [{showName, showField, id, refField}]
+    //  // table表头所需
+    //  const columnsMatchParams = {
+    //    prop: 'showField',
+    //    label: 'showName'
+    //  };
+    //  // 自定义列所需
+    //  const customColumnsMatchParams = {
+    //    key: 'id',
+    //    label: 'showName'
+    //  }
+    //  const tableCommonOptions = this.tableCommonOptions;
 
-      tableCommonOptions.tableOptions = {
-        ...tableCommonOptions.tableOptions,
-          columnsData: data,
-          columnsMatchParams,
-          customColumnsMatchParams
-      }
-    })
+    //  tableCommonOptions.tableOptions = {
+    //    ...tableCommonOptions.tableOptions,
+    //      columnsData: data,
+    //      columnsMatchParams,
+    //      customColumnsMatchParams
+    //  }
+    //})
   },
 },
 mounted() {
@@ -275,19 +261,6 @@ mounted() {
   // 加载表格数据
   this.loadTableData();
 }
-
-// css部分
-<style>
-  html, body, #app {
-    height: 100%;
-    margin: 0;
-  }
-
-  #app {
-    padding: 12px;
-    box-sizing: border-box;
-  }
-</style>
 
 ```
 

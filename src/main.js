@@ -5,6 +5,7 @@ import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 Vue.use(EleListPage);
 import './styles/index.scss'
+// demo页面
 
 new Vue({
   el: '#app',

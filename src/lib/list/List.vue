@@ -162,7 +162,6 @@ name: 'EleListPage',
       }
     },
     getHeight(id) {
-      console.log(document?.getElementById(id)?.offsetHeight)
       return document?.getElementById(id)?.offsetHeight;
     },
     // 改变弹框状态

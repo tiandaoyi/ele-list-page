@@ -246,7 +246,6 @@ export default {
     },
   },
   mounted() {
-    console.log('mounted')
     // // 初始化搜索项
     this.loadSearchList();
     // // 加载自定义列数据
