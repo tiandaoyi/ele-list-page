@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import EleListPage from './list/List';
 
 EleListPage.install = function(Vue) {
