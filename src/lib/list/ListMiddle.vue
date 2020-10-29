@@ -12,7 +12,7 @@
           </el-button>
         </div>
         <div style="float:right" :class="isMoveTop ? 'move-top': ''">
-          <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
+          <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name' size="small"
           v-show="!item.isHidden"
           :type="item.type" :disabled='item.disabled'>
             {{item.name}}  
@@ -21,7 +21,7 @@
       </template>
       <template v-if="filterOptions.direction === 'row'">
         <div  :class="isMoveTop ? 'right-btn move-top': 'right-btn'">
-          <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn" :name='item.name' size="small"
+          <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name' size="small"
           v-show="!item.isHidden"
           :type="item.type" :disabled='item.disabled'>
             {{item.name}}  
