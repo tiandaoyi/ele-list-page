@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div>
+      asas
+      <br/>
+      asda
+      asdasd
+    </div>
+    <button @click="a = !a">{{a}}</button>
     <EleListPage
       :tableCommonOptions="tableCommonOptions"
       :listLoading="listLoading"
@@ -9,6 +16,20 @@
       :onSaveCustom="onSaveCustom"
 
       :searchForm="searchForm"
+      style="height: calc(100vh - 70px);"
+      v-show="a"
+    ></EleListPage>
+    <EleListPage
+      :tableCommonOptions="tableCommonOptions1"
+      :listLoading="listLoading"
+      :loadTableData="loadTableData"
+
+      :tableList="tableList"
+      :onSaveCustom="onSaveCustom"
+
+      :searchForm="searchForm"
+      style="height: calc(100vh - 70px);"
+      v-show="!a"
     ></EleListPage>
   </div>
 </template>
@@ -147,8 +168,135 @@ export default {
         pageSize: 20
       }
     };
+    const tableCommonOptions1 = {
+      searchOptions: {
+        isAllHidden: false,
+        searchData: [
+          {
+            name: '编号',
+            searchField: 'code',
+          },
+          {
+            name: '名称',
+            searchField: 'name',
+          },
+          {
+            name: '输入框0',
+            searchField: 'spec',
+          },
+          {
+            name: '状态',
+            searchField: 'status',
+            searchType: 'select'
+          },
+          {
+            name: '输入框-1',
+            searchField: 'categoryCode',
+          },
+          {
+            name: '输入框1',
+            searchField: 'categoryName',
+          },
+          {
+            name: '输入框2',
+            searchField: 'brandCode',
+          },
+          {
+            name: '输入框3',
+            searchField: 'brandName',
+          },
+          {
+            name: '输入框4',
+            searchField: 'materials',
+          },
+        ],
+      },
+      filterOptions: {
+        isAllHidden: false,
+        left: [
+          {
+            filterType: 'add',
+            disabled: false,
+            type: 'info'
+          },
+          {
+            filterType: 'invalid',
+            disabled: false
+          },
+          {
+            filterType: 'valid',
+            disabled: false
+          },
+          {
+            filterType: 'export',
+            disabled: true
+          },
+          {
+            filterType: 'customColumns'
+          }
+        ],
+        right: [
+          {
+            filterType: 'search',
+            fn: () => {
+              this.loadTableData();
+            }
+          },
+          {
+            filterType: 'clear',
+            fn: () => {
+              this.searchForm = {};
+              // 看是否需要调用搜索
+              this.loadTableData();
+            }
+          },
+        ]
+      },
+      tableOptions: {
+        underlineHandles: {
+          code: ({row}) => {
+            const params = {
+              code: row.code || null 
+            }
+            alert('gotoDetail');
+          }
+        },
+        columnsData: {
+          showColumns: [],
+          hiddenColumns: []
+        },
+        headerHandleOperation: {
+          prop: 'operation',
+          label: '操作',
+          operationOptions: [{
+            name: '修改',
+            fn: ({row: {code}}) => {
+              const params = {
+                code
+              }
+              alert('gotoDetail');
+            },
+            disabled: false
+          }, {
+            name: '删除',
+            type: 'danger',
+            fn() {
+              console.log('删除')
+            },
+            disabled: true,
+          }]
+        }
+      },
+      pagination: {
+        total: 0,
+        pageNo: 1,
+        pageSize: 20
+      }
+    };
     return {
+      a: true,
       tableCommonOptions,
+      tableCommonOptions1,
       listLoading: false,
       searchForm: {},
       tableList: [],

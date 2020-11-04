@@ -1,13 +1,13 @@
 <template>
   <div
-    id="list-wrapper"
     class="ele-list-wrapper"
+    ref="list-wrapper"
     :style="{paddingBottom: isLazyLoadStyle}"  
   >
     <!-- 搜索项 -->
     <ListTop 
       v-if="!tableCommonOptions.searchOptions.isAllHidden"
-      id="list-top" 
+      ref="list-top"
       :searchForm.sync="searchForm"
       :searchOptions="tableCommonOptions.searchOptions"
       :onToggleSearchListClick="onToggleSearchListClick"
@@ -19,7 +19,7 @@
     <!-- 快捷操作 -->
     <ListMiddle
       v-if="!tableCommonOptions.filterOptions.isAllHidden"
-      id="list-middle"
+      ref="list-middle"
       :filterOptions="tableCommonOptions.filterOptions"
       :tableOptions="tableCommonOptions.tableOptions"
       :onSaveCustom="onSaveCustom"
@@ -31,7 +31,6 @@
     <!-- 表格 -->
     <ListTable 
       v-if="tableCommonOptions.tableOptions"
-      id="list-table"
       ref="list-table"
       :tableList="tableList" 
       :tableOptions="tableCommonOptions.tableOptions"
@@ -47,7 +46,7 @@
     <!-- 分页 -->
     <Pagination
       v-if="tableCommonOptions.pagination && !tableCommonOptions.pagination.isAllHidden"
-      id="list-pagination"
+      ref="list-pagination"
       class="ele-list-pagination"
       :pagination.sync="tableCommonOptions.pagination"
       :loadTableData="loadTableData"
@@ -56,7 +55,7 @@
     <!--穿梭框自定义列-->
     <TransferDialog
       v-if="tableCommonOptions.tableOptions"
-      id="list-transferDialog"
+      ref="list-transferDialog"
       :onSaveCustom="onSaveCustom"
       :visible='visible'
       :isVisible='isVisible'
@@ -162,7 +161,12 @@ name: 'EleListPage',
       }
     },
     getHeight(id) {
-      return document?.getElementById(id)?.offsetHeight;
+      // console.log(id)
+      // console.log(this.$refs)
+      // console.log('122:', this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight)
+      // console.log('133:',document?.getElementById(id)?.offsetHeight)
+      // return document?.getElementById(id)?.offsetHeight;
+      return this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight || 0
     },
     // 改变弹框状态
     isVisible(isShow) {
