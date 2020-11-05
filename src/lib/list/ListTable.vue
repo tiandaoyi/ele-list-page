@@ -51,16 +51,16 @@
     > 
       <template slot-scope="scope">
         <span
-          style="padding: 0 5px;"
+          :style="{padding: !operation.isHidden ? '0 5px' : 'initial'}"
           v-for="operation in headerHandleOperation.operationOptions"
           :key="operation.index"
           size="mini"
           :type="operation.type"
           @click="!operation.disabled && (tableOptions.canEdit !== false || operation.cancelStopEdit) && operation.fn(scope)"
           :class="(operation.disabled || tableOptions.canEdit === false) && (!operation.cancelStopEdit) ? 'underline span-disabled-color' : 'underline'"
-          v-html="operation.asyncHtml ? operation.asyncHtml(scope) : operation.name"
+          v-html="operation.asyncHtml && !operation.isHidden ? operation.asyncHtml(scope) : (!operation.isHidden ? operation.name : '')"
         >
-        {{operation.name}}
+          {{operation.name}}
         </span>
       </template>
     </el-table-column>
