@@ -65,6 +65,18 @@
             >
           </el-switch>
         </el-form-item>
+        <!-- 级联选择 -->
+        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'cascader')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+          <el-cascader
+            v-model="currentSearchForm[item.searchField]"
+            :options="item.selectList"
+            :placeholder="item.placeholder"
+            size="small"
+            :props="{ expandTrigger: 'hover' }"
+            @change="item.changeFunction && item.changeFunction()"
+          >
+          </el-cascader>
+        </el-form-item>
       </template>
     </div>
     <div class="ele-list-top-right" @click="onToggleSearchListClick()" v-if="searchList && searchList.length > 8">
@@ -154,7 +166,8 @@ export default {
           time: 'time',
           default: 'input',
           number: 'number',
-          switch: 'switch'
+          switch: 'switch',
+          cascader: 'cascader'
         }
         const PLACEHOLDER_TYPE_ENUM = {
           input: '请输入',
@@ -176,6 +189,7 @@ export default {
                 isFilterable: item.isFilterable || false, // 是否可搜索
                 isNoClearable: item.isNoClearable || false,
                 callFunction: item.callFunction,
+                changeFunction: item.changeFunction,
                 placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
                 width: item.width || '25%',
                 isMultiple: item.isMultiple || false,
