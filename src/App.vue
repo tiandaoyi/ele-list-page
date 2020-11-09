@@ -51,6 +51,7 @@ export default {
             name: '编号1',
             searchField: 'code1',
             searchType: 'cascader',
+            // props: { checkStrictly: true },
             // changeFunction: () => {
             //   console.log(...arguments)
             // },
@@ -249,41 +250,7 @@ export default {
             label: '组件交互文档'
           }]
         }]
-          },
-          {
-            name: '名称',
-            searchField: 'name',
-          },
-          {
-            name: '输入框0',
-            searchField: 'spec',
-          },
-          {
-            name: '状态',
-            searchField: 'status',
-            searchType: 'select'
-          },
-          {
-            name: '输入框-1',
-            searchField: 'categoryCode',
-          },
-          {
-            name: '输入框1',
-            searchField: 'categoryName',
-          },
-          {
-            name: '输入框2',
-            searchField: 'brandCode',
-          },
-          {
-            name: '输入框3',
-            searchField: 'brandName',
-          },
-          {
-            name: '输入框4',
-            searchField: 'materials',
-          },
-        ],
+          }]
       },
       filterOptions: {
         isAllHidden: false,
