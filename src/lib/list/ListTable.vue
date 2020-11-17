@@ -80,7 +80,7 @@
               <span class="required-icon" v-if="item.required">*</span>
               <el-select
                 v-model="scope.row[item[prop]]"
-                :multiple="false"
+                :multiple="item.multiple"
                 :clearable="false"
                 collapse-tags
                 :placeholder="''"
