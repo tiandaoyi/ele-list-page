@@ -136,7 +136,7 @@
               :class="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : ''"
               @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope)"
             >
-              {{item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]]) : scope.row[item[prop]]}}
+              {{item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]]}}
             </span>
           </template>
         </el-table-column>
@@ -229,11 +229,22 @@ export default {
     getIndex(val) {
       return val + 1;
     },
-    find(options, value) {
+    find(options, value, multiple = false) {
       if (!options || options.length === 0) {
         return value
       } else {
-        return (options || []).find(item => item.value === value)?.text ||value
+        //  如果为多选且数组
+        if (multiple && value) {
+          const result = []
+          (value || []).map(item => {
+            if (options.find(childItem => childItem.value === item) !== void 0) {
+              result.push(item)
+            }
+          })
+          return result.join()
+        } else {
+          return options.find(item => item.value === value)?.text || value
+        }
       }
     }
   },
