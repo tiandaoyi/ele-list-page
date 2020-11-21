@@ -1,5 +1,3 @@
-const Mock = require('mockjs');
-
 function getCustomizedColumnsList () {
   return new Promise((resolve, reject) => resolve({
     "code": 200,

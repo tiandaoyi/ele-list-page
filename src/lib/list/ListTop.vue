@@ -28,6 +28,7 @@
             :disabled="item.disabled"
             :remote="!!item.selectFetch"
             :remote-method="item.selectFetch"
+            v-loadMore="item.loadMore"
           >
             <el-option
               v-for="(selectOption,index) of item.selectList"
@@ -199,7 +200,8 @@ export default {
                 timeValueFormat: item.searchType === 'time' ? item.timeValueFormat || 'yyyy-MM-dd' : null,
                 defaultTime: item.searchType === 'time' ? item.defaultTime : null,
                 selectFetch: item.selectFetch || null,
-                props: item.props || {}
+                props: item.props || {},
+                loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
