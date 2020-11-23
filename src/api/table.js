@@ -85,8 +85,8 @@ function getTableList () {
     "data": {
       "total": 10086,
       "data": [{
-        "code": "1234704",
-        "name": "123312",
+        "code": 1234704,
+        "name": "1s23312",
         "categoryCode": "6007",
         "categoryName": "哈哈22",
         "accTypeDesc": "超长字段显示tooltip-ttttttttt",
@@ -94,7 +94,7 @@ function getTableList () {
         "statusDesc": "已使用",
         "erpName": "123123",
       }, {
-        "code": "1234803",
+        "code": 1234803,
         "name": "uu233232",
         "businessUnitNo": "04",
         "categoryCode": "6008",
@@ -102,7 +102,7 @@ function getTableList () {
         "spec": "uu",
         "accTypeDesc": "特殊字段xx",
       }, {
-        "code": "1234802",
+        "code": 1234802,
         "name": "yy1221",
         "businessUnitNo": "04",
         "categoryCode": "6008",

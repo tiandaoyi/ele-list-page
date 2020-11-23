@@ -14,6 +14,8 @@
     ref="el-table"
     :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     class="ele-list-table"
+    :show-summary="!!tableOptions.summaryMethod"
+    :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
   >
     <!-- <el-table-column
       prop="date"
