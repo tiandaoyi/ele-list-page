@@ -2,28 +2,28 @@
 
 超级列表页 --- 一个基于element-ui的vue插件
 
-## 样式
+> 样式
 
 [![演示图片](http://sit-hxjf.hongxinshop.com/image/group1/M00/06/37/CvaAll-7T22ATmA7AAFfgfxRLJ0066.png "演示图片")](https://github.com/tiandaoyi/ele-list-page "演示图片")
 
-## 功能
+> 功能
 
 1. 搜索表单：输入框、单选框、日期选择器、下拉框（支持远程搜索和下拉懒加载）。支持配置每行显示个数及“更多”搜索。
 2. 按钮组：批量删除、生效、失效、新增、搜索、自定义列（显示、隐藏、排序）等功能。可分为左右布局或上下布局，支持自定义颜色，方法，按钮名称。
 3. 列表：支持单元格点击跳转、行选择、操作列（动态html及方法）、树形表格、可编辑表格、支持自定义表头颜色、配置列宽、动态高度（可配置页面一屏显示）、序号列、固定列及表头、合计行等。
 4. 分页：可配置多个每页显示最大条数、自动固定到页面底部。
 
-## 适用场景
+> 适用场景
 
 列表页面直接通过配置js对象及方法就可以使用，不涉及vuex，但是部分功能需要后端支持（如分页）。
 
-## 使用
-
+> 安装
 ```
-// 安装
 npm i ele-list-page
+```
 
-// main.js
+> 使用
+```
 // 组件引入
 import EleListPage from 'ele-list-page'
 Vue.use(EleListPage)
@@ -34,8 +34,10 @@ import 'ele-list-page/src/lib/index.css'
 // 组件是基于element-ui的，所以也需要引入element-ui
 import ElementUI from 'element-ui';
 Vue.use(ElementUI)
+```
 
-// list.vue template部分
+> list.vue template部分
+```
 <EleListPage
   :searchForm="searchForm" <!-- 搜索条件绑定到页面的对象 -->
   :tableCommonOptions="tableCommonOptions" <!-- 表格配置属性 -->
@@ -46,8 +48,10 @@ Vue.use(ElementUI)
   :onSaveCustom="onSaveCustom" <!-- 自定义列保存function: 非自定义可不传 -->
 
 ></EleListPage>
+```
 
-// list.vue js部分
+> list.vue js部分
+```
 data() {
   const tableCommonOptions = {
     searchOptions: {

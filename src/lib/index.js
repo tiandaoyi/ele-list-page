@@ -4,7 +4,7 @@ import EleListPage from './list/List';
 // 全局注册指令
 // Vue.use(directives)
 EleListPage.install = function(Vue) {
-  Vue.directive('loadmore', {
+  Vue.directive('loadMore', {
     bind (el, binding) {
       const selectDom = el.querySelector('.el-select-dropdown .el-select-dropdown__wrap')
       selectDom.addEventListener('scroll', function () {

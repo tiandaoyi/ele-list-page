@@ -1,7 +1,7 @@
 import Vue from 'vue'
 let MyDirective = {}
 export default MyDirective.install = function(vue, options) {
-  Vue.directive('loadmore', {
+  Vue.directive('loadMore', {
     bind (el, binding) {
       const selectDom = el.querySelector('.el-select-dropdown .el-select-dropdown__wrap')
       selectDom.addEventListener('scroll', function () {

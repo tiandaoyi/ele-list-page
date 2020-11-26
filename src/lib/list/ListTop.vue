@@ -28,9 +28,8 @@
             :disabled="item.disabled"
             :remote="!!item.selectFetch"
             :remote-method="item.selectFetch"
-            v-loadmore="item.loadMore"
+            v-loadMore="item.loadMore"
           >
-            <!-- v-loadMore="item.loadMore" -->
             <el-option
               v-for="(selectOption,index) of item.selectList"
               :key="index"
