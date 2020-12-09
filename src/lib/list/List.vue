@@ -161,11 +161,6 @@ name: 'EleListPage',
       }
     },
     getHeight(id) {
-      // console.log(id)
-      // console.log(this.$refs)
-      // console.log('122:', this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight)
-      // console.log('133:',document?.getElementById(id)?.offsetHeight)
-      // return document?.getElementById(id)?.offsetHeight;
       return this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight || 0
     },
     // 改变弹框状态

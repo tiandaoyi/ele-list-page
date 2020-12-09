@@ -1,12 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div>
-      asas
-      <br/>
-      asda
-      asdasd
-    </div>
-    <button @click="a = !a">{{a}}</button> -->
     <EleListPage
       :tableCommonOptions="tableCommonOptions"
       :listLoading="listLoading"
@@ -142,7 +135,8 @@ export default {
           showColumns: [{
             label: '编号',
             prop: 'code',
-            width: 200
+            // width: 200,
+            textAlign: 'right'
           },
           {
             label: '名称',

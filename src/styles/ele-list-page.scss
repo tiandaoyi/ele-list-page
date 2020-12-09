@@ -76,6 +76,11 @@ $paginationHeight: 47px;
       margin: 0;
     }
 
+    .cell > .span-max-width {
+      width: 100%;
+      display: inline-block;
+    }
+
   }
 
   &-top {
