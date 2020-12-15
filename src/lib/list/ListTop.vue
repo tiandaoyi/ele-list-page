@@ -15,6 +15,32 @@
           >
           </el-input>
         </el-form-item>
+        <!--input双输入框-->
+        <template  v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'doubleInput')">
+          <el-form-item :label="item.name" :prop="Array.isArray(item.searchField) && item.searchField.length ? item.searchField[0] : item.searchField" :key="index" :style="{width: item.width}">
+            <div class="double-input-wrapper" style="display: flex;">
+              <el-input
+                v-model="currentSearchForm[item.searchField[0]]"
+                :type="item.searchType"
+                :placeholder="item.placeholder"
+                size="small"
+                :clearable="!item.callFunction"
+                :readonly="!!item.callFunction"
+              >
+              </el-input>
+              <el-input
+                style="margin-left: 2px;"
+                v-model="currentSearchForm[item.searchField[1]]"
+                :type="item.searchType"
+                :placeholder="item.placeholder"
+                size="small"
+                :clearable="!item.callFunction"
+                :readonly="!!item.callFunction"
+              >
+              </el-input>
+            </div>
+          </el-form-item>
+        </template>
         <!--select下拉框-->
         <el-form-item :style="{width: item.width}" v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index">
           <el-select
@@ -168,7 +194,8 @@ export default {
           default: 'input',
           number: 'number',
           switch: 'switch',
-          cascader: 'cascader'
+          cascader: 'cascader',
+          doubleInput: 'doubleInput'
         }
         const PLACEHOLDER_TYPE_ENUM = {
           input: '请输入',

@@ -31,33 +31,33 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      // {
-      //   test: /\.scss$/,
-      //   use: [
-      //     {
-      //       loader: "style-loader" // 将 JS 字符串生成为 style 节点
-      //     },
-      //     {
-      //       loader: "css-loader" // 将 CSS 转化成 CommonJS 模块
-      //     },
-      //     {
-      //       loader: "sass-loader" // 将 Sass 编译成 CSS
-      //     }
-      //   ]
-      // },
       {
         test: /\.scss$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name(file) {
-              // folder 仅支持直接的文件，不支持多层
-              return '../src/lib/index.css';
-              // return 'css/[folder]/[name].[hash].css';
-            },
+        use: [
+          {
+            loader: "style-loader" // 将 JS 字符串生成为 style 节点
+          },
+          {
+            loader: "css-loader" // 将 CSS 转化成 CommonJS 模块
+          },
+          {
+            loader: "sass-loader" // 将 Sass 编译成 CSS
           }
-        }, 'sass-loader']
+        ]
       },
+      // {
+      //   test: /\.scss$/,
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       name(file) {
+      //         // folder 仅支持直接的文件，不支持多层
+      //         return '../src/lib/index.css';
+      //         // return 'css/[folder]/[name].[hash].css';
+      //       },
+      //     }
+      //   }, 'sass-loader']
+      // },
       {
         test: /\.js$/,
         loader: 'babel-loader',

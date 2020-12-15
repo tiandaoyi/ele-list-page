@@ -26,55 +26,62 @@ export default {
       searchOptions: {
         isAllHidden: false,
         searchData: [
+          // {
+          //   name: '出发区域',
+          //   searchField: 'startArea',
+          //   searchType:'cascader',
+          //   props:{
+          //     checkStrictly: true,
+          //     label:'name',
+          //     value:'code',
+          //     children:'subList'
+          //   },
+          //   selectList: [{
+          //     name: '1',
+          //     value: '11',
+          //     subList: [{
+          //       name: 'child',
+          //       value: '1222'
+          //     }]
+          //   }]
+          // },
           {
-            name: '出发区域',
-            searchField: 'startArea',
-            searchType:'cascader',
-            props:{
-              checkStrictly: true,
-              label:'name',
-              value:'code',
-              children:'subList'
-            },
-            selectList: [{
-              name: '1',
-              value: '11',
-              subList: [{
-                name: 'child',
-                value: '1222'
-              }]
-            }]
-          },{
-            searchField: 'a',
-            searchType: 'aa'
+            name: '11',
+            searchField: ['name', 'value'],
+            searchType: 'doubleInput'
           },
           {
-            name: '编号1',
-            searchField: 'code1',
-            // searchType: 'cascader',
-            searchType: 'select',
-            selectList: [{text: 1, value: 1}],
-            loadMoreOptions: {
-              queryValue: null, // 查询
-              startPage: 1, // 当前页数
-              pageSize: 10, // 每页显示多少条
-              total: 0, // 总数
-              // laterList: [], // 
-              loadMore: () => {
-                // @TODO loading 
-                const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
-                // obj.loadMoreOptions.queryValue = value
-                this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, false)
-              },
-            },
-            selectFetch: (value) => {
-              const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
-              obj.loadMoreOptions.queryValue = value
-              this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, true)
-              // 加载列表并保存值
-            },
-            isFilterable: true,
+            name: 'sss',
+            searchField: 'a',
+            searchType: 'aa'
           }]
+          // {
+          //   name: '编号1',
+          //   searchField: 'code1',
+          //   // searchType: 'cascader',
+          //   searchType: 'select',
+          //   selectList: [{text: 1, value: 1}],
+          //   loadMoreOptions: {
+          //     queryValue: null, // 查询
+          //     startPage: 1, // 当前页数
+          //     pageSize: 10, // 每页显示多少条
+          //     total: 0, // 总数
+          //     // laterList: [], // 
+          //     loadMore: () => {
+          //       // @TODO loading 
+          //       const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
+          //       // obj.loadMoreOptions.queryValue = value
+          //       this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, false)
+          //     },
+          //   },
+          //   selectFetch: (value) => {
+          //     const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
+          //     obj.loadMoreOptions.queryValue = value
+          //     this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, true)
+          //     // 加载列表并保存值
+          //   },
+          //   isFilterable: true,
+          // }]
       },
       filterOptions: {
         isAllHidden: false,
@@ -264,6 +271,7 @@ export default {
         startPage: this.tableCommonOptions.pagination.pageNo,
         pageSize: this.tableCommonOptions.pagination.pageSize
       }
+      console.log(searchForm)
 
       getTableList(request).then(({data: {data: tableList, total}}) => {
 
