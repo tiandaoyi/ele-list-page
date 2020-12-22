@@ -11,6 +11,7 @@
             size="small"
             :clearable="!item.callFunction"
             :readonly="!!item.callFunction"
+            :disabled="item.disabled"
             @focus="item.callFunction && item.callFunction()"
           >
           </el-input>
@@ -82,6 +83,7 @@
             @change="onChangeDate"
             :default-time="item.defaultTime"
             v-if="hackReset"
+            :disabled="item.disabled"
             >
           </el-date-picker>
         </el-form-item>
