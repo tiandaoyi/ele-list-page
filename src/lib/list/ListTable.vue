@@ -78,7 +78,32 @@
           :width="item.width  ? item.width : (item[label].length >= 5) ? item[label].length * 20 : null"
         >
           <template slot-scope="scope">
-            <template v-if="item.editType === 'select'">
+            <!-- 下拉 -->
+            <template v-if="item.editType === 'time'">
+              <span class="required-icon" v-if="item.required">*</span>
+              <el-date-picker
+                size="small"
+                v-model="scope.row[item[prop]]"
+                :type="item.timeType || 'daterange'"
+                range-separator="~"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :value-format="item.timeValueFormat || 'yyyy-MM-dd'"
+                :editable="false"
+                prefix-icon="date"
+                align="right"
+                unlink-panels
+                :picker-options="item.pickerOptions || pickerOptions"
+                @change="onChangeDate"
+                :default-time="item.defaultTime"
+                v-if="hackReset"
+                :disabled="item.disabled"
+                >
+              </el-date-picker>
+            </template>
+
+            <!-- 时间 -->
+            <template v-else-if="item.editType === 'select'">
               <span class="required-icon" v-if="item.required">*</span>
               <el-select
                 v-model="scope.row[item[prop]]"
@@ -100,6 +125,8 @@
                 </el-option>
               </el-select>
             </template>
+
+            <!-- 输入框 -->
             <template v-else>
               <span class="required-icon" v-if="item.required">*</span>
               <el-input
@@ -214,12 +241,55 @@ export default {
   },
   data() {
     return {
+      hackReset: true,
       reflashCol: true,
       screenHeight: 0,
-      screenWidth: 0
+      screenWidth: 0,
+      pickerOptions: {
+        onPick: ({minDate, maxDate}) => {
+          if (minDate && maxDate) {
+            this.hackReset = false
+            this.$nextTick(() => {
+              this.hackReset = true
+            })
+          }
+          
+        },
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
+      },
     }
   },
   methods: {
+    onChangeDate(e) {
+      this.hackReset = false
+      this.$nextTick(() => {
+        this.hackReset = true
+      })
+    },
     headerStyle({rowIndex,columnIndex,row,column}) {
       return {
         background:'#EEEFF3',

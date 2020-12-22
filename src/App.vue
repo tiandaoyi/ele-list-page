@@ -25,159 +25,141 @@ export default {
     const tableCommonOptions = {
       searchOptions: {
         isAllHidden: false,
-        searchData: [
-          // {
-          //   name: '出发区域',
-          //   searchField: 'startArea',
-          //   searchType:'cascader',
-          //   props:{
-          //     checkStrictly: true,
-          //     label:'name',
-          //     value:'code',
-          //     children:'subList'
-          //   },
-          //   selectList: [{
-          //     name: '1',
-          //     value: '11',
-          //     subList: [{
-          //       name: 'child',
-          //       value: '1222'
-          //     }]
-          //   }]
-          // },
-          {
-            name: '11',
-            searchField: ['name', 'value'],
-            searchType: 'doubleInput'
-          },
-          {
-            name: 'sss',
-            searchField: 'a',
-            searchType: 'aa'
-          }]
-          // {
-          //   name: '编号1',
-          //   searchField: 'code1',
-          //   // searchType: 'cascader',
-          //   searchType: 'select',
-          //   selectList: [{text: 1, value: 1}],
-          //   loadMoreOptions: {
-          //     queryValue: null, // 查询
-          //     startPage: 1, // 当前页数
-          //     pageSize: 10, // 每页显示多少条
-          //     total: 0, // 总数
-          //     // laterList: [], // 
-          //     loadMore: () => {
-          //       // @TODO loading 
-          //       const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
-          //       // obj.loadMoreOptions.queryValue = value
-          //       this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, false)
-          //     },
-          //   },
-          //   selectFetch: (value) => {
-          //     const obj = this.tableCommonOptions.searchOptions.searchData.find(item => item.name === '编号1')
-          //     obj.loadMoreOptions.queryValue = value
-          //     this.requestSelectMethods(obj.loadMoreOptions, obj.selectList, obj, true)
-          //     // 加载列表并保存值
-          //   },
-          //   isFilterable: true,
-          // }]
+        searchData: [],
       },
       filterOptions: {
         isAllHidden: false,
-        left: [
-          {
-            filterType: 'add',
-            disabled: false,
-            type: 'info'
-          },
-          {
-            filterType: 'invalid',
-            disabled: false
-          },
-          {
-            filterType: 'valid',
-            disabled: false
-          },
-          {
-            filterType: 'export',
-            disabled: true
-          },
-          {
-            filterType: 'customColumns'
-          }
-        ],
-        right: [
-          {
-            filterType: 'search',
-            fn: () => {
-              this.loadTableData();
-            }
-          },
-          {
-            filterType: 'clear',
-            fn: () => {
-              this.searchForm = {};
-              // 看是否需要调用搜索
-              this.loadTableData();
-            }
-          },
-        ]
+        left: [],
+        right: []
       },
       tableOptions: {
-        summaryMethod(param) {
-          // const { columns, data } = param;
-          const sums = ['总价','225元','','22'];
-          return sums
-        },
-        underlineHandles: {
-          code: ({row}) => {
-            const params = {
-              code: row.code || null 
-            }
-            alert('gotoDetail');
-          }
-        },
+        isHiddenMaxHeight: true,
+        // 可否编辑取决于此字段
+        canEdit: true,
+        // maxWidth: true,
+        isHiddenCheckBox: true,
         columnsData: {
-          showColumns: [{
-            label: '编号',
-            prop: 'code',
-            // width: 200,
-            textAlign: 'right'
-          },
-          {
-            label: '名称',
-            prop: 'name',
-            width: 150
-          }],
+          showColumns: [
+            {
+              label: '设备编号',
+              prop: 'equNumber',
+              editPlaceholder: '...',
+              editHover: (...arg) => {
+                this.editHover(...arg)
+              },
+              width: 170
+            },
+            {
+              label: '商品名称',
+              prop: 'itemName',
+              // editLimit: true,
+              width: 170
+            },
+            {
+              label: '时间',
+              prop: 'time',
+              editType: 'time',
+              timeType: 'date',
+              width: 220,
+              pickerOptions: {}
+            },
+            {
+              label: '商品编号',
+              prop: 'itemCode',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '归属营业店',
+              prop: 'storeName',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '归属事业部',
+              prop: 'deptName',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '租赁订单编号',
+              prop: 'leaseOrderNumber',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '所在地址',
+              prop: 'address',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '客户名称',
+              prop: 'clientName',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '租赁状态',
+              prop: 'leaseStateName',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '锁机状态',
+              prop: 'lockStateName',
+              editLimit: true,
+              width: 170
+            },
+            {
+              label: '执行状态描述',
+              prop: 'resultDesc',
+              editLimit: true,
+              width: 170
+            },
+          ],
           hiddenColumns: []
         },
         headerHandleOperation: {
           prop: 'operation',
           label: '操作',
+          width: 250,
           operationOptions: [{
-            name: '修改',
-            fn: ({row: {code}}) => {
-              const params = {
-                code
+            name: '行上移',
+            fn: ({$index}) => {
+              const tableList = this.tableList;
+              if ($index !== 0) {
+                tableList.splice($index - 1, 0, tableList[$index])
+                tableList.splice($index + 1, 1)
               }
-              alert('gotoDetail');
             },
             disabled: false
           }, {
-            name: '删除',
-            type: 'danger',
-            fn() {
-              console.log('删除')
+            name: '行下移',
+            fn: ({$index}) => {
+              const tableList = this.tableList;
+              if ($index !== tableList.length - 1) {
+                tableList.splice($index + 2, 0, tableList[$index])
+                tableList.splice($index, 1)
+              }
             },
-            disabled: true,
+            disabled: false
+          }, {
+            name: '行删除',
+            fn: (data) => {
+              const tableList = this.tableList;
+              tableList.splice(data.$index, 1)
+              // this.deleteIds.push(data.row.id);
+            },
+            disabled: false
           }]
         }
       },
       pagination: {
         total: 0,
         pageNo: 1,
-        pageSize: 20
+        pageSize: 20,
+        isHidden: true
       }
     };
     return {
