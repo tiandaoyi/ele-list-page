@@ -41,8 +41,8 @@ export default {
         columnsData: {
           showColumns: [
             {
-              label: '设备编号',
-              prop: 'equNumber',
+              label: '编号',
+              prop: 'number',
               editPlaceholder: '...',
               editHover: (...arg) => {
                 this.editHover(...arg)
@@ -50,8 +50,8 @@ export default {
               width: 170
             },
             {
-              label: '商品名称',
-              prop: 'itemName',
+              label: '名称',
+              prop: 'name',
               // editLimit: true,
               width: 170
             },
@@ -62,61 +62,7 @@ export default {
               timeType: 'date',
               width: 220,
               pickerOptions: {}
-            },
-            {
-              label: '商品编号',
-              prop: 'itemCode',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '归属营业店',
-              prop: 'storeName',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '归属事业部',
-              prop: 'deptName',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '租赁订单编号',
-              prop: 'leaseOrderNumber',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '所在地址',
-              prop: 'address',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '客户名称',
-              prop: 'clientName',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '租赁状态',
-              prop: 'leaseStateName',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '锁机状态',
-              prop: 'lockStateName',
-              editLimit: true,
-              width: 170
-            },
-            {
-              label: '执行状态描述',
-              prop: 'resultDesc',
-              editLimit: true,
-              width: 170
-            },
+            }
           ],
           hiddenColumns: []
         },
