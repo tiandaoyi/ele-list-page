@@ -35,7 +35,7 @@ export default {
       tableOptions: {
         isHiddenMaxHeight: true,
         // 可否编辑取决于此字段
-        canEdit: true,
+        // canEdit: true,
         // maxWidth: true,
         isHiddenCheckBox: true,
         columnsData: {
@@ -53,7 +53,21 @@ export default {
               label: '名称',
               prop: 'name',
               // editLimit: true,
-              width: 170
+              width: 170,
+              // asyncHtml: (value) => {
+              //   console.log(58, value)
+              //   return value + '阿哈哈哈'
+              // }
+            },
+            {
+              label: '名称2',
+              prop: 'categoryName',
+              // editLimit: true,
+              width: 170,
+              asyncHtml: (value) => {
+                console.log(58, value)
+                return `<span style="color:red">${value}</span>`
+              }
             },
             {
               label: '时间',

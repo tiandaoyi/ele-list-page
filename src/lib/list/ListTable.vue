@@ -165,6 +165,9 @@
               :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
               :class="[tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '', 'span-max-width']"
               @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope)"
+              v-html="item.asyncHtml 
+                ? item.asyncHtml(scope.row[item[prop]], scope) 
+                : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]])"
             >
               {{item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]]}}
             </span>
@@ -289,6 +292,10 @@ export default {
       this.$nextTick(() => {
         this.hackReset = true
       })
+    },
+    con(scope, item) {
+      console.log(scope)
+      console.log(item)
     },
     headerStyle({rowIndex,columnIndex,row,column}) {
       return {
