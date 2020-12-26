@@ -86,7 +86,7 @@ function getTableList () {
       "total": 10086,
       "data": [{
         "code": 1234704,
-        "name": "1s23312",
+        "name": "1s233sadadsadasdasdasdasdasdasdadasdsa12",
         "categoryCode": "6007",
         "categoryName": "哈哈22",
         "accTypeDesc": "超长字段显示tooltip-ttttttttt",
@@ -98,7 +98,7 @@ function getTableList () {
         "name": "uu233232",
         "businessUnitNo": "04",
         "categoryCode": "6008",
-        "categoryName": "哈哈1",
+        "categoryName": "哈哈12211212122112121",
         "spec": "uu",
         "accTypeDesc": "特殊字段xx",
       }, {

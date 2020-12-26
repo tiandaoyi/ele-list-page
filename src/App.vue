@@ -25,14 +25,68 @@ export default {
     const tableCommonOptions = {
       searchOptions: {
         isAllHidden: false,
-        searchData: [],
+        searchData: [
+          {
+            name: '设备编号',
+            searchField: 'equNo',
+            searchType: 'time',
+            timeType: 'datetimerange',
+            timeValueFormat: 'yyyy-MM-dd HH:mm:ss',
+            pickerOptions: {
+              shortcuts: [{
+                text: '最近一周',
+                onClick(picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                  picker.$emit('pick', [start, end]);
+                }
+              }, {
+                text: '最近一个月',
+                onClick(picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                  picker.$emit('pick', [start, end]);
+                }
+              }, {
+                text: '最近三个月',
+                onClick(picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                  picker.$emit('pick', [start, end]);
+                }
+              }]
+            },
+          },
+          {
+            name: '设备编号2',
+            searchField: 'equNo2',
+            searchType: 'time',
+          }
+        ],
       },
       filterOptions: {
         isAllHidden: false,
         left: [],
-        right: []
+        right: [
+          {
+            filterType: "search",
+            fn: () => {
+              this.loadTableData(true);
+            },
+          },
+          {
+            filterType: "clear",
+            fn: () => {
+              this.searchForm = {};
+            },
+          },
+        ]
       },
       tableOptions: {
+        canEdit: false,
         isHiddenMaxHeight: true,
         // 可否编辑取决于此字段
         // canEdit: true,
@@ -64,6 +118,7 @@ export default {
               prop: 'categoryName',
               // editLimit: true,
               width: 170,
+              textAlign: 'right', 
               asyncHtml: (value) => {
                 console.log(58, value)
                 return `<span style="color:red">${value}</span>`
@@ -208,6 +263,7 @@ export default {
     },
     loadTableData() {
       const searchForm = this.searchForm;
+      console.log(searchForm, '266')
       const request = {
         ...searchForm,
         startPage: this.tableCommonOptions.pagination.pageNo,

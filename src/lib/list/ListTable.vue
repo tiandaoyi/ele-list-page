@@ -160,23 +160,23 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            <!-- <span :class="item[prop] === 'itemCode' ? 'underline' : ''" >{{scope.row[item[prop]]}}</span> -->
             <span 
               :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
-              :class="[tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '', 'span-max-width']"
+              :class="[
+                tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
+                item.textAlign ? 'span-max-width' : ''
+                ]"
               @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope)"
               v-html="item.asyncHtml 
-                ? item.asyncHtml(scope.row[item[prop]], scope) 
-                : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]])"
+              ? item.asyncHtml(scope.row[item[prop]], scope) 
+              : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]])"
             >
-              {{item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]]}}
             </span>
           </template>
         </el-table-column>
       </template>
     </template>
-    
-
+    <!-- <span :class="item[prop] === 'itemCode' ? 'underline' : ''" >{{scope.row[item[prop]]}}</span> -->
     <!-- 扩展列 -->
     <!-- <template v-for="item of extendColumns">
       <el-table-column
@@ -292,10 +292,6 @@ export default {
       this.$nextTick(() => {
         this.hackReset = true
       })
-    },
-    con(scope, item) {
-      console.log(scope)
-      console.log(item)
     },
     headerStyle({rowIndex,columnIndex,row,column}) {
       return {
