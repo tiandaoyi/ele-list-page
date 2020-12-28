@@ -1,16 +1,49 @@
 <template>
   <div id="app">
-    <EleListPage
-      :tableCommonOptions="tableCommonOptions"
-      :listLoading="listLoading"
-      :loadTableData="loadTableData"
+    <el-form ref="test" :model="{tableList}" >
 
-      :tableList="tableList"
-      :onSaveCustom="onSaveCustom"
+      <EleListPage
+        :tableCommonOptions="tableCommonOptions"
+        :listLoading="listLoading"
+        :loadTableData="loadTableData"
 
-      :searchForm="searchForm"
-      ref="table"
-    ></EleListPage>
+        :tableList="tableList"
+        :onSaveCustom="onSaveCustom"
+
+        :searchForm="searchForm"
+        ref="table"
+      >
+        <!-- <template #table="slotProps">
+            <el-table-column
+              width="155"
+              label="类别"
+              align="center"
+              >
+              <template slot-scope="{ row }">
+                <el-form-item label="" prop="pass">
+                  <el-input clearable v-model="row.code" autocomplete="off"></el-input>
+                </el-form-item>
+                
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              width="155"
+              label="类别2"
+              align="center"
+              >
+              <template slot-scope="scope">
+                <el-form-item label="" prop="aa">
+                  <el-input clearable v-model="scope.row.name" autocomplete="off"></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
+            
+        </template> -->
+      </EleListPage>
+  </el-form>
+
   </div>
 </template>
 <script>
@@ -22,6 +55,25 @@ import {
 export default {
   name: 'app',
   data() {
+    var checkAge = (rule, value, callback) => {
+      console.log(value, rule)
+      callback()
+      return
+      if (!value) {
+        return callback(new Error('年龄不能为空'));
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'));
+        } else {
+          if (value < 18) {
+            callback(new Error('必须年满18岁'));
+          } else {
+            callback();
+          }
+        }
+      }, 1000);
+    };
     const tableCommonOptions = {
       searchOptions: {
         isAllHidden: false,
@@ -86,23 +138,23 @@ export default {
         ]
       },
       tableOptions: {
-        canEdit: false,
         isHiddenMaxHeight: true,
         // 可否编辑取决于此字段
-        // canEdit: true,
+        canEdit: true,
         // maxWidth: true,
-        isHiddenCheckBox: true,
+        isHiddenCheckBox: false,
+        formItemName: 'tableList',
         columnsData: {
           showColumns: [
-            {
-              label: '编号',
-              prop: 'number',
-              editPlaceholder: '...',
-              editHover: (...arg) => {
-                this.editHover(...arg)
-              },
-              width: 170
-            },
+            // {
+            //   label: '编号',
+            //   prop: 'number',
+            //   editPlaceholder: '...',
+            //   editHover: (...arg) => {
+            //     this.editHover(...arg)
+            //   },
+            //   width: 170,
+            // },
             {
               label: '名称',
               prop: 'name',
@@ -112,6 +164,8 @@ export default {
               //   console.log(58, value)
               //   return value + '阿哈哈哈'
               // }
+              rules: [{ validator: checkAge, trigger: ['change', 'blur'] }]
+              // rules: [{ required: true, trigger: 'change', message: '请选择人员角色'}],
             },
             {
               label: '名称2',
@@ -122,16 +176,22 @@ export default {
               asyncHtml: (value) => {
                 console.log(58, value)
                 return `<span style="color:red">${value}</span>`
-              }
+              },
+              rules: [{ required: true, trigger: 'change' }]
+
+              // rulesFunc: (row) => {
+              //   console.log(row)
+                // return [{ required: true, trigger: 'blur', message: '请选择证件类型！'}]
+              // },
             },
-            {
-              label: '时间',
-              prop: 'time',
-              editType: 'time',
-              timeType: 'date',
-              width: 220,
-              pickerOptions: {}
-            }
+            // {
+            //   label: '时间',
+            //   prop: 'time',
+            //   editType: 'time',
+            //   timeType: 'date',
+            //   width: 220,
+            //   pickerOptions: {}
+            // }
           ],
           hiddenColumns: []
         },
@@ -185,6 +245,10 @@ export default {
         // code1: []
       },
       tableList: [],
+      checkAge,
+      form: {
+        tableList: []
+      }
     }
   },
   methods: {
@@ -263,7 +327,6 @@ export default {
     },
     loadTableData() {
       const searchForm = this.searchForm;
-      console.log(searchForm, '266')
       const request = {
         ...searchForm,
         startPage: this.tableCommonOptions.pagination.pageNo,
@@ -280,6 +343,7 @@ export default {
           total
         }
       });
+      // this.tableList = [{name: ''}]
 
     },
     loadCustomColumnsList() {

@@ -41,7 +41,9 @@
       :isKeepSelect="isKeepSelect"
       :keepSelectKey="keepSelectKey"
       :isLazyLoad="isLazyLoad"
-    ></ListTable>
+    >
+      <slot name="table"></slot>
+    </ListTable>
 
     <!-- 分页 -->
     <Pagination
