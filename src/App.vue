@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-form ref="test" :model="{tableList}" >
+    <el-form :model="{tableList}" >
 
       <EleListPage
         :tableCommonOptions="tableCommonOptions"
@@ -13,34 +13,6 @@
         :searchForm="searchForm"
         ref="table"
       >
-        <!-- <template #table="slotProps">
-            <el-table-column
-              width="155"
-              label="类别"
-              align="center"
-              >
-              <template slot-scope="{ row }">
-                <el-form-item label="" prop="pass">
-                  <el-input clearable v-model="row.code" autocomplete="off"></el-input>
-                </el-form-item>
-                
-              </template>
-            </el-table-column>
-
-            <el-table-column
-              width="155"
-              label="类别2"
-              align="center"
-              >
-              <template slot-scope="scope">
-                <el-form-item label="" prop="aa">
-                  <el-input clearable v-model="scope.row.name" autocomplete="off"></el-input>
-                </el-form-item>
-              </template>
-            </el-table-column>
-
-            
-        </template> -->
       </EleListPage>
   </el-form>
 

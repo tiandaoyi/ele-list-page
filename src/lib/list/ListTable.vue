@@ -77,84 +77,12 @@
           :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) ? item[label].length * 20 : null"
         >
-          <!-- 不含表单 -->
-          <template slot-scope="scope" v-if="!tableOptions.formItemName">
-            <!-- 下拉 -->
-            <template v-if="item.editType === 'time'">
-              <span class="required-icon" v-if="item.required">*</span>
-              <el-date-picker
-                size="small"
-                v-model="scope.row[item[prop]]"
-                :type="item.timeType || 'daterange'"
-                range-separator="~"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :value-format="item.timeValueFormat || 'yyyy-MM-dd'"
-                :editable="false"
-                prefix-icon="date"
-                align="right"
-                unlink-panels
-                :picker-options="item.pickerOptions || pickerOptions"
-                @change="onChangeDate"
-                :default-time="item.defaultTime"
-                v-if="hackReset"
-                :disabled="item.disabled"
-                >
-              </el-date-picker>
-            </template>
-
-            <!-- 时间 -->
-            <template v-else-if="item.editType === 'select'">
-              <span class="required-icon" v-if="item.required">*</span>
-              <el-select
-                v-model="scope.row[item[prop]]"
-                :multiple="item.multiple"
-                :clearable="false"
-                collapse-tags
-                :placeholder="''"
-                :disabled="scope.row.$disabledField === item[prop] || item.editLimit"
-                @change="($event) => item.editChange && item.editChange($event, scope)"
-                size="small"
-                @focus="() => item.editFocus && item.editFocus(scope.row[item[prop]], scope)"
-                :filterable="item.editFilterable"
-                >
-                <el-option
-                  v-for="(editItem, index) of item.editOptions"
-                  :key="index"
-                  :label="editItem.text"
-                  :value="editItem.value">
-                </el-option>
-              </el-select>
-            </template>
-
-            <!-- 输入框 -->
-            <template v-else>
-              <span class="required-icon" v-if="item.required">*</span>
-              <el-input
-                v-model="scope.row[item[prop]]"
-                :disabled="scope.row.$disabledField === item[prop] || item.editLimit"
-                :placeholder="item.editPlaceholder"
-                :step="item.editStep"
-                :type="item.editType || 'text'"
-                clearable
-                :readonly="!!item.editHover"
-                @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
-                :min="item.editMin"
-                size="small"
-              ></el-input>
-            </template>
-            
-          </template>
-
-          <!-- 包含表单 -->
-          <template slot-scope="scope" v-if="tableOptions.formItemName">
-            <el-form-item 
-              :prop="tableOptions.formItemName+ '.' + scope.$index + '.' + item.prop"
-              style="maxWidth: 100%; marginBottom: 0;"
-              :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
-            >
+          <template slot-scope="scope" >
+            <!-- 不含表单 -->
+            <template v-if="!tableOptions.formItemName">
               <!-- 下拉 -->
               <template v-if="item.editType === 'time'">
+                <span class="required-icon" v-if="item.required">*</span>
                 <el-date-picker
                   size="small"
                   v-model="scope.row[item[prop]]"
@@ -178,6 +106,7 @@
 
               <!-- 时间 -->
               <template v-else-if="item.editType === 'select'">
+                <span class="required-icon" v-if="item.required">*</span>
                 <el-select
                   v-model="scope.row[item[prop]]"
                   :multiple="item.multiple"
@@ -201,6 +130,7 @@
 
               <!-- 输入框 -->
               <template v-else>
+                <span class="required-icon" v-if="item.required">*</span>
                 <el-input
                   v-model="scope.row[item[prop]]"
                   :disabled="scope.row.$disabledField === item[prop] || item.editLimit"
@@ -214,8 +144,80 @@
                   size="small"
                 ></el-input>
               </template>
-            </el-form-item>
+            </template>
+            <!-- 包含表单 -->
+            <template v-if="tableOptions.formItemName">
+              <!-- 包含表单 -->
+              <el-form-item 
+                :prop="tableOptions.formItemName+ '.' + scope.$index + '.' + item.prop"
+                style="maxWidth: 100%; marginBottom: 0;"
+                :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
+              >
+                <!-- 下拉 -->
+                <template v-if="item.editType === 'time'">
+                  <el-date-picker
+                    size="small"
+                    v-model="scope.row[item[prop]]"
+                    :type="item.timeType || 'daterange'"
+                    range-separator="~"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :value-format="item.timeValueFormat || 'yyyy-MM-dd'"
+                    :editable="false"
+                    prefix-icon="date"
+                    align="right"
+                    unlink-panels
+                    :picker-options="item.pickerOptions || pickerOptions"
+                    @change="onChangeDate"
+                    :default-time="item.defaultTime"
+                    v-if="hackReset"
+                    :disabled="item.disabled"
+                    >
+                  </el-date-picker>
+                </template>
+
+                <!-- 时间 -->
+                <template v-else-if="item.editType === 'select'">
+                  <el-select
+                    v-model="scope.row[item[prop]]"
+                    :multiple="item.multiple"
+                    :clearable="false"
+                    collapse-tags
+                    :placeholder="''"
+                    :disabled="scope.row.$disabledField === item[prop] || item.editLimit"
+                    @change="($event) => item.editChange && item.editChange($event, scope)"
+                    size="small"
+                    @focus="() => item.editFocus && item.editFocus(scope.row[item[prop]], scope)"
+                    :filterable="item.editFilterable"
+                    >
+                    <el-option
+                      v-for="(editItem, index) of item.editOptions"
+                      :key="index"
+                      :label="editItem.text"
+                      :value="editItem.value">
+                    </el-option>
+                  </el-select>
+                </template>
+
+                <!-- 输入框 -->
+                <template v-else>
+                  <el-input
+                    v-model="scope.row[item[prop]]"
+                    :disabled="scope.row.$disabledField === item[prop] || item.editLimit"
+                    :placeholder="item.editPlaceholder"
+                    :step="item.editStep"
+                    :type="item.editType || 'text'"
+                    clearable
+                    :readonly="!!item.editHover"
+                    @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
+                    :min="item.editMin"
+                    size="small"
+                  ></el-input>
+                </template>
+              </el-form-item>
+            </template>
           </template>
+
         </el-table-column>
       </template>
     </template>
