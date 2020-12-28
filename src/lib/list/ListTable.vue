@@ -59,7 +59,7 @@
           size="mini"
           :type="operation.type"
           @click="!operation.disabled && (tableOptions.canEdit !== false || operation.cancelStopEdit) && operation.fn(scope)"
-          :class="(operation.disabled || tableOptions.canEdit === false) && (!operation.cancelStopEdit) ? 'underline span-disabled-color' : 'underline'"
+          :class="[(operation.disabled || tableOptions.canEdit === false) && (!operation.cancelStopEdit) ? 'underline span-disabled-color' : 'underline', operation.class]"
           v-html="operation.asyncHtml && !operation.isHidden ? operation.asyncHtml(scope) : (!operation.isHidden ? operation.name : '')"
         >
           {{operation.name}}

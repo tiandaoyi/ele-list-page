@@ -218,7 +218,11 @@ export default {
                 tableList.splice($index, 1)
               }
             },
-            disabled: false
+            disabled: false,
+            class: 'p0',
+            asyncHtml: ({$index}) => {
+              return $index === 1 ? '1' : ''
+            }
           }, {
             name: '行删除',
             fn: (data) => {
@@ -391,5 +395,9 @@ export default {
     height: 100%;
     margin: 0;
   }
+
+  /* .p0 {
+    padding: 0!important;
+  } */
 
 </style>
