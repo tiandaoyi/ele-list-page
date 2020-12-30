@@ -129,7 +129,12 @@ name: 'EleListPage',
     isLazyLoad: {
       type:  Boolean,
       default: false
-    }
+    },
+    // 列宽拖拽修改
+    headerDragend: {
+      type: Function,
+      default: function () {}
+    },
   },
   components: {
     ListTop,
@@ -155,13 +160,14 @@ name: 'EleListPage',
       }
    },
     //表格列宽修改事件 
-    headerDragend(newWidth, oldWidth, column) {
-      if (column.label !== '序号') {
-        return new Promise((resolve) => {
-          resolve()
-        })
-      }
-    },
+    // headerDragend(newWidth, oldWidth, column, event) {
+    //   console.log(newWidth, oldWidth, column, event)
+    //   // if (column.label !== '序号') {
+    //   //   return new Promise((resolve) => {
+    //   //     resolve()
+    //   //   })
+    //   // }
+    // },
     getHeight(id) {
       return this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight || 0
     },

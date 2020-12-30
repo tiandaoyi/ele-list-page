@@ -16,6 +16,7 @@
     class="ele-list-table"
     :show-summary="!!tableOptions.summaryMethod"
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
+    @header-dragend="headerDragend"
   >
     <!-- <el-table-column
       prop="date"
@@ -74,15 +75,18 @@
           :key="index"
           v-if="item.prop !== 'operation'"
           :prop="item[prop]"
-          :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) ? item[label].length * 20 : null"
         >
+          <!-- 自定义表头 -->
+          <template slot="header">
+            <span><span class="required-icon" v-if="item.required">*</span>{{item[label]}}</span>
+          </template>
           <template slot-scope="scope" >
             <!-- 不含表单 -->
             <template v-if="!tableOptions.formItemName">
               <!-- 下拉 -->
               <template v-if="item.editType === 'time'">
-                <span class="required-icon" v-if="item.required">*</span>
+                <!-- <span class="required-icon" v-if="item.required">*</span> -->
                 <el-date-picker
                   size="small"
                   v-model="scope.row[item[prop]]"
@@ -106,7 +110,7 @@
 
               <!-- 时间 -->
               <template v-else-if="item.editType === 'select'">
-                <span class="required-icon" v-if="item.required">*</span>
+                <!-- <span class="required-icon" v-if="item.required">*</span> -->
                 <el-select
                   v-model="scope.row[item[prop]]"
                   :multiple="item.multiple"
@@ -130,7 +134,7 @@
 
               <!-- 输入框 -->
               <template v-else>
-                <span class="required-icon" v-if="item.required">*</span>
+                <!-- <span class="required-icon" v-if="item.required">*</span> -->
                 <el-input
                   v-model="scope.row[item[prop]]"
                   :disabled="scope.row.$disabledField === item[prop] || item.editLimit"

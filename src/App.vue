@@ -12,6 +12,7 @@
 
         :searchForm="searchForm"
         ref="table"
+        :headerDragend="headerDragend"
       >
       </EleListPage>
   </el-form>
@@ -136,7 +137,8 @@ export default {
               //   console.log(58, value)
               //   return value + '阿哈哈哈'
               // }
-              rules: [{ validator: checkAge, trigger: ['change', 'blur'] }]
+              rules: [{ validator: checkAge, trigger: ['change', 'blur'] }],
+              required: true
               // rules: [{ required: true, trigger: 'change', message: '请选择人员角色'}],
             },
             {
@@ -228,6 +230,9 @@ export default {
     }
   },
   methods: {
+    headerDragend(...arg) {
+      console.log(arg)
+    },
     requestSelectMethods({startPage, pageSize, total, queryValue}, selectList, obj, isClear = false) {
       // 核心 只要input为空或者输入 就清空且初始化
       if (isClear || queryValue === '' || queryValue === null) {
