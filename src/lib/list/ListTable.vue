@@ -236,7 +236,6 @@
           v-if="item.prop !== 'operation'"
           :prop="item[prop]"
           :label="item[label]"
-          :render-header="customFieldColumn"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
           :show-overflow-tooltip="true"
         >
@@ -488,16 +487,7 @@ export default {
         })
       },
       immediate: true
-    },
-    // ['tableOptions.canEdit']: {
-    //   handler(val) {
-    //     this.$nextTick(() => {
-    //       console.log('doLayout')
-    //       this.$refs['el-table']?.doLayout()
-    //     })
-    //   },
-    //   immediate: true
-    // }
+    }
   }
 }    
 

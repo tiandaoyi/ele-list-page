@@ -116,7 +116,7 @@ export default {
       tableOptions: {
         isHiddenMaxHeight: true,
         // 可否编辑取决于此字段
-        canEdit: true,
+        // canEdit: true,
         // maxWidth: true,
         isHiddenCheckBox: false,
         formItemName: 'tableList',

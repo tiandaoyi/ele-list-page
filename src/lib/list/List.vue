@@ -158,16 +158,7 @@ name: 'EleListPage',
       } else {
         this.multipleSelection = val
       }
-   },
-    //表格列宽修改事件 
-    // headerDragend(newWidth, oldWidth, column, event) {
-    //   console.log(newWidth, oldWidth, column, event)
-    //   // if (column.label !== '序号') {
-    //   //   return new Promise((resolve) => {
-    //   //     resolve()
-    //   //   })
-    //   // }
-    // },
+    },
     getHeight(id) {
       return this.$refs[id]?.offsetHeight || this.$refs[id]?.$el?.offsetHeight || 0
     },
@@ -267,11 +258,13 @@ name: 'EleListPage',
       immediate: true
     },
     ['tableCommonOptions.tableOptions.canEdit']: {
-      handler(val) {
+      handler() {
         if (!this.height) {
-          this.$nextTick(() => {
+          this.$nextTick().then(() => {
             this.setTableHeight();
-          });
+          }).then(() => {
+            this.$refs['list-table']?.$refs['el-table']?.doLayout()
+          })
         }
       },
       immediate: true 
