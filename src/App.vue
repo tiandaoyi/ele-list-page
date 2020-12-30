@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+      <button @click="changeWidth">手动改变列宽</button>
+
     <el-form :model="{tableList}" >
 
       <EleListPage
@@ -14,6 +16,7 @@
         ref="table"
         :headerDragend="headerDragend"
       >
+
       </EleListPage>
   </el-form>
 
@@ -129,10 +132,10 @@ export default {
             //   width: 170,
             // },
             {
-              label: '名称',
+              label: '哈哈名称',
               prop: 'name',
               // editLimit: true,
-              width: 170,
+              // width: 170,
               // asyncHtml: (value) => {
               //   console.log(58, value)
               //   return value + '阿哈哈哈'
@@ -145,7 +148,6 @@ export default {
               label: '名称2',
               prop: 'categoryName',
               // editLimit: true,
-              width: 170,
               textAlign: 'right', 
               asyncHtml: (value) => {
                 console.log(58, value)
@@ -230,6 +232,11 @@ export default {
     }
   },
   methods: {
+    changeWidth() {
+      const curr = this.tableCommonOptions.tableOptions.canEdit
+      // this.tableCommonOptions.tableOptions.canEdit = !curr
+      this.$set(this.tableCommonOptions.tableOptions, 'canEdit', !curr)
+    },
     headerDragend(...arg) {
       console.log(arg)
     },

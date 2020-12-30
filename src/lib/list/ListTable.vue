@@ -16,7 +16,7 @@
     class="ele-list-table"
     :show-summary="!!tableOptions.summaryMethod"
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
-    @header-dragend="headerDragend"
+    @header-dragend="transferHeaderDragend"
   >
     <!-- <el-table-column
       prop="date"
@@ -75,12 +75,14 @@
           :key="index"
           v-if="item.prop !== 'operation'"
           :prop="item[prop]"
-          :width="item.width  ? item.width : (item[label].length >= 5) ? item[label].length * 20 : null"
+          minWidth="70"
+          :render-header="customFieldColumn"
+          :width="item.width  ? item.width : ((+(!!item.required) + item[label].length) >= 5) ? (item[label].length +(!!item.required)) * 20 : null"
         >
           <!-- 自定义表头 -->
-          <template slot="header">
+          <!-- <template slot="header">
             <span><span class="required-icon" v-if="item.required">*</span>{{item[label]}}</span>
-          </template>
+          </template> -->
           <template slot-scope="scope" >
             <!-- 不含表单 -->
             <template v-if="!tableOptions.formItemName">
@@ -368,11 +370,31 @@ export default {
     }
   },
   methods: {
+    transferHeaderDragend(...args) {
+      this.headerDragend(...args)
+      this.$nextTick(() => {
+        this.$refs['el-table']?.doLayout()
+      })
+    },
     onChangeDate(e) {
       this.hackReset = false
       this.$nextTick(() => {
         this.hackReset = true
       })
+    },
+    // 自定义表头
+    customFieldColumn(h, {column, $index}) {
+      const currentItem = this.tableOptions.columnsData.showColumns.find(item => item.prop === column.property)
+      // 修改且列为必填时 增加必填
+      return this.tableOptions.canEdit && currentItem.required ? 
+        ([
+          h('span', {
+            class: 'required-icon',
+          }, '*'),
+          currentItem?.label || ''
+        ])
+        :
+        currentItem?.label || ''
     },
     headerStyle({rowIndex,columnIndex,row,column}) {
       return {
@@ -465,7 +487,16 @@ export default {
         })
       },
       immediate: true
-    }
+    },
+    // ['tableOptions.canEdit']: {
+    //   handler(val) {
+    //     this.$nextTick(() => {
+    //       console.log('doLayout')
+    //       this.$refs['el-table']?.doLayout()
+    //     })
+    //   },
+    //   immediate: true
+    // }
   }
 }    
 
