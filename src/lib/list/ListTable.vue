@@ -75,7 +75,7 @@
           :key="index"
           v-if="item.prop !== 'operation'"
           :prop="item[prop]"
-          minWidth="70"
+          :label="item[label]"
           :render-header="customFieldColumn"
           :width="item.width  ? item.width : ((+(!!item.required) + item[label].length) >= 5) ? (item[label].length +(!!item.required)) * 20 : null"
         >
@@ -236,6 +236,7 @@
           v-if="item.prop !== 'operation'"
           :prop="item[prop]"
           :label="item[label]"
+          :render-header="customFieldColumn"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
           :show-overflow-tooltip="true"
         >
@@ -384,9 +385,9 @@ export default {
     },
     // 自定义表头
     customFieldColumn(h, {column, $index}) {
-      const currentItem = this.tableOptions.columnsData.showColumns.find(item => item.prop === column.property)
+      const currentItem = this.tableOptions?.columnsData?.showColumns?.find(item => item.prop === column.property)
       // 修改且列为必填时 增加必填
-      return this.tableOptions.canEdit && currentItem.required ? 
+      return this.tableOptions?.canEdit && currentItem?.required ? 
         ([
           h('span', {
             class: 'required-icon',

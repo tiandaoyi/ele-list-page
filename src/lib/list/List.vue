@@ -265,6 +265,16 @@ name: 'EleListPage',
         }
       },
       immediate: true
+    },
+    ['tableCommonOptions.tableOptions.canEdit']: {
+      handler(val) {
+        if (!this.height) {
+          this.$nextTick(() => {
+            this.setTableHeight();
+          });
+        }
+      },
+      immediate: true 
     }
   },
   computed: {
