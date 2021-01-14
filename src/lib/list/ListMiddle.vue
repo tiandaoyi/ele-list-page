@@ -114,11 +114,11 @@ export default {
           if (item.filterType) {
             const multipleSelection = this.multipleSelection;
             // 失效和生效按钮需要判断multipleSelection
-            const disabled = (item.filterType === 'valid' || item.filterType === 'invalid') ? (item.disabled || !(multipleSelection && multipleSelection.length)) : item.disabled ;
+            const disabled = (item.filterType === 'valid' || item.filterType === 'invalid' || item.isNoCheck) ? (item.disabled || !(multipleSelection && multipleSelection.length)) : item.disabled ;
             newObjectList.push({
               name: item.name || setButtonOptions[item.filterType].name,
               filterType: item.filterType,
-              type: setButtonOptions[item.filterType].type,
+              type: item.type || setButtonOptions[item.filterType].type,
               isHidden: item.isHidden || false,
               fn: item.fn || function () {
                 setButtonOptions[item.filterType] && setButtonOptions[item.filterType].fn && setButtonOptions[item.filterType].fn()

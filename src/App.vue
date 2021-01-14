@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-      <button @click="changeWidth">手动改变列宽</button>
-
+      <!-- <button @click="changeWidth">手动改变列宽</button>
+      <div @click="toggleSelection([tableList[0]])">测试</div>
+      <div @click="getAllSelection">获取所有勾选的数据</div> -->
     <el-form :model="{tableList}" >
 
       <EleListPage
@@ -15,6 +16,7 @@
         :searchForm="searchForm"
         ref="table"
         :headerDragend="headerDragend"
+        :selectionChange="selectionChange"
       >
 
       </EleListPage>
@@ -101,6 +103,7 @@ export default {
         right: [
           {
             filterType: "search",
+            type: '',
             fn: () => {
               this.loadTableData(true);
             },
@@ -114,12 +117,42 @@ export default {
         ]
       },
       tableOptions: {
-        isHiddenMaxHeight: true,
-        // 可否编辑取决于此字段
-        // canEdit: true,
-        // maxWidth: true,
         isHiddenCheckBox: false,
-        formItemName: 'tableList',
+        isHiddenOrder: false,
+        summaryMethod(param) {
+          const { columns, data } = param;
+          const sums = [];
+          columns.forEach((column, index) => {
+            if (index === 0) {
+              sums[index] = "合计";
+              return;
+            }
+            const countColumnArr = [4];
+            if (countColumnArr.includes(index)) {
+              // const values = data.map((item) =>
+                // Number(delcommafy(item[column.property]))
+              // );
+              // if (!values.every((value) => isNaN(value))) {
+              //   sums[index] = values.reduce((prev, curr) => {
+              //     const value = Number(curr);
+              //     if (!isNaN(value)) {
+              //       return prev + curr;
+              //     } else {
+              //       return prev;
+              //     }
+              //   }, 0);
+              //   // let newSum = comdify(sums[index])
+              //   sums[index] = newSum += "";
+              // } else {
+              //   sums[index] = "N/A";
+              // }
+              sums[index] = 'N/A'
+            } else {
+              return;
+            }
+          });
+          return sums;
+        },
         columnsData: {
           showColumns: [
             // {
@@ -148,6 +181,7 @@ export default {
               label: '名称2',
               prop: 'categoryName',
               // editLimit: true,
+              width: 500,
               textAlign: 'right', 
               asyncHtml: (value) => {
                 console.log(58, value)
@@ -214,7 +248,7 @@ export default {
         total: 0,
         pageNo: 1,
         pageSize: 20,
-        isHidden: true
+        isHidden: false
       }
     };
     return {
@@ -232,6 +266,25 @@ export default {
     }
   },
   methods: {
+    toggleSelection(rows) {
+      console.log(rows)
+      console.log(this.tableList)
+      if (rows) {
+        console.log(rows)
+        rows.forEach(row => {
+          this.$refs.table.$refs['list-table'].$refs['el-table'].toggleRowSelection(row)
+          // this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
+    getAllSelection() {
+      console.log(this.$refs.table.multipleSelection)
+    },
+    selectionChange(e) {
+      console.log(e)
+    },
     changeWidth() {
       const curr = this.tableCommonOptions.tableOptions.canEdit
       // this.tableCommonOptions.tableOptions.canEdit = !curr
