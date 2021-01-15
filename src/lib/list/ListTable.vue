@@ -18,6 +18,9 @@
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
     @header-dragend="transferHeaderDragend"
   >
+    <template #empty>
+      <slot name="table-empty"></slot>
+    </template>
     <!-- <el-table-column
       prop="date"
       label="日期"

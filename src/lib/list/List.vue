@@ -43,6 +43,9 @@
       :isLazyLoad="isLazyLoad"
     >
       <slot name="table"></slot>
+      <template #table-empty>
+        <slot name="table-empty"></slot>
+      </template>
     </ListTable>
 
     <!-- 分页 -->

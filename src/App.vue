@@ -18,6 +18,9 @@
         :headerDragend="headerDragend"
         :selectionChange="selectionChange"
       >
+        <template #table-empty>
+          父组件的内1容
+        </template>
 
       </EleListPage>
   </el-form>
@@ -375,15 +378,15 @@ export default {
       }
       console.log(searchForm)
 
-      getTableList(request).then(({data: {data: tableList, total}}) => {
+      // getTableList(request).then(({data: {data: tableList, total}}) => {
 
-        // 表格数据更新
-        this.tableList = tableList || [],
-        this.tableCommonOptions.pagination = {
-          ...this.tableCommonOptions.pagination,
-          total
-        }
-      });
+      //   // 表格数据更新
+      //   this.tableList = tableList || [],
+      //   this.tableCommonOptions.pagination = {
+      //     ...this.tableCommonOptions.pagination,
+      //     total
+      //   }
+      // });
       // this.tableList = [{name: ''}]
 
     },
