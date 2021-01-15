@@ -122,6 +122,11 @@ export default {
       tableOptions: {
         isHiddenCheckBox: false,
         isHiddenOrder: false,
+        // selectable: (row, index) => {
+        //   console.log(row)
+        //   console.log(index)
+        //   return index % 2 === 0
+        // },
         summaryMethod(param) {
           const { columns, data } = param;
           const sums = [];
@@ -187,7 +192,6 @@ export default {
               width: 500,
               textAlign: 'right', 
               asyncHtml: (value) => {
-                console.log(58, value)
                 return `<span style="color:red">${value}</span>`
               },
               rules: [{ required: true, trigger: 'change' }]
@@ -378,15 +382,15 @@ export default {
       }
       console.log(searchForm)
 
-      // getTableList(request).then(({data: {data: tableList, total}}) => {
+      getTableList(request).then(({data: {data: tableList, total}}) => {
 
-      //   // 表格数据更新
-      //   this.tableList = tableList || [],
-      //   this.tableCommonOptions.pagination = {
-      //     ...this.tableCommonOptions.pagination,
-      //     total
-      //   }
-      // });
+        // 表格数据更新
+        this.tableList = tableList || [],
+        this.tableCommonOptions.pagination = {
+          ...this.tableCommonOptions.pagination,
+          total
+        }
+      });
       // this.tableList = [{name: ''}]
 
     },

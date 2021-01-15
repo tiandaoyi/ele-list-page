@@ -34,6 +34,7 @@
       v-if="reflashCol && !tableOptions.isHiddenCheckBox"
       :fixed="tableOptions.isHiddenFixed ? null : 'left'"
       :reserve-selection="isKeepSelect"
+      :selectable="tableOptions.selectable"
       >
     </el-table-column>
 
