@@ -118,7 +118,7 @@ export default {
             newObjectList.push({
               name: item.name || setButtonOptions[item.filterType].name,
               filterType: item.filterType,
-              type: item.type || setButtonOptions[item.filterType].type,
+              type: setButtonOptions[item.filterType].type || item.type,
               isHidden: item.isHidden || false,
               fn: item.fn || function () {
                 setButtonOptions[item.filterType] && setButtonOptions[item.filterType].fn && setButtonOptions[item.filterType].fn()

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div>asdasdsada</div>
       <!-- <button @click="changeWidth">手动改变列宽</button>
       <div @click="toggleSelection([tableList[0]])">测试</div>
       <div @click="getAllSelection">获取所有勾选的数据</div> -->
@@ -56,6 +57,7 @@ export default {
       }, 1000);
     };
     const tableCommonOptions = {
+      isHiddenMaxHeight: true,
       searchOptions: {
         isAllHidden: false,
         searchData: [
@@ -117,6 +119,12 @@ export default {
               this.searchForm = {};
             },
           },
+          {
+            name:  '添加行',
+            fn: () => {
+              this.tableList.push({x:1})
+            }
+          }
         ]
       },
       tableOptions: {
