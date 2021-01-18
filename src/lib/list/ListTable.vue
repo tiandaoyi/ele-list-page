@@ -3,7 +3,7 @@
     v-loading="listLoading"
     :cell-style="{'text-align':'center','padding': '6px 0'}"
     :header-cell-style="tableOptions.headerStyle || headerStyle"
-    border
+    :border="!tableOptions.isHiddenBorder"
     :data="tableList"
     style="width: 100%"
     :empty-text="'暂无数据'"
