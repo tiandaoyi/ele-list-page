@@ -233,7 +233,8 @@ export default {
                 defaultTime: item.searchType === 'time' ? item.defaultTime : null,
                 selectFetch: item.selectFetch || null,
                 props: item.props || {},
-                loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null
+                loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null,
+                clearable: item.clearable
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
