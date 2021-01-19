@@ -100,8 +100,10 @@
             v-model="currentSearchForm[item.searchField]"
             :options="item.selectList"
             :placeholder="item.placeholder"
-            size="small"
+            :size="item.size || 'small'"
             :props="item.props"
+            :disabled="item.disabled"
+            :clearable="item.clearable"
             @change="item.changeFunction && item.changeFunction()"
           >
           </el-cascader>

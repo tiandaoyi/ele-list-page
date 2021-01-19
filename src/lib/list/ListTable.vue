@@ -404,7 +404,6 @@ export default {
       return {
         background:'#EEEFF3',
         'text-align':'center',
-        'font-size':'12px',
         color: '#505050',
         'font-size': '14px',       
       }
