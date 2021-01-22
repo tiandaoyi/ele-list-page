@@ -3,7 +3,7 @@
     <div class="ele-list-top-left" v-if="searchList && searchList.length" :class="{'show-all-search': isShowAllSearch}">
       <template v-for="(item, index) of searchList">
         <!--input输入框-->
-        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'textarea' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-input
             v-model="currentSearchForm[item.searchField]"
             :type="item.searchType"
@@ -13,6 +13,8 @@
             :readonly="!!item.callFunction"
             :disabled="item.disabled"
             @focus="item.callFunction && item.callFunction()"
+            :autosize="item.autosize"
+            :rows="item.rows"
           >
           </el-input>
         </el-form-item>
@@ -199,7 +201,8 @@ export default {
           number: 'number',
           switch: 'switch',
           cascader: 'cascader',
-          doubleInput: 'doubleInput'
+          doubleInput: 'doubleInput',
+          textarea: 'textarea'
         }
         const PLACEHOLDER_TYPE_ENUM = {
           input: '请输入',
@@ -234,7 +237,9 @@ export default {
                 selectFetch: item.selectFetch || null,
                 props: item.props || {},
                 loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null,
-                clearable: item.clearable
+                clearable: item.clearable,
+                rows: item.rows,
+                autosize: item.autosize
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {

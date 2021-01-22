@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div style="height: 1200px">
+    <!-- <div style="height: 1200px">
       ssasdasdsadaa
-    </div>
+    </div> -->
       <!-- <button @click="changeWidth">手动改变列宽</button>
       <div @click="toggleSelection([tableList[0]])">测试</div>
       <div @click="getAllSelection">获取所有勾选的数据</div> -->
-    <el-form :model="{tableList}" >
+    <!-- <el-form :model="{tableList}" > -->
 
       <EleListPage
         :tableCommonOptions="tableCommonOptions"
@@ -26,7 +26,7 @@
         </template>
 
       </EleListPage>
-  </el-form>
+  <!-- </el-form> -->
 
   </div>
 </template>
@@ -100,6 +100,12 @@ export default {
             name: '设备编号2',
             searchField: 'equNo2',
             searchType: 'time',
+          },
+          {
+            name: '测试文本域',
+            searchField: 'xx',
+            searchType: 'textarea',
+            width: '100%'
           }
         ],
       },
