@@ -240,7 +240,7 @@
           :prop="item[prop]"
           :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
-          :show-overflow-tooltip="true"
+          :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
         >
           <template slot-scope="scope">
             <span 

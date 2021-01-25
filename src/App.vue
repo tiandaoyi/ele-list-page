@@ -139,6 +139,8 @@ export default {
         isHiddenMaxHeight: true,
         isHiddenCheckBox: false,
         isHiddenOrder: false,
+        isHiddenTooltip: true,
+
         // selectable: (row, index) => {
         //   console.log(row)
         //   console.log(index)
