@@ -189,6 +189,9 @@ name: 'EleListPage',
       }
       
     },
+    doLayout() {
+      this.$refs['list-table']?.$refs['el-table']?.doLayout()
+    }
   },
   mounted() {
     // 如果没传height， 自适应
@@ -276,6 +279,9 @@ name: 'EleListPage',
   computed: {
     isLazyLoadStyle() {
       return this.isLazyLoad ? '0': ''
+    },
+    table() {
+      return this.$refs['list-table']?.$refs['el-table'] || {}
     }
   }
 

@@ -131,6 +131,14 @@ export default {
             fn: () => {
               this.tableList.push({x:1})
             }
+          },
+          {
+            name:  '测试功能',
+            fn: () => {
+              // this.tableList.push({x:1})
+              // console.log(this.$refs.table.doLayout())
+              // this.$refs.table.table.doLayout()
+            }
           }
         ]
       },
