@@ -304,7 +304,7 @@ export default {
     },
     //表格固定高度
     height: {
-      type: Number,
+      type: [Number,String]
     },
     tableOptions: {
       type: Object,

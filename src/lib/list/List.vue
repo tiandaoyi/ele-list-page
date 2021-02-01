@@ -102,7 +102,7 @@ name: 'EleListPage',
       type: Object
     },
     height: {
-      type: Number,
+      type: [Number,String],
       default: null
     },
     isSimpleCutHeight: {
