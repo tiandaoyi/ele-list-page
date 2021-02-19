@@ -3,9 +3,9 @@
     <!-- <div style="height: 1200px">
       ssasdasdsadaa
     </div> -->
-      <!-- <button @click="changeWidth">手动改变列宽</button>
+      <!-- <button @click="changeWidth">手动改变列宽</button> -->
       <div @click="toggleSelection([tableList[0]])">测试</div>
-      <div @click="getAllSelection">获取所有勾选的数据</div> -->
+      <div @click="getAllSelection">获取所有勾选的数据</div>
     <!-- <el-form :model="{tableList}" > -->
 
       <EleListPage
@@ -19,7 +19,7 @@
         :searchForm="searchForm"
         ref="table"
         :headerDragend="headerDragend"
-        :selectionChange="selectionChange"
+        @selectionChange="selectionChange"
       >
         <template #table-empty>
           父组件的内1容
@@ -316,8 +316,12 @@ export default {
     getAllSelection() {
       console.log(this.$refs.table.multipleSelection)
     },
-    selectionChange(e) {
-      console.log(e)
+    selectionChange(list) {
+      if (list.length > 1) {
+        this.$nextTick(() => {
+          this.$refs.table.table.toggleRowSelection(list[0])
+        })
+      }
     },
     changeWidth() {
       const curr = this.tableCommonOptions.tableOptions.canEdit
