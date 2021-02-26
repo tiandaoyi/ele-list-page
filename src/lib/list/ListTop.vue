@@ -58,6 +58,8 @@
             :remote="!!item.selectFetch"
             :remote-method="item.selectFetch"
             v-loadMore="item.loadMore"
+            :popper-class="item.class"
+            :reserve-keyword="item.reserveKeyword"
           >
             <el-option
               v-for="(selectOption,index) of item.selectList"
@@ -239,7 +241,9 @@ export default {
                 loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null,
                 clearable: item.clearable,
                 rows: item.rows,
-                autosize: item.autosize
+                autosize: item.autosize,
+                class: item.class,
+                reserveKeyword: item.reserveKeyword
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
