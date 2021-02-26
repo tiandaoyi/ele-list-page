@@ -19,7 +19,7 @@
     @header-dragend="transferHeaderDragend"
   >
     <template #empty>
-      <img v-if="tableOptions.defaultImage" src="@/assets/empty.png" alt="暂无数据" />
+      <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
       <slot name="table-empty" v-else></slot>
     </template>
     <!-- <el-table-column
@@ -494,7 +494,7 @@ export default {
     tableList: {
       handler(val) {
         // 解决表格左下角问题
-        if (tableOptions.isUpdateTable) {
+        if (this.tableOptions.isUpdateTable) {
           this.$nextTick(() => {
             this.$refs['el-table']?.doLayout()
           })

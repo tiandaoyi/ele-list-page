@@ -154,7 +154,8 @@ export default {
         isHiddenCheckBox: false,
         isHiddenOrder: false,
         isHiddenTooltip: true,
-        defaultImage: false,
+        defaultImage: true,
+        isUpdateTable: true,
 
         // selectable: (row, index) => {
         //   console.log(row)
@@ -308,10 +309,7 @@ export default {
   },
   methods: {
     toggleSelection(rows) {
-      console.log(rows)
-      console.log(this.tableList)
       if (rows) {
-        console.log(rows)
         rows.forEach(row => {
           this.$refs.table.$refs['list-table'].$refs['el-table'].toggleRowSelection(row)
           // this.$refs.multipleTable.toggleRowSelection(row);
@@ -423,8 +421,8 @@ export default {
       getTableList(request).then(({data: {data: tableList, total}}) => {
 
         // 表格数据更新
-        this.tableList = tableList || [],
-        // this.tableList = [],
+        // this.tableList = tableList || [],
+        this.tableList = []
         this.tableCommonOptions.pagination = {
           ...this.tableCommonOptions.pagination,
           total
