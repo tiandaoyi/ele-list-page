@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <!-- <div style="height: 1200px">
+  <div id="app" style="display: flex;flex-direction: column;">
+    <div style="height: 300px">
       ssasdasdsadaa
-    </div> -->
+    </div>
       <!-- <button @click="changeWidth">手动改变列宽</button>
       <div @click="toggleSelection([tableList[0]])">测试</div>
       <div @click="getAllSelection">获取所有勾选的数据</div> -->
@@ -20,10 +20,16 @@
         ref="table"
         :headerDragend="headerDragend"
         :selectionChange="selectionChange"
+        style="flex: 1"
       >
-        <template #table-empty>
+        <!-- <template #table-empty>
           父组件的内1容
-        </template>
+        </template> -->
+        <!-- <template #table-empty>
+          <div>
+          <img src="@/assets/empty.png" alt="暂无数据" />
+          </div>
+        </template> -->
 
       </EleListPage>
   <!-- </el-form> -->
@@ -63,7 +69,7 @@ export default {
         isAllHidden: false,
         searchData: [
           {
-            name: '设备编号',
+            name: '设备编号11',
             searchField: 'equNo',
             searchType: 'time',
             timeType: 'datetimerange',
@@ -144,10 +150,11 @@ export default {
       },
       tableOptions: {
         isHiddenBorder: true,
-        isHiddenMaxHeight: true,
+        // isHiddenMaxHeight: true,
         isHiddenCheckBox: false,
         isHiddenOrder: false,
         isHiddenTooltip: true,
+        defaultImage: false,
 
         // selectable: (row, index) => {
         //   console.log(row)
@@ -282,7 +289,7 @@ export default {
         total: 0,
         pageNo: 1,
         pageSize: 20,
-        isHidden: true
+        // isHidden: true
       }
     };
     return {
@@ -413,6 +420,7 @@ export default {
 
         // 表格数据更新
         this.tableList = tableList || [],
+        // this.tableList = [],
         this.tableCommonOptions.pagination = {
           ...this.tableCommonOptions.pagination,
           total

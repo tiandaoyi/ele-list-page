@@ -19,7 +19,8 @@
     @header-dragend="transferHeaderDragend"
   >
     <template #empty>
-      <slot name="table-empty"></slot>
+      <img v-if="tableOptions.defaultImage" src="@/assets/empty.png" alt="暂无数据" />
+      <slot name="table-empty" v-else></slot>
     </template>
     <!-- <el-table-column
       prop="date"
@@ -489,7 +490,18 @@ export default {
         })
       },
       immediate: true
-    }
+    },
+    tableList: {
+      handler(val) {
+        // 解决表格左下角问题
+        if (tableOptions.isUpdateTable) {
+          this.$nextTick(() => {
+            this.$refs['el-table']?.doLayout()
+          })
+        }
+      },
+      immediate: true
+    },
   }
 }    
 
