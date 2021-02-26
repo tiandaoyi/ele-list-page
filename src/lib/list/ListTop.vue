@@ -109,6 +109,7 @@
             :disabled="item.disabled"
             :clearable="item.clearable"
             @change="item.changeFunction && item.changeFunction()"
+            :filterable="item.isFilterable"
           >
           </el-cascader>
         </el-form-item>
