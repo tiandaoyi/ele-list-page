@@ -112,6 +112,26 @@ export default {
             searchField: 'xx',
             searchType: 'textarea',
             width: '100%'
+          },
+          {
+            name: '测试下拉框',
+            searchField: 'xx',
+            searchType: 'select',
+            selectList: [{
+              value: '1',
+              text: 'a1'
+            },{
+              value: '2',
+              text: 'a2'
+            }],
+            width: '100%',
+            focus: (...arg) => {
+              console.log('focus', arg)
+            },
+            change: (...arg) => {
+              console.log('change', arg)
+            }
+
           }
         ],
       },

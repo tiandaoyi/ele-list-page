@@ -60,6 +60,10 @@
             v-loadMore="item.loadMore"
             :popper-class="item.class"
             :reserve-keyword="item.reserveKeyword"
+            @blur="item.clear && item.blur($event)"
+            @clear="item.clear && item.clear()"
+            @focus="item.focus && item.focus($event)"
+            @change="item.change && item.change($event)"
           >
             <el-option
               v-for="(selectOption,index) of item.selectList"
@@ -244,7 +248,11 @@ export default {
                 rows: item.rows,
                 autosize: item.autosize,
                 class: item.class,
-                reserveKeyword: item.reserveKeyword
+                reserveKeyword: item.reserveKeyword,
+                change: item.change,
+                focus: item.focus,
+                clear: item.clear,
+                blur: item.blur
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
