@@ -92,6 +92,7 @@
             :default-time="item.defaultTime"
             v-if="hackReset"
             :disabled="item.disabled"
+            :clearable="!item.isNoClearable"
             >
           </el-date-picker>
         </el-form-item>
