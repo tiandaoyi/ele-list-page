@@ -73,6 +73,19 @@
       </template>
     </el-table-column>
 
+    <!-- switch操作列 -->
+    <el-table-column v-if="tableOptions.switchCols" :label="tableOptions.switchCols.name">
+      <template slot-scope="scope">
+        <el-switch
+          v-model="scope.row[tableOptions.switchCols.prop]"
+          :active-text="tableOptions.switchCols.activeText"
+          :disabled="tableOptions.switchCols.disabled"
+          @change="tableOptions.switchCols.change && tableOptions.switchCols.change($event, scope.row)"
+          :inactive-text="tableOptions.switchCols.inactiveText">
+        </el-switch>
+      </template>
+    </el-table-column>
+
     <template v-if="tableOptions.canEdit">
       <!-- 可修改常规列 -->
       <template v-for="(item, index) of tableOptions.columnsData.showColumns">
