@@ -74,12 +74,19 @@
     </el-table-column>
 
     <!-- switch操作列 -->
-    <el-table-column v-if="tableOptions.switchCols" :label="tableOptions.switchCols.name">
+    <el-table-column
+      v-if="tableOptions.switchCols && !tableOptions.switchCols.isHidden"
+      :label="tableOptions.switchCols.name"
+      :width="tableOptions.switchCols.width || 120"
+      >
       <template slot-scope="scope">
         <el-switch
           v-model="scope.row[tableOptions.switchCols.prop]"
-          :active-text="tableOptions.switchCols.activeText"
-          :disabled="tableOptions.switchCols.disabled"
+          :width="tableOptions.switchCols.switchWidth"
+          :active-value="tableOptions.switchCols.activeValue"
+          :inactive-value="tableOptions.switchCols.inactiveValue"
+          :active-text="scope.row[tableOptions.switchCols.activeTextKey] || tableOptions.switchCols.activeText"
+          :disabled="tableOptions.switchCols.disabled || scope.row[tableOptions.switchCols.disabledKey]"
           @change="tableOptions.switchCols.change && tableOptions.switchCols.change($event, scope.row)"
           :inactive-text="tableOptions.switchCols.inactiveText">
         </el-switch>
