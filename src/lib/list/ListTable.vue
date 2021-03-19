@@ -76,12 +76,14 @@
     <!-- switch操作列 -->
     <el-table-column
       v-if="tableOptions.switchCols && !tableOptions.switchCols.isHidden"
-      :label="tableOptions.switchCols.name"
+      :prop="headerHandleOperation.prop"
+      :label="tableOptions.switchCols.title"
       :width="tableOptions.switchCols.width || 120"
+      :fixed="tableOptions.isHiddenFixed ? null : 'left'"
       >
       <template slot-scope="scope">
         <el-switch
-          v-model="scope.row[tableOptions.switchCols.prop]"
+          v-model="scope.row[tableOptions.switchCols.key]"
           :width="tableOptions.switchCols.switchWidth"
           :active-value="tableOptions.switchCols.activeValue"
           :inactive-value="tableOptions.switchCols.inactiveValue"

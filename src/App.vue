@@ -169,6 +169,39 @@ export default {
         ]
       },
       tableOptions: {
+        switchCols: {
+          title: '设备交接',// 标题
+          key: 'equipmentReceipt',// 后端字段
+          prop: 'equipmentReceipt',// 对应列的字段名
+          activeTextKey: '_equipmentReceipt', // 接口返回的数据要自己转的字段
+          disabledKey: '_disabled',// 禁用的字段, 需要自己处理
+          activeValue: 1,// 生效的值
+          inactiveValue: 0,// 失效的值
+          change: (value, rows) => {
+            // const {uuid, equipmentReceipt, name, state} = rows
+            // rows.equipmentReceipt = equipmentReceipt === 1 ? 0 : 1
+            // const params = {
+            //   equipmentReceipt,
+            //   uuid,
+            // }
+            // if (state === 0) { // 正常情况下不会出现这个
+            //   this.$message.warning('司机被禁用,不可操作')
+            //   return
+            // }
+            // this.$confirm(`确认为司机${name}${equipmentReceipt !== 1 ? '关闭' : '开启'}设备交接？`, '提示', {
+            //   confirmButtonText: '确定',
+            //   cancelButtonText: '取消',
+            //   type: 'warning'
+            // }).then(() => {
+            //   this.$http.post(this.$CONFIG.car.changeEquipmentReceipt, params).then(({data, msg}) => {
+            //   this.$message.success('操作成功')
+            //   this.loadTableData()
+            // })
+            // }).catch(() => {})
+          },
+          disabled: false,
+          width: 120
+        },
         // switchCols: {
         //   name: '设备交接',
         //   prop: 'disabled',
