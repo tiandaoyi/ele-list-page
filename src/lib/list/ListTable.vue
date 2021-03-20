@@ -244,7 +244,10 @@
                     @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
                     :min="item.editMin"
                     size="small"
-                  ></el-input>
+                  >
+                    <template slot="append" v-if="item.appendKey">{{scope.row[item[appendKey]]}}</template>
+                    <template slot="prepend" v-if="item.prependKey">{{scope.row[item[prependKey]]}}</template>
+                  </el-input>
                 </template>
               </el-form-item>
             </template>
