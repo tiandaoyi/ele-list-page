@@ -174,6 +174,7 @@
                   @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
                   :min="item.editMin"
                   size="small"
+                  @change="($event) => item.editChange && item.editChange($event, scope)"
                 >
                   <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                   <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
@@ -188,7 +189,7 @@
                 style="maxWidth: 100%; marginBottom: 0;"
                 :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
               >
-                <!-- 下拉 -->
+                <!-- 时间 -->
                 <template v-if="item.editType === 'time'">
                   <el-date-picker
                     size="small"
@@ -211,7 +212,7 @@
                   </el-date-picker>
                 </template>
 
-                <!-- 时间 -->
+                <!-- 下拉 -->
                 <template v-else-if="item.editType === 'select'">
                   <el-select
                     v-model="scope.row[item[prop]]"
@@ -247,6 +248,7 @@
                     @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
                     :min="item.editMin"
                     size="small"
+                    @change="($event) => item.editChange && item.editChange($event, scope)"
                   >
                     <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                     <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
