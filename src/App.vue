@@ -169,6 +169,7 @@ export default {
         ]
       },
       tableOptions: {
+        canEdit: true,
         switchCols: {
           title: '设备交接',// 标题
           key: 'equipmentReceipt',// 后端字段
@@ -282,9 +283,15 @@ export default {
               //   return value + '阿哈哈哈'
               // }
               rules: [{ validator: checkAge, trigger: ['change', 'blur'] }],
-              required: true
-              // rules: [{ required: true, trigger: 'change', message: '请选择人员角色'}],
+              required: true,
             },
+            {
+              label: '单重',
+              prop: 'weight',
+              width: 170,
+              appendKey: 'categoryName'
+            },
+              // rules: [{ required: true, trigger: 'change', message: '请选择人员角色'}],
             {
               label: '名称2',
               prop: 'categoryName',
