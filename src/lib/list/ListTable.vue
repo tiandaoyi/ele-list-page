@@ -281,7 +281,7 @@
               @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope)"
               v-html="item.asyncHtml 
               ? item.asyncHtml(scope.row[item[prop]], scope) 
-              : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : scope.row[item[prop]])"
+              : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
             >
             </span>
           </template>

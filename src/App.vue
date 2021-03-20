@@ -169,7 +169,7 @@ export default {
         ]
       },
       tableOptions: {
-        canEdit: true,
+        // canEdit: true,
         switchCols: {
           title: '设备交接',// 标题
           key: 'equipmentReceipt',// 后端字段
@@ -287,7 +287,7 @@ export default {
             },
             {
               label: '单重',
-              prop: 'weight',
+              prop: 'name',
               width: 170,
               appendKey: 'categoryName'
             },
