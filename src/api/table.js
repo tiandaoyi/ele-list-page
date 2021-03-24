@@ -93,6 +93,8 @@ function getTableList () {
         "status": 1,
         "statusDesc": "已使用",
         "erpName": "123123",
+        _underline: true,
+        _tooltip: true
       }, {
         "code": 1234803,
         "name": "uu233232",
@@ -101,6 +103,9 @@ function getTableList () {
         "categoryName": "哈哈12211212122112121",
         "spec": "uu",
         "accTypeDesc": "特殊字段xx",
+        "erpName": "true",
+        _underline: false,
+        _tooltip: false
       }, {
         "code": 1234802,
         "name": "yy1221",

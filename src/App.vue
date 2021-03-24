@@ -219,7 +219,7 @@ export default {
         // isHiddenMaxHeight: true,
         isHiddenCheckBox: false,
         isHiddenOrder: false,
-        isHiddenTooltip: true,
+        // isHiddenTooltip: true,
         defaultImage: true,
         isUpdateTable: true,
 
@@ -284,6 +284,9 @@ export default {
               // }
               rules: [{ validator: checkAge, trigger: ['change', 'blur'] }],
               required: true,
+              editChange: (value, {$index, row}) => {
+                console.log(value)
+              }
             },
             {
               label: '单重',
@@ -308,6 +311,18 @@ export default {
                 // return [{ required: true, trigger: 'blur', message: '请选择证件类型！'}]
               // },
             },
+            {
+              label: 'enn',
+              prop: 'erpName',
+              tooltip: '点击查看xx',
+              click(e) {
+                // 判断下是不是符合规则
+                console.log('320', e)
+              },
+              class: 'underline',
+              tooltipKey: '_tooltip',
+              underlineKey: '_underline'
+            }
             // {
             //   label: '时间',
             //   prop: 'time',
@@ -559,4 +574,9 @@ export default {
   .ele-list-wrapper {
     height: initial;
   }
+
+  .test-class {
+    color: blue;
+  }
+
 </style>

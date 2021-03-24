@@ -22,12 +22,6 @@
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
       <slot name="table-empty" v-else></slot>
     </template>
-    <!-- <el-table-column
-      prop="date"
-      label="日期"
-      sortable
-      width="180">
-    </el-table-column> -->
     <!-- 多选 -->
     <el-table-column
       type="selection"
@@ -274,18 +268,22 @@
           :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
         >
           <template slot-scope="scope">
-            <span 
-              :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
-              :class="[
-                tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
-                item.textAlign ? 'span-max-width' : ''
-                ]"
-              @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope)"
-              v-html="item.asyncHtml 
-              ? item.asyncHtml(scope.row[item[prop]], scope) 
-              : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
-            >
-            </span>
+            <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
+              <span 
+                :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
+                :class="[
+                  tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
+                  item.textAlign ? 'span-max-width' : '',
+                  item.class !== 'underline' || (item.class === 'underline' && (scope.row[item.underlineKey] || scope.row[item.underlineKey] === void 0)) ? item.class : ''
+                  ]"
+                @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope)"
+                v-html="item.asyncHtml 
+                ? item.asyncHtml(scope.row[item[prop]], scope) 
+                : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
+              >
+              </span>
+            </el-tooltip>
+
           </template>
         </el-table-column>
       </template>
