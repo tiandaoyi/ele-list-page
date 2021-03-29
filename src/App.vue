@@ -286,7 +286,8 @@ export default {
               required: true,
               editChange: (value, {$index, row}) => {
                 console.log(value)
-              }
+              },
+              fixed: true
             },
             {
               label: '单重',

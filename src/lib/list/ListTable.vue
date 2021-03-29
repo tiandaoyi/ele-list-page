@@ -266,6 +266,7 @@
           :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
           :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
+          :fixed="item.fixed ? 'left' : null"
         >
           <template slot-scope="scope">
             <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
