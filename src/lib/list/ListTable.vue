@@ -445,9 +445,9 @@ export default {
         return value
       } else {
         //  如果为多选且数组
-        if (multiple && value) {
+        if (multiple && value && Array.isArray(value)) {
           const result = []
-          (value || []).map(item => {
+          value.forEach(item => {
             if (options.find(childItem => childItem.value === item) !== void 0) {
               result.push(item)
             }

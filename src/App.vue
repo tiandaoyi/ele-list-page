@@ -274,6 +274,14 @@ export default {
             //   width: 170,
             // },
             {
+							label: '支持场景分',
+							prop: 'ss',
+							width: 200,
+							editType: 'select',
+							multiple: true,
+							editOptions: [], // [3]
+            },
+            {
               label: '哈哈名称',
               prop: 'name',
               // editLimit: true,
@@ -511,7 +519,8 @@ export default {
         this.tableList = (tableList || []).map(item => {
           return {
             ...item,
-            disabled: Math.random() > 0.5
+            disabled: Math.random() > 0.5,
+            ss: ['1']
           }
         })
         // this.tableList = []
