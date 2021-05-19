@@ -1,6 +1,6 @@
 {
   "name": "ele-list-page",
-  "version": "2.1.23",
+  "version": "2.1.24",
   "description": "Super list page -- a Vue plug-in based on element UI",
   "main": "dist/build.js",
   "scripts": {
