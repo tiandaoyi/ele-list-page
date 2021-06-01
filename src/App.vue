@@ -2,10 +2,13 @@
   <div id="app" style="display: flex;flex-direction: column;">
     <div style="height: 300px">
       ssasdasdsadaa
-    </div> -->
-      <!-- <button @click="changeWidth">手动改变列宽</button> -->
+
       <div @click="toggleSelection([tableList[0]])">测试</div>
       <div @click="getAllSelection">获取所有勾选的数据</div>
+      <div @click="clearSelected">clearSelected</div>
+    </div>
+    <!-- <button @click="changeWidth">手动改变列宽</button> -->
+
     <!-- <el-form :model="{tableList}" > -->
 
       <EleListPage
@@ -21,6 +24,8 @@
         :headerDragend="headerDragend"
         :selectionChange="selectionChange"
         style="flex: 1"
+        :keepSelectKey="'id'"
+        :isKeepSelect="true"
       >
         <!-- <template #table-empty>
           父组件的内1容
@@ -404,6 +409,9 @@ export default {
     }
   },
   methods: {
+    clearSelected() {
+      this.$refs.table.doLayout()
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -418,11 +426,11 @@ export default {
       console.log(this.$refs.table.multipleSelection)
     },
     selectionChange(list) {
-      if (list.length > 1) {
-        this.$nextTick(() => {
-          this.$refs.table.table.toggleRowSelection(list[0])
-        })
-      }
+      // if (list.length > 1) {
+      //   this.$nextTick(() => {
+      //     this.$refs.table.table.toggleRowSelection(list[0])
+      //   })
+      // }
     },
     changeWidth() {
       const curr = this.tableCommonOptions.tableOptions.canEdit
@@ -512,15 +520,15 @@ export default {
         startPage: this.tableCommonOptions.pagination.pageNo,
         pageSize: this.tableCommonOptions.pagination.pageSize
       }
-      console.log(searchForm)
 
       getTableList(request).then(({data: {data: tableList, total}}) => {
         // 表格数据更新
-        this.tableList = (tableList || []).map(item => {
+        this.tableList = (tableList || []).map((item, index) => {
           return {
             ...item,
             disabled: Math.random() > 0.5,
-            ss: ['1']
+            ss: ['1'],
+            id: this.tableCommonOptions.pagination.pageNo + '-' + index
           }
         })
         // this.tableList = []

@@ -155,9 +155,14 @@ name: 'EleListPage',
     }
   },
   methods: {
+    clearMultipleSelection() {
+      this.multipleSelection = []
+    },
     handleSelectionChange(val) {
       if (this.isKeepSelect) {
-        this.multipleSelection = _.uniqWith(val, _.isEqual);
+        // this.multipleSelection = val
+        // this.multipleSelection = _.uniqWith(val, _.isEqual);
+        this.multipleSelection = this.duplicate(val, this.keepSelectKey)
       } else {
         this.multipleSelection = val
       }
@@ -191,6 +196,13 @@ name: 'EleListPage',
     },
     doLayout() {
       this.$refs['list-table']?.$refs['el-table']?.doLayout()
+    },
+    duplicate(arr, key) {
+      let obj = {}
+      return arr.reduce((cur,next) => {
+        obj[next[key]] ? "" : obj[next[key]] = true && cur.push(next);
+        return cur;
+      },[])
     }
   },
   mounted() {
@@ -202,26 +214,56 @@ name: 'EleListPage',
     }
   },
   watch: {
+    // tableList: {
+    //   handler() {
+    //     if (this.isKeepSelect) {
+    //       const key = this.keepSelectKey || ''
+    //       const simpleArray = []
+    //       this.multipleSelection.forEach(item => {
+    //         if (item[key]) {
+    //           simpleArray.push(item[key])
+    //         }
+    //       })
+    //       const tableRows = []
+    //       this.tableList.forEach((item, index) => {
+    //         if (simpleArray.includes(item[key])) {
+    //           tableRows.push(index)
+    //         }
+    //       })
+    //       this.multipleSelection.forEach((row, index) => {
+    //         if (this.tableList[tableRows[index]]) {
+
+    //           this.$refs['list-table']?.$refs['el-table']?.toggleRowSelection(this.tableList[tableRows[index]], true)
+    //         }
+    //       });
+
+
+    //     }
+    //   },
+    //   immediate: true 
+    // },
+
     tableList: {
       handler() {
         if (this.isKeepSelect) {
-          const key = this.keepSelectKey || ''
-          const simpleArray = []
-          this.multipleSelection.forEach(item => {
-            if (item[key]) {
-              simpleArray.push(item[key])
-            }
-          })
+          // v3.0 废弃
+          return
+          const key = this.keepSelectKey
+          // 遍历所有勾选的单字段数组 [1,2,3]
+          const simpleArray = this.multipleSelection.map(item => item[key])
+          // 匹配当前页勾选的数组 // [1,2,3]
           const tableRows = []
+          // 遍历当前页的所有数据, 把勾选的单字段数组的值去匹配当前页的所有数据, 如果匹配到了, 自动勾选
           this.tableList.forEach((item, index) => {
             if (simpleArray.includes(item[key])) {
-              tableRows.push(index)
+              tableRows.push(item[key])
             }
           })
+          // 遍历已勾选的数组, 默认勾选上
           this.multipleSelection.forEach((row, index) => {
-            if (this.tableList[tableRows[index]]) {
-
-              this.$refs['list-table']?.$refs['el-table']?.toggleRowSelection(this.tableList[tableRows[index]], true)
+            // if (this.tableList[tableRows[index]]) {
+            if (tableRows.includes(row[key]) ) {
+              this.$refs['list-table']?.$refs['el-table']?.toggleRowSelection(this.tableList.find(tab => tab[key] === row[key]), true)
             }
           });
 

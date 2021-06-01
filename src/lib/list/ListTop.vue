@@ -59,7 +59,7 @@
             :remote-method="item.selectFetch"
             v-loadMore="item.loadMore"
             :popper-class="item.class"
-            :popper-append-to-body="isCancelAppendBody"
+            :popper-append-to-body="item.isCancelAppendBody"
             :reserve-keyword="item.reserveKeyword"
             @blur="item.clear && item.blur($event)"
             @clear="item.clear && item.clear()"
@@ -255,7 +255,7 @@ export default {
                 focus: item.focus,
                 clear: item.clear,
                 blur: item.blur,
-                isCancelAppendBody: item.isCancelAppendBody
+                isCancelAppendBody: item.isCancelAppendBody || false
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
