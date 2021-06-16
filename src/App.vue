@@ -174,6 +174,9 @@ export default {
         ]
       },
       tableOptions: {
+        sortChange: (e) => {
+          console.log(e)
+        },
         // canEdit: true,
         switchCols: {
           title: '设备交接',// 标题
@@ -284,7 +287,8 @@ export default {
 							width: 200,
 							editType: 'select',
 							multiple: true,
-							editOptions: [], // [3]
+              editOptions: [], // [3]
+              sortable: true
             },
             {
               label: '哈哈名称',

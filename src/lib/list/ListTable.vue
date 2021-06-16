@@ -17,6 +17,7 @@
     :show-summary="!!tableOptions.summaryMethod"
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
     @header-dragend="transferHeaderDragend"
+    @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
   >
     <template #empty>
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
@@ -267,6 +268,7 @@
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
           :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
           :fixed="item.fixed ? 'left' : null"
+          :sortable="item.sortable"
         >
           <template slot-scope="scope">
             <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
