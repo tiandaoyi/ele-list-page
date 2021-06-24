@@ -116,6 +116,7 @@
             :clearable="item.clearable"
             @change="item.changeFunction && item.changeFunction()"
             :filterable="item.isFilterable"
+            :collapse-tags="item.collapseTags"
           >
           </el-cascader>
         </el-form-item>
@@ -255,7 +256,8 @@ export default {
                 focus: item.focus,
                 clear: item.clear,
                 blur: item.blur,
-                isCancelAppendBody: item.isCancelAppendBody || false
+                isCancelAppendBody: item.isCancelAppendBody || false,
+                collapseTags: item.collapseTags || false
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
