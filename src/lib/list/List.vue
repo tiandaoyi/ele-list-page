@@ -55,6 +55,7 @@
       class="ele-list-pagination"
       :pagination.sync="tableCommonOptions.pagination"
       :loadTableData="loadTableData"
+      :pageSizes="pageSizes"
     ></Pagination>
     
     <!--穿梭框自定义列-->
@@ -138,6 +139,12 @@ name: 'EleListPage',
       type: Function,
       default: function () {}
     },
+    pageSizes: {
+      type: Array,
+      default: function() {
+        return [20, 50, 100]
+      }
+    }
   },
   components: {
     ListTop,

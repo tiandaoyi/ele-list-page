@@ -30,6 +30,12 @@ export default {
           pageSize: 20
         }
       }
+    },
+    pageSizes: {
+      type: Array,
+      default: function() {
+        return [20, 50, 100]
+      }
     }
   },
   methods: {
@@ -51,12 +57,6 @@ export default {
       });
       this.loadTableData();
     },
-  },
-  data() {
-    return {
-      // 可扩展
-      pageSizes: [20, 50, 100]
-    };
   },
 }
 

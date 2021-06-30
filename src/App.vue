@@ -26,6 +26,7 @@
         style="flex: 1"
         :keepSelectKey="'id'"
         :isKeepSelect="true"
+        :pageSizes="[15, 30, 99]"
       >
         <!-- <template #table-empty>
           父组件的内1容
@@ -394,7 +395,7 @@ export default {
       pagination: {
         total: 0,
         pageNo: 1,
-        pageSize: 20,
+        pageSize: 15,
         // isHidden: true
       }
     };
