@@ -140,6 +140,7 @@ export default {
 
           }
         ],
+        showFieldCount: 2
       },
       filterOptions: {
         isAllHidden: false,

@@ -3,7 +3,7 @@
     <div class="ele-list-top-left" v-if="searchList && searchList.length" :class="{'show-all-search': isShowAllSearch}">
       <template v-for="(item, index) of searchList">
         <!--input输入框-->
-        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'textarea' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'textarea' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-input
             v-model="currentSearchForm[item.searchField]"
             :type="item.searchType"
@@ -19,7 +19,7 @@
           </el-input>
         </el-form-item>
         <!--input双输入框-->
-        <template  v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'doubleInput')">
+        <template  v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'doubleInput')">
           <el-form-item :label="item.name" :prop="Array.isArray(item.searchField) && item.searchField.length ? item.searchField[0] : item.searchField" :key="index" :style="{width: item.width}">
             <div class="double-input-wrapper" style="display: flex;">
               <el-input
@@ -45,7 +45,7 @@
           </el-form-item>
         </template>
         <!--select下拉框-->
-        <el-form-item :style="{width: item.width}" v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index">
+        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index">
           <el-select
             :collapse-tags="item.isMultiple"
             :multiple="item.isMultiple"
@@ -75,7 +75,7 @@
           </el-select>
         </el-form-item>
         <!--time时间选择器-->
-        <el-form-item :style="{width: item.width}" v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'time'" :label="item.name" :key="index">
+        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'time'" :label="item.name" :key="index">
           <el-date-picker
             size="small"
             v-model="currentSearchForm[item.searchField]"
@@ -98,14 +98,14 @@
           </el-date-picker>
         </el-form-item>
         <!--input复选框-->
-        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-switch
             v-model="currentSearchForm[item.searchField]"
             >
           </el-switch>
         </el-form-item>
         <!-- 级联选择 -->
-        <el-form-item v-if="(index < 8 || (index > 7 && isShowAllSearch)) && (item.searchType === 'cascader')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'cascader')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
           <el-cascader
             v-model="currentSearchForm[item.searchField]"
             :options="item.selectList"
@@ -122,7 +122,7 @@
         </el-form-item>
       </template>
     </div>
-    <div class="ele-list-top-right" @click="onToggleSearchListClick()" v-if="searchList && searchList.length > 8">
+    <div class="ele-list-top-right" @click="onToggleSearchListClick()" v-if="searchList && searchList.length > showFieldCount">
       {{ !isShowAllSearch ? '更多' : '收起' }}
     </div>
   </el-form>
@@ -188,6 +188,7 @@ export default {
           }
         }]
       },
+      showFieldCount: 8
     }
   },
   methods: {
@@ -267,6 +268,7 @@ export default {
           });
         }
         this.searchList = searchList;
+        this.showFieldCount = searchOptions.showFieldCount || 8
       },
       immediate: true,
       deep: true
@@ -280,6 +282,9 @@ export default {
       set(val) {
         this.$emit('update:searchForm', val)
       }
+    },
+    lessCount() {
+      return this.showFieldCount - 1
     }
   }
 }
