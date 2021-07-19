@@ -131,12 +131,16 @@ export default {
               text: 'a2'
             }],
             width: '100%',
-            focus: (...arg) => {
-              console.log('focus', arg)
+            // focus: (...arg) => {
+            //   console.log('focus', arg)
+            // },
+            // change: (...arg) => {
+            //   console.log('change', arg)
+            // },
+            isFilterable: true,
+            loadMoreInput: (...arg) => {
+              console.log('loadMoreInput', arg)
             },
-            change: (...arg) => {
-              console.log('change', arg)
-            }
 
           }
         ],

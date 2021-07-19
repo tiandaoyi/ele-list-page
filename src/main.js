@@ -7,9 +7,9 @@ Vue.use(EleListPage);
 import './styles/index.scss'
 // demo页面
 
-// import directives from './directives.js'
+import directives from './directives.js'
 // 全局注册指令
-// Vue.use(directives)
+Vue.use(directives)
 new Vue({
   el: '#app',
   render: h => h(App)

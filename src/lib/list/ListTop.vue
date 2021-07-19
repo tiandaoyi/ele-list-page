@@ -58,6 +58,7 @@
             :remote="!!item.selectFetch"
             :remote-method="item.selectFetch"
             v-loadMore="item.loadMore"
+            v-loadMoreInput="item.loadMoreInput"
             :popper-class="item.class"
             :popper-append-to-body="item.isCancelAppendBody"
             :reserve-keyword="item.reserveKeyword"
@@ -248,6 +249,7 @@ export default {
                 selectFetch: item.selectFetch || null,
                 props: item.props || {},
                 loadMore: item.searchType === 'select' && item.loadMoreOptions?.loadMore ? item.loadMoreOptions.loadMore : null,
+                loadMoreInput: item.searchType === 'select' && item.loadMoreInput ? item.loadMoreInput : null,
                 clearable: item.clearable,
                 rows: item.rows,
                 autosize: item.autosize,
