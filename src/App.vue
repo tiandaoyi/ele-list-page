@@ -142,7 +142,38 @@ export default {
               console.log('loadMoreInput', arg)
             },
 
-          }
+          },
+          {
+            name: "测试",
+            searchField: "deptCode",
+            searchType: "cascader",
+            clearable: true,
+            placeholder: 'aaaa',
+            isFilterable: true,
+            props: {
+              multiple: true,
+              // label: "name",
+              // value: "id",
+            },
+            selectList: [
+              {
+                id: 1,
+                label: "上海"
+              },
+              {
+                id: 1,
+                label: "2222"
+              },
+              {
+                id: 1,
+                label: "33333"
+              },
+              {
+                id: 1,
+                label: "44444"
+              }
+            ]
+          },
         ],
         showFieldCount: 2
       },

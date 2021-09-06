@@ -193,6 +193,10 @@ $paginationHeight: 47px;
 
     .el-cascader {
       width: 100%;
+
+      &__search-input {
+        margin-left: 6px;
+      }
     }
   }
 
