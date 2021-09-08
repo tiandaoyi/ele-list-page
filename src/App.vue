@@ -402,7 +402,9 @@ export default {
                 tableList.splice($index + 1, 1)
               }
             },
-            disabled: false
+            getIsShow: ({$index}) => {
+              return $index % 3 === 0
+            }
           }, {
             name: '行下移',
             fn: ({$index}) => {
@@ -627,9 +629,9 @@ export default {
     margin: 0;
   }
 
-  /* .p0 {
+  .p0 {
     padding: 0!important;
-  } */
+  }
   .ele-list-wrapper {
     height: initial;
   }

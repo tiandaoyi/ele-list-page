@@ -54,14 +54,14 @@
     > 
       <template slot-scope="scope">
         <span
-          :style="{padding: !operation.isHidden ? '0 5px' : 'initial'}"
+          :style="{padding: !operation.isHidden && (!operation.getIsShow || operation.getIsShow(scope)) ? '0 5px' : 'initial'}"
           v-for="operation in headerHandleOperation.operationOptions"
           :key="operation.index"
           size="mini"
           :type="operation.type"
           @click="!operation.disabled && (tableOptions.canEdit !== false || operation.cancelStopEdit) && operation.fn(scope)"
           :class="[(operation.disabled || tableOptions.canEdit === false) && (!operation.cancelStopEdit) ? 'underline span-disabled-color' : 'underline', operation.class]"
-          v-html="operation.asyncHtml && !operation.isHidden ? operation.asyncHtml(scope) : (!operation.isHidden ? operation.name : '')"
+          v-html="operation.asyncHtml && !operation.isHidden ? operation.asyncHtml(scope) : (!operation.isHidden && (!operation.getIsShow || operation.getIsShow(scope)) ? operation.name : '')"
         >
           {{operation.name}}
         </span>
