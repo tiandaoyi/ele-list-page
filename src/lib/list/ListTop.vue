@@ -84,6 +84,7 @@
             range-separator="~"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
+            :placeholder="item.placeholder"
             :value-format="item.timeValueFormat"
             :editable="false"
             prefix-icon="date"
