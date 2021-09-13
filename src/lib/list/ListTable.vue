@@ -1,10 +1,11 @@
 <template>
   <el-table
     v-loading="listLoading"
-    :cell-style="{'text-align':'center','padding': '6px 0'}"
+    :cell-style="tableOptions.cellStyle || {'text-align':'center','padding': '6px 0'}"
     :header-cell-style="tableOptions.headerStyle || headerStyle"
     :border="!tableOptions.isHiddenBorder"
     :data="tableList"
+    :show-header="typeof tableOptions.showHeader === 'boolean' ? tableOptions.showHeader : true"
     style="width: 100%"
     :empty-text="'暂无数据'"
     :max-height="tableOptions.isHiddenMaxHeight ? null : height"
@@ -18,6 +19,7 @@
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
     @header-dragend="transferHeaderDragend"
     @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
+    @row-click="rowClick"
   >
     <template #empty>
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
@@ -346,7 +348,12 @@ export default {
       type: Boolean
     },
     handleSelectionChange: {
-      type: Function
+      type: Function,
+      default: ()=>{}
+    },
+    rowClick: {
+      type: Function,
+      default: ()=>{}
     },
     isKeepSelect: {
       type: Boolean
@@ -484,15 +491,13 @@ export default {
     // }
   },
   mounted() {
-    window.onresize = () => {
-      return (() => {
-        window.screenHeight = window.innerHeight
-        this.screenHeight = window.screenHeight || 0;
+    window.addEventListener('resize', () => {
+      window.screenHeight = window.innerHeight
+      this.screenHeight = window.screenHeight || 0;
 
-        window.screenWidth = window.innerWidth
-        this.screenWidth = window.screenWidth || 0;
-      })()
-    }
+      window.screenWidth = window.innerWidth
+      this.screenWidth = window.screenWidth || 0;
+    });
   },
   destroyed() {
     window.onresize = null

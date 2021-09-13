@@ -7,14 +7,14 @@
           <el-button  v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
             size="small"
             v-show="!item.isHidden"
-            :type="item.type" :disabled='item.disabled'>
+            :type="item.type" :disabled='item.disabled' :class="item.className">
             {{item.name}}
           </el-button>
         </div>
         <div style="float:right" :class="isMoveTop ? 'move-top': ''">
           <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name' size="small"
           v-show="!item.isHidden"
-          :type="item.type" :disabled='item.disabled'>
+          :type="item.type" :disabled='item.disabled' :class="item.className">
             {{item.name}}  
           </el-button>
         </div>
@@ -23,7 +23,7 @@
         <div  :class="isMoveTop ? 'right-btn move-top': 'right-btn'">
           <el-button v-for="(item, index) of buttonList.rightBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name' size="small"
           v-show="!item.isHidden"
-          :type="item.type" :disabled='item.disabled'>
+          :type="item.type" :disabled='item.disabled' :class="item.className">
             {{item.name}}  
           </el-button>
         </div>
@@ -31,7 +31,7 @@
           <el-button v-for="(item, index) of buttonList.leftBtn" :key='index' @click="item.fn(multipleSelection)" :name='item.name'
             size="small"
             v-show="!item.isHidden"
-            :type="item.type" :disabled='item.disabled'>
+            :type="item.type" :disabled='item.disabled' :class="item.className">
             {{item.name}}
           </el-button>
         </div>
@@ -120,6 +120,7 @@ export default {
               filterType: item.filterType,
               type: setButtonOptions[item.filterType].type || item.type,
               isHidden: item.isHidden || false,
+              className: (item.className || '') + ' ' + (setButtonOptions[item.filterType]?.className || ''),
               fn: item.fn || function () {
                 setButtonOptions[item.filterType] && setButtonOptions[item.filterType].fn && setButtonOptions[item.filterType].fn()
               },
@@ -130,6 +131,7 @@ export default {
               name: item.name,
               type: item.type,
               isHidden: item.isHidden || false,
+              className: (item.className || '') + ' ' + (setButtonOptions[item.filterType]?.className || ''),
               fn: item.fn,
               disabled: item.disabled
             });
