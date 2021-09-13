@@ -5,6 +5,7 @@
     :header-cell-style="tableOptions.headerStyle || headerStyle"
     :border="!tableOptions.isHiddenBorder"
     :data="tableList"
+    :show-header="typeof tableOptions.showHeader === 'boolean' ? tableOptions.showHeader : true"
     style="width: 100%"
     :empty-text="'暂无数据'"
     :max-height="tableOptions.isHiddenMaxHeight ? null : height"
