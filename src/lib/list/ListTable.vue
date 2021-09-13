@@ -1,7 +1,7 @@
 <template>
   <el-table
     v-loading="listLoading"
-    :cell-style="{'text-align':'center','padding': '6px 0'}"
+    :cell-style="tableOptions.cellStyle || {'text-align':'center','padding': '6px 0'}"
     :header-cell-style="tableOptions.headerStyle || headerStyle"
     :border="!tableOptions.isHiddenBorder"
     :data="tableList"
