@@ -19,6 +19,7 @@
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
     @header-dragend="transferHeaderDragend"
     @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
+    @row-click="rowClick"
   >
     <template #empty>
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
@@ -347,7 +348,12 @@ export default {
       type: Boolean
     },
     handleSelectionChange: {
-      type: Function
+      type: Function,
+      default: ()=>{}
+    },
+    rowClick: {
+      type: Function,
+      default: ()=>{}
     },
     isKeepSelect: {
       type: Boolean
