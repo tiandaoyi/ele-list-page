@@ -491,15 +491,13 @@ export default {
     // }
   },
   mounted() {
-    window.onresize = () => {
-      return (() => {
-        window.screenHeight = window.innerHeight
-        this.screenHeight = window.screenHeight || 0;
+    window.addEventListener('resize', () => {
+      window.screenHeight = window.innerHeight
+      this.screenHeight = window.screenHeight || 0;
 
-        window.screenWidth = window.innerWidth
-        this.screenWidth = window.screenWidth || 0;
-      })()
-    }
+      window.screenWidth = window.innerWidth
+      this.screenWidth = window.screenWidth || 0;
+    });
   },
   destroyed() {
     window.onresize = null
