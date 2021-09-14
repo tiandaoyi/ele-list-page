@@ -466,6 +466,9 @@ export default {
           return options.find(item => item.value === value)?.text || value
         }
       }
+    },
+    doLayout() {
+      this.$refs['el-table']?.doLayout()
     }
   },
   computed: {
