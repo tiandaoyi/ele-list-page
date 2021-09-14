@@ -264,7 +264,7 @@
       <template v-for="(item, index) of tableOptions.columnsData.showColumns">
         <el-table-column
           :key="index"
-          v-if="item.prop !== 'operation'"
+          v-if="item.prop !== 'operation' && !(item.hidden && item.hidden(item, index, auxInfo))"
           :prop="item[prop]"
           :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
@@ -281,7 +281,7 @@
                   item.textAlign ? 'span-max-width' : '',
                   item.class !== 'underline' || (item.class === 'underline' && (scope.row[item.underlineKey] || scope.row[item.underlineKey] === void 0)) ? item.class : ''
                   ]"
-                @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope)"
+                @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope, auxInfo)"
                 v-html="item.asyncHtml 
                 ? item.asyncHtml(scope.row[item[prop]], scope) 
                 : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
@@ -365,6 +365,10 @@ export default {
     isLazyLoad: {
       type: Boolean,
       default: false
+    },
+    // 辅助存储器
+    auxInfo: {
+      type: Object
     }
   },
   data() {
@@ -466,6 +470,9 @@ export default {
           return options.find(item => item.value === value)?.text || value
         }
       }
+    },
+    doLayout() {
+      this.$refs['el-table']?.doLayout()
     }
   },
   computed: {
