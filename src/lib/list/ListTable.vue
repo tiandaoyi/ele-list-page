@@ -521,7 +521,8 @@ export default {
     screenHeight: {
       handler(val) {
         if (this.$parent && !this.$parent.height) {
-          this.$parent?.setTableHeight()
+          // 直接使用<ListTable> 需先判断外层是否有该方法
+          this.$parent.setTableHeight && this.$parent.setTableHeight()
         }
       },
       immediate: true
