@@ -522,7 +522,7 @@ export default {
       handler(val) {
         if (this.$parent && !this.$parent.height) {
           // 直接使用<ListTable> 需先判断外层是否有该方法
-          this.$parent.setTableHeight && this.$parent.setTableHeight()
+          this.$parent?.setTableHeight?.();
         }
       },
       immediate: true
