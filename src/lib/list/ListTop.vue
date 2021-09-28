@@ -72,6 +72,7 @@
               :key="index"
               :label="selectOption.text"
               :value="selectOption.value"
+              :disabled="selectOption.disabled"
             ></el-option>
           </el-select>
         </el-form-item>
