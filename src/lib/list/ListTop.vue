@@ -12,6 +12,7 @@
             :clearable="!item.callFunction"
             :readonly="!!item.callFunction"
             :disabled="item.disabled"
+            @input="item.inputFunction && item.inputFunction($event)"
             @focus="item.callFunction && item.callFunction()"
             :autosize="item.autosize"
             :rows="item.rows"
@@ -237,6 +238,7 @@ export default {
                 value: item.value || item.value === 0 ? item.value : null,
                 isFilterable: item.isFilterable || false, // 是否可搜索
                 isNoClearable: item.isNoClearable || false,
+                inputFunction: item.inputFunction,
                 callFunction: item.callFunction,
                 changeFunction: item.changeFunction,
                 placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
