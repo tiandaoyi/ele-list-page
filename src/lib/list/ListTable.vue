@@ -186,6 +186,7 @@
               <el-form-item 
                 :prop="tableOptions.formItemName+ '.' + scope.$index + '.' + item.prop"
                 style="maxWidth: 100%; marginBottom: 0;"
+                :label-width="item.formItemLabelWidth || ''"
                 :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
               >
                 <!-- 时间 -->
