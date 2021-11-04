@@ -172,6 +172,8 @@
                   :min="item.editMin"
                   size="small"
                   @change="($event) => item.editChange && item.editChange($event, scope)"
+                  @input="($event) => item.editInput && item.editInput($event, scope)"
+                  @blur="($event) => item.editBlur && item.editBlur($event, scope)"
                 >
                   <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                   <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
@@ -184,6 +186,7 @@
               <el-form-item 
                 :prop="tableOptions.formItemName+ '.' + scope.$index + '.' + item.prop"
                 style="maxWidth: 100%; marginBottom: 0;"
+                :label-width="item.formItemLabelWidth || ''"
                 :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
               >
                 <!-- 时间 -->
@@ -246,6 +249,8 @@
                     :min="item.editMin"
                     size="small"
                     @change="($event) => item.editChange && item.editChange($event, scope)"
+                    @input="($event) => item.editInput && item.editInput($event, scope)"
+                    @blur="($event) => item.editBlur && item.editBlur($event, scope)"
                   >
                     <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                     <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
