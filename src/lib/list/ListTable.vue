@@ -172,6 +172,8 @@
                   :min="item.editMin"
                   size="small"
                   @change="($event) => item.editChange && item.editChange($event, scope)"
+                  @input="($event) => item.editInput && item.editInput($event, scope)"
+                  @blur="($event) => item.editBlur && item.editBlur($event, scope)"
                 >
                   <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                   <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
@@ -246,6 +248,8 @@
                     :min="item.editMin"
                     size="small"
                     @change="($event) => item.editChange && item.editChange($event, scope)"
+                    @input="($event) => item.editInput && item.editInput($event, scope)"
+                    @blur="($event) => item.editBlur && item.editBlur($event, scope)"
                   >
                     <template slot="append" v-if="item.appendKey">{{scope.row[item.appendKey]}}</template>
                     <template slot="prepend" v-if="item.prependKey">{{scope.row[item.prependKey]}}</template>
