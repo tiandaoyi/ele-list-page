@@ -188,6 +188,8 @@
                 style="maxWidth: 100%; marginBottom: 0;"
                 :label-width="item.formItemLabelWidth || ''"
                 :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
+                :show-message="item.showMessageFunc ? item.showMessageFunc(scope) : true"
+                :inline-message="item.inlineMessageFunc ? item.inlineMessageFunc(scope) : false"
               >
                 <!-- 时间 -->
                 <template v-if="item.editType === 'time'">
