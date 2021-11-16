@@ -157,6 +157,24 @@
                 </el-select>
               </template>
 
+              <!-- 展示 -->
+              <template v-else-if="item.editType === 'content'">
+                <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
+                  <span
+                    :class="[
+                      tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
+                      item.textAlign ? 'span-max-width' : '',
+                      item.class !== 'underline' || (item.class === 'underline' && (scope.row[item.underlineKey] || scope.row[item.underlineKey] === void 0)) ? item.class : ''
+                      ]"
+                    @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope, auxInfo)"
+                    v-html="item.asyncHtml
+                    ? item.asyncHtml(scope.row[item[prop]], scope)
+                    : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey])"
+                  >
+                  </span>
+                </el-tooltip>
+              </template>
+
               <!-- 输入框 -->
               <template v-else>
                 <!-- <span class="required-icon" v-if="item.required">*</span> -->
@@ -235,6 +253,24 @@
                       :value="editItem.value">
                     </el-option>
                   </el-select>
+                </template>
+
+                <!-- 展示 -->
+                <template v-else-if="item.editType === 'content'">
+                  <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
+                    <span
+                      :class="[
+                        tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
+                        item.textAlign ? 'span-max-width' : '',
+                        item.class !== 'underline' || (item.class === 'underline' && (scope.row[item.underlineKey] || scope.row[item.underlineKey] === void 0)) ? item.class : ''
+                        ]"
+                      @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope, auxInfo)"
+                      v-html="item.asyncHtml
+                      ? item.asyncHtml(scope.row[item[prop]], scope)
+                      : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey])"
+                    >
+                    </span>
+                  </el-tooltip>
                 </template>
 
                 <!-- 输入框 -->
