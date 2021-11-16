@@ -101,7 +101,8 @@
           :prop="item[prop]"
           :label="item[label]"
           :render-header="customFieldColumn"
-          :width="item.width  ? item.width : ((+(!!item.required) + item[label].length) >= 5) && !tableOptions.maxWidth ? (item[label].length +(!!item.required)) * 20 : null"        >
+          :width="item.width  ? item.width : ((+(!!item.required) + item[label].length) >= 5) && !tableOptions.maxWidth ? (item[label].length +(!!item.required)) * 20 : null"
+          :show-overflow-tooltip="!tableOptions.isHiddenTooltip"   >
           <!-- 自定义表头 -->
           <!-- <template slot="header">
             <span><span class="required-icon" v-if="item.required">*</span>{{item[label]}}</span>
