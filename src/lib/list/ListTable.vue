@@ -19,6 +19,7 @@
     :summary-method="typeof tableOptions.summaryMethod === 'function' ? tableOptions.summaryMethod : null"
     @header-dragend="transferHeaderDragend"
     @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
+    :span-method="typeof tableOptions.spanMethod === 'function' ? tableOptions.spanMethod : null"
     @row-click="rowClick"
   >
     <template #empty>
@@ -65,7 +66,6 @@
           :class="[(operation.disabled || tableOptions.canEdit === false) && (!operation.cancelStopEdit) ? 'underline span-disabled-color' : 'underline', operation.class]"
           v-html="operation.asyncHtml && !operation.isHidden ? operation.asyncHtml(scope) : (!operation.isHidden && (!operation.getIsShow || operation.getIsShow(scope)) ? operation.name : '')"
         >
-          {{operation.name}}
         </span>
       </template>
     </el-table-column>
