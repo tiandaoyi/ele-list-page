@@ -315,6 +315,10 @@
           :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
           :fixed="item.fixed ? 'left' : null"
           :sortable="item.sortable"
+          :column-key="item[prop]"
+          :filters="item.isFilter ? formatFilter(removeDuplicate(tableList, item[prop]), item[prop]): null"
+          :filter-method="item.isFilter ? filterHandler : null"
+          :filter-placement="item.isFilter && item.filterPlacement ? item.filterPlacement : null"
         >
           <template slot-scope="scope">
             <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
@@ -460,6 +464,29 @@ export default {
     }
   },
   methods: {
+    removeDuplicate(arr = [], prop = '') {
+      const map = new Map()
+      const ans = []
+      arr.forEach(item => {
+        if (!map.has(item[prop])) {
+          map.set(item[prop], true)
+          ans.push(item)
+        }
+      })
+      return ans;
+    },
+    formatFilter(arr = [], prop = '') {
+      return arr.map(item => {
+        return {
+          text: item[prop],
+          value: item[prop]
+        }
+      })
+    },
+    filterHandler(value, row, column) {
+      const property = column['property'];
+      return row[property] === value;
+    },
     transferHeaderDragend(...args) {
       this.headerDragend(...args)
       this.$nextTick(() => {

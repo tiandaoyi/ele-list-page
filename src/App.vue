@@ -347,7 +347,9 @@ export default {
               label: '单重',
               prop: 'name',
               width: 170,
-              appendKey: 'categoryName'
+              appendKey: 'categoryName',
+              isFilter: true,
+              // filterPlacement: 'top-end' // 可选，默认"bottom-end"
             },
               // rules: [{ required: true, trigger: 'change', message: '请选择人员角色'}],
             {
