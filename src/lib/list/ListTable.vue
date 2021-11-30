@@ -284,6 +284,7 @@
                     :type="item.editType || 'text'"
                     clearable
                     :readonly="!!item.editHover"
+                    :validate-event="!item.validateEvent"
                     @focus="($event) => item.editHover && item.editHover(scope.row[item[prop]], scope.$index, item.prop)"
                     :min="item.editMin"
                     size="small"
