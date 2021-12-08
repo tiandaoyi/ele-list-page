@@ -14,6 +14,7 @@
             :disabled="item.disabled"
             @input="item.inputFunction && item.inputFunction($event)"
             @focus="item.callFunction && item.callFunction()"
+            @blur="item.blurFunction && item.blurFunction($event)"
             :autosize="item.autosize"
             :rows="item.rows"
           >
