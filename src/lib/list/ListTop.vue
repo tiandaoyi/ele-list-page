@@ -240,6 +240,7 @@ export default {
                 isFilterable: item.isFilterable || false, // 是否可搜索
                 isNoClearable: item.isNoClearable || false,
                 inputFunction: item.inputFunction,
+                blurFunction: item.blurFunction,
                 callFunction: item.callFunction,
                 changeFunction: item.changeFunction,
                 placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
