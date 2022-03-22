@@ -321,6 +321,7 @@
           :filters="item.isFilter ? formatFilter(removeDuplicate(tableList, item[prop]), item[prop]): null"
           :filter-method="item.isFilter ? filterHandler : null"
           :filter-placement="item.isFilter && item.filterPlacement ? item.filterPlacement : null"
+          :min-width="item.minWidth ? item.minWidth : null"
         >
           <template slot-scope="scope">
             <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
