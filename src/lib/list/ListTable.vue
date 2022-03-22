@@ -21,6 +21,7 @@
     @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
     :span-method="typeof tableOptions.spanMethod === 'function' ? tableOptions.spanMethod : null"
     @row-click="rowClick"
+    :fit="typeof tableOptions.fit === 'boolean' ? tableOptions.fit : true"
   >
     <template #empty>
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
@@ -54,7 +55,7 @@
       :label="headerHandleOperation.label"
       :width="headerHandleOperation.width || 120"
       :fixed="tableOptions.isHiddenFixed ? null : 'left'"
-    > 
+    >
       <template slot-scope="scope">
         <span
           :style="{padding: !operation.isHidden && (!operation.getIsShow || operation.getIsShow(scope)) ? '0 5px' : 'initial'}"
@@ -202,7 +203,7 @@
             <!-- 包含表单 -->
             <template v-if="tableOptions.formItemName">
               <!-- 包含表单 -->
-              <el-form-item 
+              <el-form-item
                 :prop="tableOptions.formItemName+ '.' + scope.$index + '.' + item.prop"
                 style="maxWidth: 100%; marginBottom: 0;"
                 :label-width="item.formItemLabelWidth || ''"
@@ -323,7 +324,7 @@
         >
           <template slot-scope="scope">
             <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
-              <span 
+              <span
                 :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
                 :class="[
                   tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] ? 'underline' : '',
@@ -331,8 +332,8 @@
                   item.class !== 'underline' || (item.class === 'underline' && (scope.row[item.underlineKey] || scope.row[item.underlineKey] === void 0)) ? item.class : ''
                   ]"
                 @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope, auxInfo)"
-                v-html="item.asyncHtml 
-                ? item.asyncHtml(scope.row[item[prop]], scope) 
+                v-html="item.asyncHtml
+                ? item.asyncHtml(scope.row[item[prop]], scope)
                 : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
               >
               </span>
@@ -434,7 +435,7 @@ export default {
               this.hackReset = true
             })
           }
-          
+
         },
         shortcuts: [{
           text: '最近一周',
@@ -504,7 +505,7 @@ export default {
     customFieldColumn(h, {column, $index}) {
       const currentItem = this.tableOptions?.columnsData?.showColumns?.find(item => item.prop === column.property)
       // 修改且列为必填时 增加必填
-      return this.tableOptions?.canEdit && currentItem?.required ? 
+      return this.tableOptions?.canEdit && currentItem?.required ?
         ([
           h('span', {
             class: 'required-icon',
@@ -519,7 +520,7 @@ export default {
         background:'#EEEFF3',
         'text-align':'center',
         color: '#505050',
-        'font-size': '14px',       
+        'font-size': '14px',
       }
     },
     getIndex(val) {
@@ -619,6 +620,6 @@ export default {
       immediate: true
     },
   }
-}    
+}
 
 </script>
