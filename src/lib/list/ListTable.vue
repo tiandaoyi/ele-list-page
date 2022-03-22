@@ -21,6 +21,7 @@
     @sort-change="($event) => typeof tableOptions.sortChange === 'function' ? tableOptions.sortChange($event) : null"
     :span-method="typeof tableOptions.spanMethod === 'function' ? tableOptions.spanMethod : null"
     @row-click="rowClick"
+    :fit="typeof tableOptions.fit === 'boolean' ? tableOptions.fit : true"
   >
     <template #empty>
       <img v-if="tableOptions.defaultImage" :src="require('@/assets/empty.png')" alt="暂无数据" />
