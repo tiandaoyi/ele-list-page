@@ -80,6 +80,7 @@ export default {
             searchType: 'time',
             timeType: 'datetimerange',
             timeValueFormat: 'yyyy-MM-dd HH:mm:ss',
+            required: true,
             pickerOptions: {
               shortcuts: [{
                 text: '最近一周',
@@ -112,6 +113,7 @@ export default {
             name: '设备编号2',
             searchField: 'equNo2',
             searchType: 'time',
+            required: true
           },
           {
             name: '测试文本域',
@@ -123,6 +125,7 @@ export default {
             name: '测试下拉框',
             searchField: 'xx',
             searchType: 'select',
+            required: true,
             selectList: [{
               value: '1',
               text: 'a1'
@@ -150,6 +153,7 @@ export default {
             clearable: true,
             placeholder: 'aaaa',
             isFilterable: true,
+            required: true,
             props: {
               multiple: true,
               // label: "name",
@@ -357,7 +361,7 @@ export default {
               prop: 'categoryName',
               // editLimit: true,
               width: 500,
-              textAlign: 'right', 
+              textAlign: 'right',
               asyncHtml: (value) => {
                 return `<span style="color:red">${value}</span>`
               },

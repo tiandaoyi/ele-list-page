@@ -3,7 +3,7 @@
     <div class="ele-list-top-left" v-if="searchList && searchList.length" :class="{'show-all-search': isShowAllSearch}">
       <template v-for="(item, index) of searchList">
         <!--input输入框-->
-        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'textarea' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'input' || item.searchType === 'textarea' || item.searchType === 'number')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}" :class="{'is-required': item.required}">
           <el-input
             v-model="currentSearchForm[item.searchField]"
             :type="item.searchType"
@@ -22,7 +22,7 @@
         </el-form-item>
         <!--input双输入框-->
         <template  v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'doubleInput')">
-          <el-form-item :label="item.name" :prop="Array.isArray(item.searchField) && item.searchField.length ? item.searchField[0] : item.searchField" :key="index" :style="{width: item.width}">
+          <el-form-item :label="item.name" :prop="Array.isArray(item.searchField) && item.searchField.length ? item.searchField[0] : item.searchField" :key="index" :style="{width: item.width}" :class="{'is-required': item.required}">
             <div class="double-input-wrapper" style="display: flex;">
               <el-input
                 v-model="currentSearchForm[item.searchField[0]]"
@@ -47,7 +47,7 @@
           </el-form-item>
         </template>
         <!--select下拉框-->
-        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index">
+        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'select'" :label="item.name" :key="index" :class="{'is-required': item.required}">
           <el-select
             :collapse-tags="item.isMultiple"
             :multiple="item.isMultiple"
@@ -79,7 +79,7 @@
           </el-select>
         </el-form-item>
         <!--time时间选择器-->
-        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'time'" :label="item.name" :key="index">
+        <el-form-item :style="{width: item.width}" v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'time'" :label="item.name" :key="index" :class="{'is-required': item.required}">
           <el-date-picker
             size="small"
             v-model="currentSearchForm[item.searchField]"
@@ -103,14 +103,14 @@
           </el-date-picker>
         </el-form-item>
         <!--input复选框-->
-        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && item.searchType === 'switch'" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}" :class="{'is-required': item.required}">
           <el-switch
             v-model="currentSearchForm[item.searchField]"
             >
           </el-switch>
         </el-form-item>
         <!-- 级联选择 -->
-        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'cascader')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}">
+        <el-form-item v-if="(index < showFieldCount || (index > lessCount && isShowAllSearch)) && (item.searchType === 'cascader')" :label="item.name" :prop="item.searchField" :key="index" :style="{width: item.width}"  :class="{'is-required': item.required}">
           <el-cascader
             v-model="currentSearchForm[item.searchField]"
             :options="item.selectList"
@@ -165,7 +165,7 @@ export default {
               this.hackReset = true
             })
           }
-          
+
         },
         shortcuts: [{
           text: '最近一周',
@@ -266,7 +266,8 @@ export default {
                 clear: item.clear,
                 blur: item.blur,
                 isCancelAppendBody: item.isCancelAppendBody || false,
-                collapseTags: item.collapseTags || false
+                collapseTags: item.collapseTags || false,
+                required: !!item.required
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
