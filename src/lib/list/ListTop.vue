@@ -13,7 +13,7 @@
             :readonly="!!item.callFunction"
             :disabled="item.disabled"
             @input="item.inputFunction && item.inputFunction($event)"
-            @focus="item.callFunction && item.callFunction()"
+            @focus="item.callFunction && item.callFunction() || item.focusFunction && item.focusFunction()"
             @blur="item.blurFunction && item.blurFunction($event)"
             :autosize="item.autosize"
             :rows="item.rows"
@@ -242,6 +242,8 @@ export default {
                 inputFunction: item.inputFunction,
                 blurFunction: item.blurFunction,
                 callFunction: item.callFunction,
+                focusFunction: item.focusFunction,
+                clearFunction: item.clearFunction,
                 changeFunction: item.changeFunction,
                 placeholder: item.placeholder || PLACEHOLDER_TYPE_ENUM[item.searchType],
                 width: item.width || '25%',
