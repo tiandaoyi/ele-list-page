@@ -348,6 +348,21 @@ export default {
               fixed: true
             },
             {
+              label: '自定义render列',
+              prop: 'render',
+              render: (h, { value }) => {
+                return h('span', [
+                  h('el-rate', {
+                    attrs: {
+                      value,
+                      disabled: true
+                    }
+                  }),
+                  h('span', `${value}分`)
+                ])
+              },
+            },
+            {
               label: '单重',
               prop: 'name',
               width: 170,
@@ -577,7 +592,8 @@ export default {
             ...item,
             disabled: Math.random() > 0.5,
             ss: ['1'],
-            id: this.tableCommonOptions.pagination.pageNo + '-' + index
+            id: this.tableCommonOptions.pagination.pageNo + '-' + index,
+            render: +(Math.random() * 5).toFixed(2)
           }
         })
         // this.tableList = []

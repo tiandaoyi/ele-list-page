@@ -314,7 +314,7 @@
           :prop="item[prop]"
           :label="item[label]"
           :width="item.width  ? item.width : (item[label].length >= 5) && !tableOptions.maxWidth? item[label].length * 20 : null"
-          :show-overflow-tooltip="!tableOptions.isHiddenTooltip"
+          :show-overflow-tooltip="!tableOptions.isHiddenTooltip && !item.render"
           :fixed="item.fixed ? 'left' : null"
           :sortable="item.sortable"
           :column-key="item[prop]"
@@ -324,7 +324,16 @@
           :min-width="item.minWidth ? item.minWidth : null"
         >
           <template slot-scope="scope">
-            <el-tooltip :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
+            <render-dom
+              v-if="item.render && typeof item.render === 'function'"
+              :scopeRow="scope.row"
+              :item="item"
+              :index="index"
+              :render="item.render"
+              :value="scope.row[item[prop]]"
+            />
+
+            <el-tooltip v-else :disabled="item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip" effect="dark" :content="item.tooltip" placement="top">
               <span
                 :style="{ textAlign: item.editType !== 'select' && item.textAlign ? item.textAlign : '' }"
                 :class="[
@@ -365,8 +374,12 @@
   </el-table>
 </template>
 <script>
+import RenderDom from './RenderDom'
 export default {
   name: 'ListTable',
+  components: {
+    RenderDom
+  },
   props: {
     //表格数据
     tableList: {

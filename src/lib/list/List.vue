@@ -2,10 +2,10 @@
   <div
     class="ele-list-wrapper"
     ref="list-wrapper"
-    :style="{paddingBottom: isLazyLoadStyle}"  
+    :style="{paddingBottom: isLazyLoadStyle}"
   >
     <!-- 搜索项 -->
-    <ListTop 
+    <ListTop
       v-if="!tableCommonOptions.searchOptions.isAllHidden"
       ref="list-top"
       :searchForm.sync="searchForm"
@@ -27,12 +27,12 @@
       :multipleSelection="multipleSelection"
       :isMoveTop="isMoveTop"
     />
-    
+
     <!-- 表格 -->
-    <ListTable 
+    <ListTable
       v-if="tableCommonOptions.tableOptions"
       ref="list-table"
-      :tableList="tableList" 
+      :tableList="tableList"
       :tableOptions="tableCommonOptions.tableOptions"
       :headerDragend="headerDragend"
       :listLoading="listLoading"
@@ -57,7 +57,7 @@
       :loadTableData="loadTableData"
       :pageSizes="pageSizes"
     ></Pagination>
-    
+
     <!--穿梭框自定义列-->
     <TransferDialog
       v-if="tableCommonOptions.tableOptions"
@@ -66,7 +66,7 @@
       :visible='visible'
       :isVisible='isVisible'
       :tableOptions.sync="tableCommonOptions.tableOptions"
-    ></TransferDialog> 
+    ></TransferDialog>
   </div>
 </template>
 <script>
@@ -112,7 +112,7 @@ name: 'EleListPage',
     },
     isKeepSelect: {
       type: Boolean,
-      default: false 
+      default: false
     },
     keepSelectKey: {
       type: String,
@@ -182,15 +182,15 @@ name: 'EleListPage',
       this.visible = isShow;
     },
     setTableHeight() {
-      const pageHeight = 
-        this.isSimpleCutHeight ? (document.body.clientHeight - this.cutHeight) : 
-        (this.getHeight('list-wrapper') - 
+      const pageHeight =
+        this.isSimpleCutHeight ? (document.body.clientHeight - this.cutHeight) :
+        (this.getHeight('list-wrapper') -
         this.getHeight('list-top') -
         this.getHeight('list-middle') -
         this.getHeight('list-pagination') - 36)
       this.pageHeight = pageHeight;
     },
-    
+
     onToggleSearchListClick() {
       this.isShowAllSearch = !this.isShowAllSearch;
       // 如果没传height， 自适应
@@ -199,7 +199,7 @@ name: 'EleListPage',
           this.setTableHeight();
         });
       }
-      
+
     },
     doLayout() {
       this.$refs['list-table']?.$refs['el-table']?.doLayout()
@@ -247,7 +247,7 @@ name: 'EleListPage',
 
     //     }
     //   },
-    //   immediate: true 
+    //   immediate: true
     // },
 
     tableList: {
@@ -277,7 +277,7 @@ name: 'EleListPage',
 
         }
       },
-      immediate: true 
+      immediate: true
     },
     multipleSelection() {
       this.$emit('selectionChange', this.multipleSelection);
@@ -322,7 +322,7 @@ name: 'EleListPage',
           })
         }
       },
-      immediate: true 
+      immediate: true
     }
   },
   computed: {
