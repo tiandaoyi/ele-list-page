@@ -68,6 +68,7 @@
             @clear="item.clear && item.clear()"
             @focus="item.focus && item.focus($event)"
             @change="item.change && item.change($event)"
+            @visible-change="item.visibleChange && item.visibleChange($event)"
           >
             <el-option
               v-for="(selectOption,index) of item.selectList"
@@ -269,7 +270,8 @@ export default {
                 blur: item.blur,
                 isCancelAppendBody: item.isCancelAppendBody || false,
                 collapseTags: item.collapseTags || false,
-                required: !!item.required
+                required: !!item.required,
+                visibleChange: item.visibleChange,
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
