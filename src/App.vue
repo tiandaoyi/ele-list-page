@@ -116,6 +116,15 @@ export default {
             required: true
           },
           {
+            name: '测试visible-change',
+            searchField: 'visibleChange',
+            searchType: 'select',
+            selectList: [{text: 'a', value: 'valuea'}, {text: 'b', value: 'valueb'}],
+            visibleChange: (val) => {
+              console.log(val)
+            },
+          },
+          {
             name: '测试文本域',
             searchField: 'xx',
             searchType: 'textarea',
@@ -179,7 +188,7 @@ export default {
             ]
           },
         ],
-        showFieldCount: 2
+        showFieldCount: 10
       },
       filterOptions: {
         isAllHidden: false,
