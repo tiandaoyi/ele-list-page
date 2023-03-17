@@ -344,7 +344,7 @@
                 @click="tableOptions.underlineHandles && tableOptions.underlineHandles[item[prop]] && tableOptions.underlineHandles[item[prop]](scope) || item.click && item.click(scope, auxInfo)"
                 v-html="item.asyncHtml
                 ? item.asyncHtml(scope.row[item[prop]], scope)
-                : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : (!item.appendKey ? scope.row[item[prop]] : scope.row[item[prop]] + scope.row[item.appendKey]))"
+                : (item.editType === 'select' ? find(item.editOptions, scope.row[item[prop]], item.multiple) : getNormalContent(scope, item) )"
               >
               </span>
             </el-tooltip>
@@ -433,7 +433,11 @@ export default {
     // 辅助存储器
     auxInfo: {
       type: Object
-    }
+    },
+    thousand: {
+      type: [Array, String],
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -480,6 +484,29 @@ export default {
     }
   },
   methods: {
+    getNormalContent(scope, item) {
+      const prop = item.prop
+      if (!item.appendKey) {
+        if (Array.isArray(this.thousand) && this.thousand.includes(prop) || this.thousand === prop) {
+          return this.getThousand(scope.row[prop])
+        }
+        return scope.row[prop]
+      }
+      return scope.row[prop] + scope.row[item.appendKey]
+    },
+    getThousand(val, ignoreRadixPoint = true) {
+      if (val === null || val === void 0) return ''
+      val = String(val).replace(',', '')
+      const index = val.indexOf('.')
+      if (ignoreRadixPoint && index !== -1) {
+        return (
+          val.slice(0, index).replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,') +
+          val.slice(index)
+        )
+      } else {
+        return val.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,')
+      }
+    },
     removeDuplicate(arr = [], prop = '') {
       const map = new Map()
       const ans = []

@@ -12,6 +12,8 @@
     <!-- <el-form :model="{tableList}" > -->
 
       <EleListPage
+        :thousand="['erpName']"
+
         :tableCommonOptions="tableCommonOptions"
         :listLoading="listLoading"
         :loadTableData="loadTableData"

@@ -41,6 +41,7 @@
       :isKeepSelect="isKeepSelect"
       :keepSelectKey="keepSelectKey"
       :isLazyLoad="isLazyLoad"
+      :thousand="thousand"
     >
       <slot name="table"></slot>
       <template #table-empty>
@@ -144,7 +145,11 @@ name: 'EleListPage',
       default: function() {
         return [20, 50, 100]
       }
-    }
+    },
+    thousand: {
+      type: [Array, String],
+      default: () => [],
+    },
   },
   components: {
     ListTop,
