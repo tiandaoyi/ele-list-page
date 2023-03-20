@@ -485,14 +485,14 @@ export default {
   },
   methods: {
     getNormalContent(scope, item) {
-      const prop = item.prop
+      const field = item[this.prop]
       if (!item.appendKey) {
-        if (Array.isArray(this.thousand) && this.thousand.includes(prop) || this.thousand === prop) {
-          return this.getThousand(scope.row[prop])
+        if (Array.isArray(this.thousand) && this.thousand.includes(field) || this.thousand === field) {
+          return this.getThousand(scope.row[field])
         }
-        return scope.row[prop]
+        return scope.row[field]
       }
-      return scope.row[prop] + scope.row[item.appendKey]
+      return scope.row[field] + scope.row[item.appendKey]
     },
     getThousand(val, ignoreRadixPoint = true) {
       if (val === null || val === void 0) return ''
