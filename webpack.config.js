@@ -1,10 +1,17 @@
 var path = require('path')
 var webpack = require('webpack')
+
+const getEntry = () => {
+  if (process.env.NODE_TYPE === 'css') {
+    return './src/lib/importCss.js'
+  }
+  return process.env.NODE_ENV === 'development' ? './src/main.js' : './src/lib/index.js'
+}
+
 module.exports = {
-  // entry: './src/lib/index.js',
+  entry: getEntry(),
   // entry: './src/lib/importCss.js',
-  entry: process.env.NODE_ENV === 'development' ? './src/main.js' : './src/lib/index.js',
-  // entry: ['./src/lib/index.js', './src/lib/importCss.js'],
+  // entry: process.env.NODE_ENV === 'development' ? './src/main.js' : './src/lib/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

@@ -55,6 +55,11 @@ $paginationHeight: 47px;
       color: #c8c9cc;
     }
 
+    .hover-style:hover {
+      color: #367EF5;
+      cursor: pointer;
+    }
+
 
     // el-table 相关，全局修改(也可以单独处理)
     .el-table th > .cell {

@@ -1,12 +1,14 @@
 {
   "name": "ele-list-page",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Super list page -- a Vue plug-in based on element UI",
   "main": "dist/build.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "pub": "npm run build && npm publish"
+    "build-css": "cross-env NODE_ENV=production NODE_TYPE=css webpack --progress --hide-modules",
+    "build-all": "cross-env NODE_ENV=production NODE_TYPE=css webpack --progress --hide-modules && cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "pub": "npm publish"
   },
   "repository": {
     "type": "git",
