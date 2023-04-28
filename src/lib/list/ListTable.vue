@@ -14,7 +14,7 @@
     "
     style="width: 100%"
     :empty-text="'暂无数据'"
-    :max-height="tableOptions.isHiddenMaxHeight ? null : height"
+    :max-height="tableOptions.maxHeight ? tableOptions.maxHeight : (tableOptions.isHiddenMaxHeight ? null : height)"
     :height="tableOptions.isHiddenMaxHeight ? null : height"
     @selection-change="handleSelectionChange"
     :row-key="keepSelectKey || null"
