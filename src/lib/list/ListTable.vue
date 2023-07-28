@@ -526,6 +526,7 @@
             item.isFilter && item.filterPlacement ? item.filterPlacement : null
           "
           :min-width="item.minWidth ? item.minWidth : null"
+          :row-class-name="item.rowClassName ? item.rowClassName : null"
         >
           <template
             :slot="item.renderHead ? 'header' : ''"
