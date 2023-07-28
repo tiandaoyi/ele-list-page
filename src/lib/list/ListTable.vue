@@ -41,6 +41,7 @@
     "
     @row-click="rowClick"
     :fit="typeof tableOptions.fit === 'boolean' ? tableOptions.fit : true"
+    :row-class-name="typeof tableOptions.rowClassName === 'function' ? tableOptions.rowClassName : null"
   >
     <template #empty>
       <img
@@ -526,7 +527,6 @@
             item.isFilter && item.filterPlacement ? item.filterPlacement : null
           "
           :min-width="item.minWidth ? item.minWidth : null"
-          :row-class-name="item.rowClassName ? item.rowClassName : null"
         >
           <template
             :slot="item.renderHead ? 'header' : ''"
