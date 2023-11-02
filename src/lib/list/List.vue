@@ -198,6 +198,9 @@ name: 'EleListPage',
 
     onToggleSearchListClick() {
       this.isShowAllSearch = !this.isShowAllSearch;
+
+      this.$emit('showAllSearchChange', this.isShowAllSearch);
+
       // 如果没传height， 自适应
       if (!this.height) {
         this.$nextTick(() => {
