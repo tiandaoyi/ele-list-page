@@ -17,6 +17,7 @@
             @blur="item.blurFunction && item.blurFunction($event)"
             :autosize="item.autosize"
             :rows="item.rows"
+            @keyup.enter.native="item.enterFunction && item.enterFunction($event)"
           >
           </el-input>
         </el-form-item>
@@ -31,6 +32,7 @@
                 size="small"
                 :clearable="!item.callFunction"
                 :readonly="!!item.callFunction"
+                @input="item.startInputFunction && item.startInputFunction($event)"
               >
               </el-input>
               <el-input
@@ -41,6 +43,7 @@
                 size="small"
                 :clearable="!item.callFunction"
                 :readonly="!!item.callFunction"
+                @input="item.endInputFunction && item.endInputFunction($event)"
               >
               </el-input>
             </div>
@@ -272,6 +275,9 @@ export default {
                 collapseTags: item.collapseTags || false,
                 required: !!item.required,
                 visibleChange: item.visibleChange,
+                enterFunction: item.enterFunction,
+                startInputFunction: item.startInputFunction,
+                endInputFunction: item.endInputFunction,
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
