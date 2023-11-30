@@ -13,8 +13,16 @@
         : true
     "
     style="width: 100%"
-    :empty-text="'暂无数据'"
-    :max-height="tableOptions.maxHeight ? tableOptions.maxHeight : (tableOptions.isHiddenMaxHeight ? null : height)"
+    :empty-text="
+      $hxt_ele_list_page({ key: 'b0072e-ThereIsCurrentlyNoDataAvailable', desc: '暂无数据' })
+    "
+    :max-height="
+      tableOptions.maxHeight
+        ? tableOptions.maxHeight
+        : tableOptions.isHiddenMaxHeight
+        ? null
+        : height
+    "
     :height="tableOptions.isHiddenMaxHeight ? null : height"
     @selection-change="handleSelectionChange"
     :row-key="keepSelectKey || null"
@@ -29,7 +37,7 @@
     "
     @header-dragend="transferHeaderDragend"
     @sort-change="
-      $event =>
+      ($event) =>
         typeof tableOptions.sortChange === 'function'
           ? tableOptions.sortChange($event)
           : null
@@ -41,13 +49,22 @@
     "
     @row-click="rowClick"
     :fit="typeof tableOptions.fit === 'boolean' ? tableOptions.fit : true"
-    :row-class-name="typeof tableOptions.rowClassName === 'function' ? tableOptions.rowClassName : null"
+    :row-class-name="
+      typeof tableOptions.rowClassName === 'function'
+        ? tableOptions.rowClassName
+        : null
+    "
   >
     <template #empty>
       <img
         v-if="tableOptions.defaultImage"
         :src="require('@/assets/empty.png')"
-        alt="暂无数据"
+        :alt="
+          $hxt_ele_list_page({
+            key: 'b0072e-ThereIsCurrentlyNoDataAvailable',
+            desc: '暂无数据',
+          })
+        "
       />
       <slot name="table-empty" v-else></slot>
     </template>
@@ -65,7 +82,7 @@
     <!-- 序号 -->
     <el-table-column
       type="index"
-      label="序号"
+      :label="$hxt_ele_list_page({ key: 'b0072e-Number', desc: '序号' })"
       width="70"
       :index="getIndex"
       :fixed="tableOptions.isHiddenFixed ? null : 'left'"
@@ -89,7 +106,7 @@
               !operation.isHidden &&
               (!operation.getIsShow || operation.getIsShow(scope))
                 ? '0 5px'
-                : 'initial'
+                : 'initial',
           }"
           v-for="operation in headerHandleOperation.operationOptions"
           :key="operation.index"
@@ -105,7 +122,7 @@
             !operation.cancelStopEdit
               ? 'underline span-disabled-color'
               : 'underline',
-            operation.class
+            operation.class,
           ]"
           v-html="
             operation.asyncHtml && !operation.isHidden
@@ -136,11 +153,11 @@
           :inactive-value="tableOptions.switchCols.inactiveValue"
           :active-text="
             scope.row[tableOptions.switchCols.activeTextKey] ||
-              tableOptions.switchCols.activeText
+            tableOptions.switchCols.activeText
           "
           :disabled="
             tableOptions.switchCols.disabled ||
-              scope.row[tableOptions.switchCols.disabledKey]
+            scope.row[tableOptions.switchCols.disabledKey]
           "
           @change="
             tableOptions.switchCols.change &&
@@ -188,8 +205,12 @@
                   v-model="scope.row[item[prop]]"
                   :type="item.timeType || 'daterange'"
                   range-separator="~"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
+                  :start-placeholder="
+                    $hxt_ele_list_page({ key: 'b0072e-StartDate', desc: '开始日期' })
+                  "
+                  :end-placeholder="
+                    $hxt_ele_list_page({ key: 'b0072e-EndDate', desc: '结束日期' })
+                  "
                   :value-format="item.timeValueFormat || 'yyyy-MM-dd'"
                   :editable="false"
                   prefix-icon="date"
@@ -217,7 +238,8 @@
                     scope.row.$disabledField === item[prop] || item.editLimit
                   "
                   @change="
-                    $event => item.editChange && item.editChange($event, scope)
+                    ($event) =>
+                      item.editChange && item.editChange($event, scope)
                   "
                   size="small"
                   @focus="
@@ -261,10 +283,10 @@
                         (scope.row[item.underlineKey] ||
                           scope.row[item.underlineKey] === void 0))
                         ? item.class
-                        : ''
+                        : '',
                     ]"
                     @click="
-                      (tableOptions.underlineHandles &&
+                      ;(tableOptions.underlineHandles &&
                         tableOptions.underlineHandles[item[prop]] &&
                         tableOptions.underlineHandles[item[prop]](scope)) ||
                         (item.click && item.click(scope, auxInfo))
@@ -295,7 +317,7 @@
                   clearable
                   :readonly="!!item.editHover"
                   @focus="
-                    $event =>
+                    ($event) =>
                       item.editHover &&
                       item.editHover(
                         scope.row[item[prop]],
@@ -306,13 +328,14 @@
                   :min="item.editMin"
                   size="small"
                   @change="
-                    $event => item.editChange && item.editChange($event, scope)
+                    ($event) =>
+                      item.editChange && item.editChange($event, scope)
                   "
                   @input="
-                    $event => item.editInput && item.editInput($event, scope)
+                    ($event) => item.editInput && item.editInput($event, scope)
                   "
                   @blur="
-                    $event => item.editBlur && item.editBlur($event, scope)
+                    ($event) => item.editBlur && item.editBlur($event, scope)
                   "
                 >
                   <template slot="append" v-if="item.appendKey">{{
@@ -330,12 +353,12 @@
               <el-form-item
                 :prop="
                   tableOptions.formItemName +
-                    '.' +
-                    scope.$index +
-                    '.' +
-                    item.prop
+                  '.' +
+                  scope.$index +
+                  '.' +
+                  item.prop
                 "
-                style="maxWidth: 100%; marginBottom: 0;"
+                style="maxwidth: 100%; marginbottom: 0"
                 :label-width="item.formItemLabelWidth || ''"
                 :rules="item.rulesFunc ? item.rulesFunc(scope.row) : item.rules"
                 :show-message="
@@ -352,8 +375,12 @@
                     v-model="scope.row[item[prop]]"
                     :type="item.timeType || 'daterange'"
                     range-separator="~"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
+                    :start-placeholder="
+                      $hxt_ele_list_page({ key: 'b0072e-StartDate', desc: '开始日期' })
+                    "
+                    :end-placeholder="
+                      $hxt_ele_list_page({ key: 'b0072e-EndDate', desc: '结束日期' })
+                    "
                     :value-format="item.timeValueFormat || 'yyyy-MM-dd'"
                     :editable="false"
                     prefix-icon="date"
@@ -380,7 +407,7 @@
                       scope.row.$disabledField === item[prop] || item.editLimit
                     "
                     @change="
-                      $event =>
+                      ($event) =>
                         item.editChange && item.editChange($event, scope)
                     "
                     size="small"
@@ -425,10 +452,10 @@
                           (scope.row[item.underlineKey] ||
                             scope.row[item.underlineKey] === void 0))
                           ? item.class
-                          : ''
+                          : '',
                       ]"
                       @click="
-                        (tableOptions.underlineHandles &&
+                        ;(tableOptions.underlineHandles &&
                           tableOptions.underlineHandles[item[prop]] &&
                           tableOptions.underlineHandles[item[prop]](scope)) ||
                           (item.click && item.click(scope, auxInfo))
@@ -459,7 +486,7 @@
                     :readonly="!!item.editHover"
                     :validate-event="!item.validateEvent"
                     @focus="
-                      $event =>
+                      ($event) =>
                         item.editHover &&
                         item.editHover(
                           scope.row[item[prop]],
@@ -470,14 +497,15 @@
                     :min="item.editMin"
                     size="small"
                     @change="
-                      $event =>
+                      ($event) =>
                         item.editChange && item.editChange($event, scope)
                     "
                     @input="
-                      $event => item.editInput && item.editInput($event, scope)
+                      ($event) =>
+                        item.editInput && item.editInput($event, scope)
                     "
                     @blur="
-                      $event => item.editBlur && item.editBlur($event, scope)
+                      ($event) => item.editBlur && item.editBlur($event, scope)
                     "
                   >
                     <template slot="append" v-if="item.appendKey">{{
@@ -502,7 +530,7 @@
           :key="index"
           v-if="
             item.prop !== 'operation' &&
-              !(item.hidden && item.hidden(item, index, auxInfo))
+            !(item.hidden && item.hidden(item, index, auxInfo))
           "
           :prop="item[prop]"
           :label="item[label]"
@@ -535,26 +563,41 @@
           >
             <el-popover placement="top" width="200" trigger="click">
               <el-input
-                placeholder="请输入内容"
+                :placeholder="
+                  $hxt_ele_list_page({
+                    key: 'b0072e-PleaseEnterTheContent',
+                    desc: '请输入内容',
+                  })
+                "
                 v-model="item.renderHeadValue"
               ></el-input>
               <p>
                 <span
                   class="hover-style"
                   @click="
-                    item.renderHeadFn('search', item.renderHeadValue, item, scope)
+                    item.renderHeadFn(
+                      'search',
+                      item.renderHeadValue,
+                      item,
+                      scope
+                    )
                   "
-                  >筛选</span
+                  >{{ $hxt_ele_list_page({ key: 'b0072e-Screen', desc: '筛选' }) }}</span
                 >
                 <span
                   class="hover-style"
                   @click="
-                    item.renderHeadFn('reset', item.renderHeadValue, item, scope)
+                    item.renderHeadFn(
+                      'reset',
+                      item.renderHeadValue,
+                      item,
+                      scope
+                    )
                   "
-                  >重置</span
+                  >{{ $hxt_ele_list_page({ key: 'b0072e-Reset', desc: '重置' }) }}</span
                 >
               </p>
-              <span slot="reference" style="cursor: pointer;">
+              <span slot="reference" style="cursor: pointer">
                 {{ item[label] }}
                 <i class="el-icon-search"></i>
               </span>
@@ -585,7 +628,7 @@
                   textAlign:
                     item.editType !== 'select' && item.textAlign
                       ? item.textAlign
-                      : ''
+                      : '',
                 }"
                 :class="[
                   tableOptions.underlineHandles &&
@@ -598,10 +641,10 @@
                     (scope.row[item.underlineKey] ||
                       scope.row[item.underlineKey] === void 0))
                     ? item.class
-                    : ''
+                    : '',
                 ]"
                 @click="
-                  (tableOptions.underlineHandles &&
+                  ;(tableOptions.underlineHandles &&
                     tableOptions.underlineHandles[item[prop]] &&
                     tableOptions.underlineHandles[item[prop]](scope)) ||
                     (item.click && item.click(scope, auxInfo))
@@ -644,70 +687,70 @@
   </el-table>
 </template>
 <script>
-import RenderDom from "./RenderDom";
+import RenderDom from './RenderDom'
 export default {
-  name: "ListTable",
+  name: 'ListTable',
   components: {
-    RenderDom
+    RenderDom,
   },
   props: {
     //表格数据
     tableList: {
-      type: Array
+      type: Array,
     },
     //是否有多选框
     hasSelection: {
       type: Boolean,
-      default: false
+      default: false,
     },
     //表头宽度拖动
     headerDragend: {
       type: Function,
-      default: function() {}
+      default: function () {},
     },
     //操作列按钮尺寸 以及表格展示尺寸
     size: {
       type: String,
-      default: "small"
+      default: 'small',
     },
     //表格固定高度
     height: {
-      type: [Number, String]
+      type: [Number, String],
     },
     tableOptions: {
       type: Object,
-      required: true
+      required: true,
     },
     listLoading: {
-      type: Boolean
+      type: Boolean,
     },
     handleSelectionChange: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     rowClick: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     isKeepSelect: {
-      type: Boolean
+      type: Boolean,
     },
     keepSelectKey: {
-      type: String
+      type: String,
     },
     // 是否懒加载
     isLazyLoad: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 辅助存储器
     auxInfo: {
-      type: Object
+      type: Object,
     },
     thousand: {
       type: [Array, String],
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -718,237 +761,237 @@ export default {
       pickerOptions: {
         onPick: ({ minDate, maxDate }) => {
           if (minDate && maxDate) {
-            this.hackReset = false;
+            this.hackReset = false
             this.$nextTick(() => {
-              this.hackReset = true;
-            });
+              this.hackReset = true
+            })
           }
         },
         shortcuts: [
           {
-            text: "最近一周",
+            text: $hxt_ele_list_page({ key: 'b0072e-LastWeek', desc: '最近一周' }),
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            }
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            },
           },
           {
-            text: "最近一个月",
+            text: $hxt_ele_list_page({ key: 'b0072e-LastMonth', desc: '最近一个月' }),
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            },
           },
           {
-            text: "最近三个月",
+            text: $hxt_ele_list_page({ key: 'b0072e-LastThreeMonths', desc: '最近三个月' }),
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      }
-    };
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            },
+          },
+        ],
+      },
+    }
   },
   methods: {
     getNormalContent(scope, item) {
-      const field = item[this.prop];
+      const field = item[this.prop]
       if (!item.appendKey) {
         if (
           (Array.isArray(this.thousand) && this.thousand.includes(field)) ||
           this.thousand === field
         ) {
-          return this.getThousand(scope.row[field]);
+          return this.getThousand(scope.row[field])
         }
-        return scope.row[field];
+        return scope.row[field]
       }
-      return scope.row[field] + scope.row[item.appendKey];
+      return scope.row[field] + scope.row[item.appendKey]
     },
     getThousand(val, ignoreRadixPoint = true) {
-      if (val === null || val === void 0) return "";
-      val = String(val).replace(",", "");
-      const index = val.indexOf(".");
+      if (val === null || val === void 0) return ''
+      val = String(val).replace(',', '')
+      const index = val.indexOf('.')
       if (ignoreRadixPoint && index !== -1) {
         return (
-          val.slice(0, index).replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, "$&,") +
+          val.slice(0, index).replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,') +
           val.slice(index)
-        );
+        )
       } else {
-        return val.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, "$&,");
+        return val.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,')
       }
     },
-    removeDuplicate(arr = [], prop = "") {
-      const map = new Map();
-      const ans = [];
-      arr.forEach(item => {
+    removeDuplicate(arr = [], prop = '') {
+      const map = new Map()
+      const ans = []
+      arr.forEach((item) => {
         if (!map.has(item[prop])) {
-          map.set(item[prop], true);
-          ans.push(item);
+          map.set(item[prop], true)
+          ans.push(item)
         }
-      });
-      return ans;
+      })
+      return ans
     },
-    formatFilter(arr = [], prop = "") {
-      return arr.map(item => {
+    formatFilter(arr = [], prop = '') {
+      return arr.map((item) => {
         return {
           text: item[prop],
-          value: item[prop]
-        };
-      });
+          value: item[prop],
+        }
+      })
     },
     filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
+      const property = column['property']
+      return row[property] === value
     },
     transferHeaderDragend(...args) {
-      this.headerDragend(...args);
+      this.headerDragend(...args)
       this.$nextTick(() => {
-        this.$refs["el-table"]?.doLayout();
-      });
+        this.$refs['el-table']?.doLayout()
+      })
     },
     onChangeDate(e) {
-      this.hackReset = false;
+      this.hackReset = false
       this.$nextTick(() => {
-        this.hackReset = true;
-      });
+        this.hackReset = true
+      })
     },
     // 自定义表头
     customFieldColumn(h, { column, $index }) {
       const currentItem = this.tableOptions?.columnsData?.showColumns?.find(
-        item => item.prop === column.property
-      );
+        (item) => item.prop === column.property
+      )
       // 修改且列为必填时 增加必填
       return this.tableOptions?.canEdit && currentItem?.required
         ? [
             h(
-              "span",
+              'span',
               {
-                class: "required-icon"
+                class: 'required-icon',
               },
-              "*"
+              '*'
             ),
-            currentItem?.label || ""
+            currentItem?.label || '',
           ]
-        : currentItem?.label || "";
+        : currentItem?.label || ''
     },
     headerStyle({ rowIndex, columnIndex, row, column }) {
       return {
-        background: "#EEEFF3",
-        "text-align": "center",
-        color: "#505050",
-        "font-size": "14px"
-      };
+        background: '#EEEFF3',
+        'text-align': 'center',
+        color: '#505050',
+        'font-size': '14px',
+      }
     },
     getIndex(val) {
-      return val + 1;
+      return val + 1
     },
     find(options, value, multiple = false) {
       if (!options || options.length === 0) {
-        return value;
+        return value
       } else {
         //  如果为多选且数组
         if (multiple && value && Array.isArray(value)) {
-          const result = [];
-          value.forEach(item => {
+          const result = []
+          value.forEach((item) => {
             if (
-              options.find(childItem => childItem.value === item) !== void 0
+              options.find((childItem) => childItem.value === item) !== void 0
             ) {
-              result.push(item);
+              result.push(item)
             }
-          });
-          return result.join();
+          })
+          return result.join()
         } else {
-          return options.find(item => item.value === value)?.text || value;
+          return options.find((item) => item.value === value)?.text || value
         }
       }
     },
     doLayout() {
-      this.$refs["el-table"]?.doLayout();
-    }
+      this.$refs['el-table']?.doLayout()
+    },
   },
   computed: {
     // 操作列
     headerHandleOperation() {
-      return this.tableOptions.headerHandleOperation;
+      return this.tableOptions.headerHandleOperation
     },
     prop() {
       // 接口返回的列的数据结构转表格所需的数据结构
-      const tableOptions = this.tableOptions;
+      const tableOptions = this.tableOptions
       const prop =
         tableOptions && tableOptions.columnsMatchParams
           ? tableOptions.columnsMatchParams.prop
-          : "prop";
-      return prop;
+          : 'prop'
+      return prop
     },
     label() {
       // 接口返回的列的数据结构转表格所需的数据结构
-      const tableOptions = this.tableOptions;
+      const tableOptions = this.tableOptions
       const label =
         tableOptions && tableOptions.columnsMatchParams
           ? tableOptions.columnsMatchParams.label
-          : "label";
-      return label;
-    }
+          : 'label'
+      return label
+    },
     // 扩展列（暂时用不到）
     // extendColumns() {
     //   return [...this.$store.state.table.tableOptions.extendColumns || []];
     // }
   },
   mounted() {
-    window.addEventListener("resize", () => {
-      window.screenHeight = window.innerHeight;
-      this.screenHeight = window.screenHeight || 0;
+    window.addEventListener('resize', () => {
+      window.screenHeight = window.innerHeight
+      this.screenHeight = window.screenHeight || 0
 
-      window.screenWidth = window.innerWidth;
-      this.screenWidth = window.screenWidth || 0;
-    });
+      window.screenWidth = window.innerWidth
+      this.screenWidth = window.screenWidth || 0
+    })
   },
   destroyed() {
-    window.onresize = null;
+    window.onresize = null
   },
   watch: {
     tableOptions: {
       handler(val) {
         this.$nextTick(() => {
-          this.$refs["el-table"]?.doLayout();
-        });
+          this.$refs['el-table']?.doLayout()
+        })
       },
-      immediate: true
+      immediate: true,
     },
     screenHeight: {
       handler(val) {
         if (this.$parent && !this.$parent.height) {
           // 直接使用<ListTable> 需先判断外层是否有该方法
-          this.$parent?.setTableHeight?.();
+          this.$parent?.setTableHeight?.()
         }
       },
-      immediate: true
+      immediate: true,
     },
     screenWidth: {
       handler(val) {
         this.$nextTick(() => {
-          this.$refs["el-table"]?.doLayout();
-        });
+          this.$refs['el-table']?.doLayout()
+        })
       },
-      immediate: true
+      immediate: true,
     },
     tableList: {
       handler(val) {
         // 解决表格左下角问题
         if (this.tableOptions.isUpdateTable) {
           this.$nextTick(() => {
-            this.$refs["el-table"]?.doLayout();
-          });
+            this.$refs['el-table']?.doLayout()
+          })
         }
       },
-      immediate: true
-    }
-  }
-};
+      immediate: true,
+    },
+  },
+}
 </script>
