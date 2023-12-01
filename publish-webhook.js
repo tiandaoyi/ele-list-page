@@ -2,10 +2,22 @@ const axios = require('axios')
 const { execSync } = require('child_process')
 const readline = require('readline');
 const { name, version } = require('./package.json')
-const webhookUrl = 'https://www.feishu.cn/flow/api/trigger-webhook/abcda05be3d07fcff64b795f42c15fd3'
+const fs = require('fs')
+const configPath = 'private-config.json'
+let config = {}
+if (fs.existsSync(configPath)) {
+  config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+} else {
+  console.log(`没有找到${configPath}配置文件，无法发送webhook通知`)
+  return
+}
+if (!config || !config.webhookUrl) {
+  console.log(`没有找到${configPath}配置的webhookUrl`)
+  return
+}
+const webhookUrl = config.webhookUrl
 // 获取最近的 commit 信息
 const commitMessage = execSync('git log -1 --pretty=%B').toString().trim()
-
 
 // 使用 readline 提示用户输入影响范围
 const rl = readline.createInterface({
