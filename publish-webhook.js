@@ -34,7 +34,6 @@ async function main() {
     (await questionAsync('该版本是否必须更新？请输入y/n(默认为否): ', rl)).toLowerCase().trim() === 'y'
   console.log('\n')
 
-  rl.close();
   // 填充需要发送的参数
   const payload = {
     name,
