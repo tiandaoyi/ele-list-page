@@ -11,21 +11,13 @@ try {
   elementUILang = langList['ZH_CN']
 }
 const EN_US_JSON = require('./locales/en-US.json')
+const ZH_CN_JSON = require('./locales/zh-CN.json')
 window.$hxt_ele_list_page = (params, options) => {
   // 引入本地json
   if (params && typeof params === 'object') {
     const { desc = '' } = params
-    if (elementUILang === langList['ZH_CN']) {
-      return desc
-    } else {
-      // 执行匹配
-      const matchLangVal = EN_US_JSON[desc] || desc
-      if (!options) {
-        return matchLangVal
-      } else {
-        return renderString(matchLangVal, options) || desc
-      }
-    }
+    const matchLangVal =(elementUILang === langList['ZH_CN'] ? ZH_CN_JSON[desc] : EN_US_JSON[desc]) || desc
+    return !options ? matchLangVal : renderString(matchLangVal, options) || desc
   } else {
     return ''
   }
