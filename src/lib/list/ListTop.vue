@@ -26,6 +26,11 @@
           :style="{ width: item.width }"
           :class="{ 'is-required': item.required }"
         >
+          <template v-slot:label v-if="item.name">
+            <slot name="label">
+              <span v-tooltip="item.name"></span>
+            </slot>
+          </template>
           <el-input
             v-model="currentSearchForm[item.searchField]"
             :type="item.searchType"
@@ -67,7 +72,13 @@
             :style="{ width: item.width }"
             :class="{ 'is-required': item.required }"
           >
+            <template v-slot:label v-if="item.name">
+              <slot name="label">
+                <span v-tooltip="item.name"></span>
+              </slot>
+            </template>
             <div class="double-input-wrapper" style="display: flex">
+
               <el-input
                 v-model="currentSearchForm[item.searchField[0]]"
                 :type="item.searchType"
@@ -106,6 +117,11 @@
           :key="index"
           :class="{ 'is-required': item.required }"
         >
+          <template v-slot:label v-if="item.name">
+            <slot name="label">
+              <span v-tooltip="item.name"></span>
+            </slot>
+          </template>
           <el-select
             :collapse-tags="item.isMultiple"
             :multiple="item.isMultiple"
@@ -149,6 +165,11 @@
           :key="index"
           :class="{ 'is-required': item.required }"
         >
+          <template v-slot:label v-if="item.name">
+            <slot name="label">
+              <span v-tooltip="item.name"></span>
+            </slot>
+          </template>
           <el-date-picker
             size="small"
             v-model="currentSearchForm[item.searchField]"
@@ -186,6 +207,11 @@
           :style="{ width: item.width }"
           :class="{ 'is-required': item.required }"
         >
+          <template v-slot:label v-if="item.name">
+            <slot name="label">
+              <span v-tooltip="item.name"></span>
+            </slot>
+          </template>
           <el-switch v-model="currentSearchForm[item.searchField]"> </el-switch>
         </el-form-item>
         <!-- 级联选择 -->
@@ -201,6 +227,11 @@
           :style="{ width: item.width }"
           :class="{ 'is-required': item.required }"
         >
+          <template v-slot:label v-if="item.name">
+            <slot name="label">
+              <span v-tooltip="item.name"></span>
+            </slot>
+          </template>
           <el-cascader
             v-model="currentSearchForm[item.searchField]"
             :options="item.selectList"
@@ -232,6 +263,22 @@
 </template>
 <script>
 export default {
+  directives: {
+    tooltip: {
+      bind(el, { value }) {
+        el.textContent = value
+        el.setAttribute('tooltip-value', value)
+      },
+      inserted(el) {
+        const isTextOverflowed = el.scrollWidth > el.clientWidth
+        if (!isTextOverflowed) {
+          el.removeAttribute('has-overflows')
+        } else {
+          el.setAttribute('has-overflows', '')
+        }
+      },
+    },
+  },
   props: {
     searchOptions: {
       type: Object,

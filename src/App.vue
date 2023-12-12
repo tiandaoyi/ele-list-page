@@ -133,6 +133,12 @@ export default {
             width: '100%'
           },
           {
+            name: '测试label 测试label 测试label',
+            searchField: 'xxx',
+            searchType: 'doubleInput',
+            required: true,
+          },
+          {
             name: '测试下拉框',
             searchField: 'xx',
             searchType: 'select',
