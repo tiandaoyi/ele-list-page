@@ -263,22 +263,6 @@
 </template>
 <script>
 export default {
-  directives: {
-    tooltip: {
-      bind(el, { value }) {
-        el.textContent = value
-        el.setAttribute('tooltip-value', value)
-      },
-      inserted(el) {
-        const isTextOverflowed = el.scrollWidth > el.clientWidth
-        if (!isTextOverflowed) {
-          el.removeAttribute('has-overflows')
-        } else {
-          el.setAttribute('has-overflows', '')
-        }
-      },
-    },
-  },
   props: {
     searchOptions: {
       type: Object,
