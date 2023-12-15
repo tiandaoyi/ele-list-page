@@ -48,13 +48,13 @@ export default MyDirective.install = function(vue, options) {
         el.setAttribute('has-overflows', '')
       }
     },
-    update(el) {
-      const isTextOverflowed = el.scrollWidth > el.clientWidth
-      if (!isTextOverflowed) {
-        el.removeAttribute('has-overflows')
-      } else {
-        el.setAttribute('has-overflows', '')
-      }
-    },
+    // update(el) {
+    //   const isTextOverflowed = el.scrollWidth > el.clientWidth
+    //   if (!isTextOverflowed) {
+    //     el.removeAttribute('has-overflows')
+    //   } else {
+    //     el.setAttribute('has-overflows', '')
+    //   }
+    // },
   })
 }

@@ -52,14 +52,14 @@ EleListPage.install = function(Vue) {
         el.setAttribute('has-overflows', '')
       }
     },
-    update(el) {
-      const isTextOverflowed = el.scrollWidth > el.clientWidth
-      if (!isTextOverflowed) {
-        el.removeAttribute('has-overflows')
-      } else {
-        el.setAttribute('has-overflows', '')
-      }
-    },
+    // update(el) {
+    //   const isTextOverflowed = el.scrollWidth > el.clientWidth
+    //   if (!isTextOverflowed) {
+    //     el.removeAttribute('has-overflows')
+    //   } else {
+    //     el.setAttribute('has-overflows', '')
+    //   }
+    // },
   })
 
   Vue.component(EleListPage.name, EleListPage)
