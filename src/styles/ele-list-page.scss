@@ -102,7 +102,6 @@ $paginationHeight: 47px;
       font-size: 12px;
       font-weight: normal;
       display: inline-flex;
-      text-align: left;
 
       span {
         display: inline-block;
@@ -128,6 +127,7 @@ $paginationHeight: 47px;
             cursor: default;
             border: 1px solid #fff;
             line-height: 16px;
+            // text-align: left;
           }
 
           &:hover::after {
