@@ -7,9 +7,10 @@ Vue.use(EleListPage);
 import './styles/index.scss'
 // demo页面
 
-import directives from './directives.js'
-// 全局注册指令
-Vue.use(directives)
+import loadDirective from './directives.js'
+// 注册指令
+loadDirective(Vue)
+
 new Vue({
   el: '#app',
   render: h => h(App)

@@ -110,33 +110,33 @@ $paginationHeight: 47px;
         text-overflow: ellipsis;
         white-space: nowrap;
 
-        &[has-overflows] {
-          &:after {
-            content: attr(tooltip-value); /* 获取自定义属性值作为内容 */
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            white-space: nowrap;
-            z-index: 1;
-            cursor: default;
-            border: 1px solid #fff;
-            line-height: 16px;
-            // text-align: left;
-          }
+        // &[has-overflows] {
+        //   &:after {
+        //     content: attr(tooltip-value); /* 获取自定义属性值作为内容 */
+        //     display: none;
+        //     position: absolute;
+        //     top: 0;
+        //     left: 50%;
+        //     transform: translateX(-50%);
+        //     background-color: #333;
+        //     color: #fff;
+        //     padding: 5px;
+        //     border-radius: 5px;
+        //     white-space: nowrap;
+        //     z-index: 1;
+        //     cursor: default;
+        //     border: 1px solid #fff;
+        //     line-height: 16px;
+        //     // text-align: left;
+        //   }
 
-          &:hover::after {
-            display: block;
-            position: relative;
-            white-space: normal;
-            text-align: left;
-          }
-        }
+        //   &:hover::after {
+        //     display: block;
+        //     position: relative;
+        //     white-space: normal;
+        //     text-align: left;
+        //   }
+        // }
       }
     }
 
