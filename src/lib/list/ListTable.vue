@@ -56,16 +56,27 @@
     "
   >
     <template #empty>
-      <img
-        v-if="tableOptions.defaultImage"
-        :src="require('@/assets/empty.png')"
-        :alt="
-          $hxt_ele_list_page({
-            key: 'b0072e-ThereIsCurrentlyNoDataAvailable',
-            desc: '暂无数据',
-          })
-        "
-      />
+      <div v-if="tableOptions.defaultImage" style="display: flex;flex-direction: column;align-items: center;">
+        <img
+          style="max-width: 200px;height: auto;"
+          :src="require('@/assets/empty.png')"
+          :alt="
+            $hxt_ele_list_page({
+              key: 'b0072e-ThereIsCurrentlyNoDataAvailable',
+              desc: '暂无数据',
+            })
+          "
+        />
+        <span>
+          {{
+            $hxt_ele_list_page({
+              key: 'b0072e-ThereIsCurrentlyNoDataAvailable',
+              desc: '暂无数据',
+            })
+          }}
+        </span>
+      </div>
+
       <slot name="table-empty" v-else></slot>
     </template>
     <!-- 多选 -->
