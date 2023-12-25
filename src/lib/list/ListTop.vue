@@ -355,6 +355,7 @@ export default {
           input: $hxt_ele_list_page({ key: '3bd4ec-PleaseEnter', desc: '请输入' }),
           number: $hxt_ele_list_page({ key: '3bd4ec-PleaseEnter', desc: '请输入' }),
           select: $hxt_ele_list_page({ key: '3bd4ec-PleaseSelect', desc: '请选择' }),
+          cascader: $hxt_ele_list_page({ key: '3bd4ec-PleaseSelect', desc: '请选择' }),
           undefined: $hxt_ele_list_page({ key: '3bd4ec-PleaseEnter', desc: '请输入' }),
         }
         const searchOptions = this.searchOptions

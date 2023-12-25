@@ -1,6 +1,6 @@
 {
   "name": "ele-list-page",
-  "version": "4.0.13",
+  "version": "4.0.14",
   "description": "Super list page -- a Vue plug-in based on element UI",
   "main": "dist/build.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build-vue": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "build-css": "cross-env NODE_ENV=production NODE_TYPE=css webpack --progress --hide-modules",
     "build": "npm run build-css && npm run build-vue",
-    "pub": "npm publish && node publish-webhook.js"
+    "pub": "npm run build && npm publish && node publish-webhook.js"
   },
   "repository": {
     "type": "git",
