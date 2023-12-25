@@ -54,6 +54,7 @@
         ? tableOptions.rowClassName
         : null
     "
+    tooltip-effect="light"
   >
     <template #empty>
       <div v-if="tableOptions.defaultImage" style="display: flex;flex-direction: column;align-items: center;">
@@ -278,7 +279,7 @@
                       ? !scope.row[item.tooltipKey]
                       : !item.tooltip
                   "
-                  effect="dark"
+                  effect="light"
                   :content="item.tooltip"
                   placement="top"
                 >
@@ -447,7 +448,7 @@
                         ? !scope.row[item.tooltipKey]
                         : !item.tooltip
                     "
-                    effect="dark"
+                    effect="light"
                     :content="item.tooltip"
                     placement="top"
                   >
@@ -630,7 +631,7 @@
               :disabled="
                 item.tooltipKey ? !scope.row[item.tooltipKey] : !item.tooltip
               "
-              effect="dark"
+              effect="light"
               :content="item.tooltip"
               placement="top"
             >
