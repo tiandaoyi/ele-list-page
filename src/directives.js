@@ -92,4 +92,65 @@ export default (Vue, options) => {
       })
     },
   })
+
+  function addClass(el, className) {
+    if (hasClass(el, className)) {
+      return
+    }
+    let newClass = el.className.split(' ')
+    newClass.push(className)
+    el.className = newClass.join(' ')
+  }
+
+  // 判断是否有class
+  function hasClass(el, className) {
+    let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
+    return reg.test(el.className)
+  }
+
+  const addTip = function (labelList, vnode) {
+    vnode.context.$nextTick(() => {
+      if (labelList.length === 0) return
+      if (window.hxlang === 'ZH_CN') return
+      // 遍历labelList新增style:white-space:nowrap;overflow:hidden;text-overflow:ellipsis;样式,保留原有样式
+      labelList.forEach((item) => {
+        if (hasClass(item, 'fe-instruct-tip')) return
+        addClass(item, 'fe-instruct-tip')
+        item.style.cssText =
+          'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' +
+          item.style.cssText
+        if (item.offsetWidth < item.scrollWidth) {
+          const itemStr = item.outerHTML
+          let str = item.innerText
+          // 如果最后一个字符是:则去掉
+          if (str[str.length - 1] === ':') {
+            str = str.substring(0, str.length - 1)
+          }
+          const Tip = Vue.extend({
+            template: `<el-tooltip content="${str}" effect="light">${itemStr}</el-tooltip>`,
+          })
+          new Tip({
+            el: item,
+          })
+        }
+      })
+    })
+  }
+
+  const baseTip = {
+    inserted: (el, _, vnode) => {
+      vnode.context.$nextTick(() => {
+        const labelList = el.querySelectorAll('th .cell')
+        addTip(labelList, vnode)
+      })
+    },
+    update: (el, _, vnode) => {
+      vnode.context.$nextTick(() => {
+        const labelList = el.querySelectorAll('th .cell:not(.fe-instruct-tip)')
+        addTip(labelList, vnode)
+      })
+    },
+  }
+
+  Vue.directive('eleBaseTip', baseTip)
 }

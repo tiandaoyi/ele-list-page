@@ -1,6 +1,7 @@
 <template>
   <el-table
     v-loading="listLoading"
+    v-eleBaseTip
     :cell-style="
       tableOptions.cellStyle || { 'text-align': 'center', padding: '6px 0' }
     "
