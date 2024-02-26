@@ -130,6 +130,7 @@
             :clearable="!item.isNoClearable"
             size="small"
             :filterable="item.isFilterable"
+            :filter-method="item.filterMethod"
             :disabled="item.disabled"
             :remote="!!item.selectFetch"
             :remote-method="item.selectFetch"
@@ -431,6 +432,7 @@ export default {
                 enterFunction: item.enterFunction,
                 startInputFunction: item.startInputFunction,
                 endInputFunction: item.endInputFunction,
+                filterMethod: item.filterMethod,
               })
               // 数组切成每四个分隔(提供给前端样式显示)
               if (index % 4 === 3) {
