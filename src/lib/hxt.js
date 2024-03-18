@@ -15,7 +15,7 @@ try {
 
 const matchData = require(`./locales/${elementUILang}.json`)
 
-window.$hxt_hxpc = (params, options) => {
+window.$hxt_ele_list_page = (params, options) => {
   // 引入本地json
   if (params && typeof params === 'object') {
     const { desc = '' } = params
