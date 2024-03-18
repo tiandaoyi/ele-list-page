@@ -7,7 +7,7 @@ const langList = {
 let elementUILang, lang
 try {
   lang = localStorage.getItem('hxlang') || 'ZH_CN'
-  elementUILang = langList[localLang]
+  elementUILang = langList[lang]
 } catch (e) {
   lang = 'ZH_CN'
   elementUILang = langList[lang]
