@@ -1,22 +1,25 @@
 const langList = {
   ZH_CN: 'zh-CN',
   EN: 'en',
+  TH: 'th',
 }
 
-let elementUILang
+let elementUILang, lang
 try {
-  elementUILang =
-    langList[localStorage.getItem('hxlang') || 'ZH_CN'] || langList['ZH_CN']
+  lang = localStorage.getItem('hxlang') || 'ZH_CN'
+  elementUILang = langList[localLang]
 } catch (e) {
-  elementUILang = langList['ZH_CN']
+  lang = 'ZH_CN'
+  elementUILang = langList[lang]
 }
-const EN_US_JSON = require('./locales/en-US.json')
-const ZH_CN_JSON = require('./locales/zh-CN.json')
-window.$hxt_ele_list_page = (params, options) => {
+
+const matchData = require(`./locales/${elementUILang}.json`)
+
+window.$hxt_hxpc = (params, options) => {
   // 引入本地json
   if (params && typeof params === 'object') {
     const { desc = '' } = params
-    const matchLangVal =(elementUILang === langList['ZH_CN'] ? ZH_CN_JSON[desc] : EN_US_JSON[desc]) || desc
+    const matchLangVal = matchData[desc] || desc
     return !options ? matchLangVal : renderString(matchLangVal, options) || desc
   } else {
     return ''
