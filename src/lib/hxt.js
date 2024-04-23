@@ -6,7 +6,19 @@ const langList = {
 
 let elementUILang, lang
 try {
-  lang = localStorage.getItem('hxlang') || 'ZH_CN'
+  let supportLangList = ['ZH_CN', 'EN']
+  // 在main.js顶部，设置项目支持的语言（可以不传中英文）
+  // localStorage.setItem('supportLang', JSON.stringify(['TH'])) // 增加支持泰语
+  if (localStorage.getItem('supportLang')) {
+    const data = JSON.parse(localStorage.getItem('supportLang'))
+    supportLangList = Array.from(new Set(arr.concat(data)))
+  }
+  lang = localStorage.getItem('hxlang') || 'ZH_CN' // 如果没有hxlang，默认语言是中文
+
+  // 如果存在了不支持的语言，默认使用托底语言
+  if (!supportLangList.includes(lang)) {
+    lang = 'EN'
+  }
   elementUILang = langList[lang]
 } catch (e) {
   lang = 'ZH_CN'
