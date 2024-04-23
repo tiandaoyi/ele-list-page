@@ -11,7 +11,7 @@ try {
   // localStorage.setItem('supportLang', JSON.stringify(['TH'])) // 增加支持泰语
   if (localStorage.getItem('supportLang')) {
     const data = JSON.parse(localStorage.getItem('supportLang'))
-    supportLangList = Array.from(new Set(arr.concat(data)))
+    supportLangList = Array.from(new Set(supportLangList.concat(data)))
   }
   lang = localStorage.getItem('hxlang') || 'ZH_CN' // 如果没有hxlang，默认语言是中文
 
