@@ -2,10 +2,6 @@
 
 超级列表页 --- 一个基于element-ui的vue插件
 
-> 样式
-
-[![演示图片](http://sit-hxjf.hongxinshop.com/image/group1/M00/06/37/CvaAll-7T22ATmA7AAFfgfxRLJ0066.png "演示图片")](https://github.com/tiandaoyi/ele-list-page "演示图片")
-
 > 功能
 
 1. 搜索表单：输入框、单选框、日期选择器、下拉框（支持远程搜索和下拉懒加载）。支持配置每行显示个数及“更多”搜索。
@@ -117,7 +113,7 @@ data() {
       underlineHandles: {
         code: ({row}) => {
           const params = {
-            code: row.code || null 
+            code: row.code || null
           }
           alert('gotoDetail');
         }
