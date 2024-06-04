@@ -15,7 +15,7 @@ function setMatchData (hxlang = localStorage.getItem('hxlang') || 'ZH_CN') {
 
 setMatchData()
 
-window.asyncComponentInit.push(fn)
+window.asyncComponentInit && window.asyncComponentInit.push(setMatchData)
 
 window.$hxt_ele_list_page = (params, options) => {
   // 引入本地json
